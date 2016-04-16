@@ -11,7 +11,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
 
+  var globalId = 1;
+
   function Body( boundaryCurve, holeCurves ) {
+    this.id = globalId++;
+
     this.boundaryCurve = boundaryCurve; // Array.<Vector2>
     this.holeCurves = holeCurves; // Array.<Array.<Vector2>>
   }

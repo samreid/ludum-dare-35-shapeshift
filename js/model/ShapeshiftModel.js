@@ -5,6 +5,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var Vector2 = require( 'DOT/Vector2' );
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
   var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
@@ -17,12 +18,13 @@ define( function( require ) {
 
   function ShapeshiftModel() {
     var initialBody = new Body( [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ],
-                               [] )
+                                [] )
 
     PropertySet.call( this, {
-      body: initialBody
     } );
     window.model = this;
+
+    this.bodies = new ObservableArray( [ initialBody ] );
   }
 
   return inherit( PropertySet, ShapeshiftModel, {

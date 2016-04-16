@@ -9,6 +9,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HomeScreen = require( 'SHAPESHIFT/HomeScreen' );
+  var GameNode = require( 'SHAPESHIFT/view/GameNode' );
   var Sound = require( 'VIBE/Sound' );
 
   function ShapeshiftScreenView( model ) {
@@ -23,6 +24,9 @@ define( function( require ) {
 
     var bounds = new Bounds2( 0, 0, 1024, 618 );
     ScreenView.call( this, { layoutBounds: bounds } );
+
+    this.gameNode = new GameNode( model );
+    this.gameNode.center = this.layoutBounds.center;
 
     this.preventFit = true;
 
@@ -49,7 +53,7 @@ define( function( require ) {
 
     },
     startLevel: function( levelIndex ) {
-
+      this.addChild( this.gameNode );
     }
   } );
 } );
