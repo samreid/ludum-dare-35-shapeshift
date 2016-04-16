@@ -36,3 +36,19 @@ add a copy of the shape at every vertex
 swap edges and vertices
 
 "3d effect"
+
+animate the eyes, scare the character.  Look around, etc. => emotion + drama
+
+Color changes, texture + pattern, etc.
+
+Intersect your shape with another shape.
+
+Intersect with a flipped copy of your shape.
+
+Convex hull operation
+
+Triangulate and separate triangles
+
+http://polyk.ivank.net/?p=demos&d=closestedge
+
+Get stroked shape of the outline
