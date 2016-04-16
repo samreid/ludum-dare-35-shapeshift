@@ -22,7 +22,7 @@ Model
 Operations:
   Body => {
     newBoundaryCurve, with vectors tagged with newVector.old = oldVector
-    newHoleCurve, with vectors tagged with v.old
+    newHoleCurves: Array of vectors (tagged), where newHoleArray.old = oldHoleArray
     newBodies: Array.<Body>,
     animationType:
       'remap',
