@@ -49,7 +49,7 @@ define( function( require ) {
 
     },
     startLevel: function( levelIndex ) {
-      
+
     }
   } );
 } );

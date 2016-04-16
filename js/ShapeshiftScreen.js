@@ -11,11 +11,11 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ShapeshiftScreen( level, restart ) {
+  function ShapeshiftScreen() {
     Screen.call( this, 'Pick a Title', new Text( 'hello' ),
-      function() { return new ShapeshiftModel( level, restart ); },
+      function() { return new ShapeshiftModel(); },
       function( model ) {
-        return new ShapeshiftScreenView( model, level, restart );
+        return new ShapeshiftScreenView( model );
       }, {
         backgroundColor: 'white'
       }

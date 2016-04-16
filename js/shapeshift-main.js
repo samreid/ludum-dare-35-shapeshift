@@ -26,11 +26,11 @@ define( function( require ) {
     // level = 0 is homescreen
     var restart = function( level ) {
       app.destroy();
-      app = new App( titleString, [ new ShapeshiftScreen( level, restart ) ], simOptions );
+      app = new App( titleString, [ new ShapeshiftScreen() ], simOptions );
       app.start();
     };
 
-    app = new App( titleString, [ new ShapeshiftScreen( level, restart ) ], simOptions );
+    app = new App( titleString, [ new ShapeshiftScreen() ], simOptions );
     app.start();
 
     if ( !platform.ie ) {

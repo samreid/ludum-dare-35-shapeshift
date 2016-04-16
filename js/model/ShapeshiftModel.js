@@ -16,8 +16,11 @@ define( function( require ) {
   var numberOfReplaysProperty = new Property( 0 );
 
   function ShapeshiftModel() {
-    PropertySet.call( this, {
+    var initialBody = new Body( [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ],
+                               [] )
 
+    PropertySet.call( this, {
+      body: initialBody
     } );
     window.model = this;
   }
