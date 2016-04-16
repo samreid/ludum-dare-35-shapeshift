@@ -10,6 +10,9 @@ define( function( require ) {
   var Intersection = require( 'CUPCAKE_SNAKE/model/Intersection' );
   var Emitter = require( 'AXON/Emitter' );
   var Property = require( 'AXON/Property' );
+  var Reflect = require( 'CUPCAKE_SNAKE/model/operations/Reflect' );
+  var Rotate = require( 'CUPCAKE_SNAKE/model/operations/Rotate' );
+  var Body = require( 'CUPCAKE_SNAKE/model/Body' );
 
   var Sound = require( 'VIBE/Sound' );
 
