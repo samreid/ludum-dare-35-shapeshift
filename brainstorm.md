@@ -1,54 +1,70 @@
-adds a vertex in the middle of each edge, and moves it in our out
+Rendering:
+  Use Canvas comparison to tell if they reached the goal shape
+  Possibly custom WebGL for fast rendering
+    Potentially patch in Polygon
 
-catmull rom subdivision
+Arbitrary starting shape - complex polygons like an eagle or someone's face.
 
-mirror right side to left
+General implementation from source to target shapes.
 
-reflect all vertices about the origin
 
-rotate
+Operations:
 
-shear
+  adds a vertex in the middle of each edge, and moves it in our out
 
-divide
+  catmull rom subdivision
 
-delete every other vertex
+  mirror right side to left
 
-round corners
+  reflect all vertices about the origin
 
-remix, swap quadrants with two others.
+  rotate
 
-"make spiky", if a vertex angle is acute, it gets acuter.
+  shear
 
-cut a hole in the middle: copy each vertex and move it toward the center a bit, reverse direction.
+  divide - cutting along a line or path
 
-split button, duplicates all vertices to the side, copies eyes, etc.
+  delete every other vertex
 
-swap hole shape with outer boundary shape
+  round corners "bevel"
 
-add a single vertex
+  remix, swap quadrants with two others.
 
-fractal operations:
-adds a triangle on every edge.
+  "make spiky", if a vertex angle is acute, it gets acuter.   insert vertex in edges, and "tug"
+    Insert a vertex between two "inner" facing angles, or two "outer" facing angles
 
-add a copy of the shape at every vertex
+  cut a hole in the middle: copy each vertex and move it toward the center a bit, reverse direction.
+    get stroked shape?
 
-swap edges and vertices
+  split button, duplicates all vertices to the side, copies eyes, etc.
 
-"3d effect"
+  swap hole shape with outer boundary shape
 
-animate the eyes, scare the character.  Look around, etc. => emotion + drama
+  add a single vertex
 
-Color changes, texture + pattern, etc.
+  fractal operations:
+  adds a triangle on every edge.
 
-Intersect your shape with another shape.
+  add a copy of the shape at every vertex "mega fractal duplicate"
 
-Intersect with a flipped copy of your shape.
+  swap edges and vertices --- polygon duals
 
-Convex hull operation
+  "3d effect" "union" so it looks like a 3D extrusion
 
-Triangulate and separate triangles
+  animate the eyes, scare the character.  Look around, etc. => emotion + drama
 
-http://polyk.ivank.net/?p=demos&d=closestedge
+  Color changes, texture + pattern, etc.
 
-Get stroked shape of the outline
+  CAG http://polyk.ivank.net/?p=demos&d=closestedge
+    Intersect your shape with another shape.
+    Intersect with a flipped copy of your shape.
+
+  Convex hull operation
+
+  Triangulate and separate triangles
+    As long as it's deterministic.
+
+  Radial doubling
+
+
+
