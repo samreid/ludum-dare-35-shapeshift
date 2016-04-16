@@ -21,12 +21,8 @@ define( function( require ) {
 
   var played = false;
 
-  var jewelCrusher = require( 'audio!CUPCAKE_SNAKE/jewel-crusher' );
+  var jewelCrusher = require( 'audio!SHAPESHIFT/jewel-crusher' );
   var jewelCrusherSound = new Sound( jewelCrusher );
-
-  // images
-  var snakeImage = require( 'image!CUPCAKE_SNAKE/snake.png' );
-  var cupcakeImage = require( 'image!CUPCAKE_SNAKE/cupcake-large.png' );
 
   function HomeScreen( bounds, startButtonPressed ) {
     var startGameButton = new RectangularPushButton( {
@@ -39,27 +35,24 @@ define( function( require ) {
       listener: startButtonPressed
     } );
 
-    var instructions = new MultiLineText( 'use keyboard arrows\nor touchscreen', {
+    var instructions = new MultiLineText( 'These are instructions', {
       align: 'left',
       font: new PhetFont( { size: 28 } )
     } );
     instructions.left = startGameButton.right + 80;
     instructions.centerY = startGameButton.centerY;
 
-    var subtitle = new Text( 'Ludum Dare 34', { font: new PhetFont( { size: 28 } ) } );
+    var subtitle = new Text( 'Ludum Dare 35', { font: new PhetFont( { size: 28 } ) } );
     subtitle.right = startGameButton.left - 80;
     subtitle.centerY = startGameButton.centerY;
 
-    var titleText = new Text( 'Cupcake Snake', {
+    var titleText = new Text( 'Pick a Title', {
       font: new PhetFont( { size: 105 } ),
       centerX: bounds.centerX,
       top: 10
     } );
 
-    var cupcake = new Image( cupcakeImage, { scale: 0.8, left: bounds.minX + 200, bottom: startGameButton.top - 10 } );
     var circle = new Circle( 3000, {
-      centerX: cupcake.centerX,
-      centerY: cupcake.centerY + cupcake.height / 4,
       fill: new Color( 255, 250, 115, 1 )
 
       //new RadialGradient( 0, 0, 0, 0, 0, 1000 )
@@ -90,10 +83,7 @@ define( function( require ) {
         startGameButton,
         instructions,
         titleText,
-        subtitle,
-        new Image( snakeImage, { scale: 0.8, right: bounds.maxX - 50, bottom: startGameButton.top - 10 } ),
-
-        cupcake
+        subtitle
       ]
     } );
 

@@ -1,10 +1,10 @@
 {
-  "name": "cupcake-snake",
+  "name": "shapeshift",
   "version": "1.0.0-dev.1",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/samreid/cupcake-snake.git"
+    "url": "https://github.com/samreid/shapeshift.git"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -14,7 +14,7 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "CUPCAKE_SNAKE",
+    "requirejsNamespace": "SHAPESHIFT",
     "preload": [
       "../sherpa/lib/Tween-r12.js"
     ]

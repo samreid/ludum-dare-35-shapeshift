@@ -9,9 +9,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var cupcakeSnake = require( 'CUPCAKE_SNAKE/cupcakeSnake' );
-  var Body = require( 'CUPCAKE_SNAKE/model/Body' );
-  var Operation = require( 'CUPCAKE_SNAKE/model/operations/Operation' );
+  var shapeshift = require( 'SHAPESHIFT/shapeshift' );
+  var Body = require( 'SHAPESHIFT/model/Body' );
+  var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Rotate( angle ) {
     Operation.call( this, 'rotate' );
@@ -19,7 +19,7 @@ define( function( require ) {
     this.angle = angle;
   }
 
-  cupcakeSnake.register( 'Rotate', Rotate );
+  shapeshift.register( 'Rotate', Rotate );
 
   return inherit( Operation, Rotate, {
     transform: function( vector ) {

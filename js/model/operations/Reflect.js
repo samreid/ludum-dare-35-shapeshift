@@ -9,15 +9,15 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var cupcakeSnake = require( 'CUPCAKE_SNAKE/cupcakeSnake' );
-  var Body = require( 'CUPCAKE_SNAKE/model/Body' );
-  var Operation = require( 'CUPCAKE_SNAKE/model/operations/Operation' );
+  var shapeshift = require( 'SHAPESHIFT/shapeshift' );
+  var Body = require( 'SHAPESHIFT/model/Body' );
+  var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Reflect() {
     Operation.call( this, 'remap' );
   }
 
-  cupcakeSnake.register( 'Reflect', Reflect );
+  shapeshift.register( 'Reflect', Reflect );
 
   return inherit( Operation, Reflect, {
     transform: function( vector ) {

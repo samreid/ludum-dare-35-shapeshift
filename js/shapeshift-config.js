@@ -7,7 +7,7 @@ require.config( {
 
   // An array of dependencies to load. Useful when require is defined as a config object before require.js
   // is loaded, and you want to specify dependencies to load as soon as require() is defined.
-  deps: [ 'cupcake-snake-main' ],
+  deps: [ 'shapeshift-main' ],
 
   // baseUrl: don't bother trying to set it here, it is overridden by data-main in the top-level HTML file
 
@@ -39,7 +39,7 @@ require.config( {
     VIBE: '../../vibe/js',
 
     // this sim
-    CUPCAKE_SNAKE: '.'
+    SHAPESHIFT: '.'
   },
 
   // optional cache buster to make browser refresh load all included scripts, can be disabled with ?cacheBuster=false
