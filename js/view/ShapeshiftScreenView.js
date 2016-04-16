@@ -27,16 +27,29 @@ define( function( require ) {
     this.preventFit = true;
 
     this.homeScreen = new HomeScreen( bounds, function() {
-      self.removeChild( self.homeScreen );
-
+      self.hideHomeScreen();
+      self.startLevel( 0 );
       // TODO
     } );
     this.addChild( this.homeScreen );
+
+    var level = phet.chipper.getQueryParameter( 'level' );
+    if ( level ) {
+      this.hideHomeScreen();
+
+      this.startLevel( 0 );
+    }
   }
 
   return inherit( ScreenView, ShapeshiftScreenView, {
+    hideHomeScreen: function() {
+      this.removeChild( this.homeScreen );
+    },
     step: function( dt ) {
 
+    },
+    startLevel: function( levelIndex ) {
+      
     }
   } );
 } );

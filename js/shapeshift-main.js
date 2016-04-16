@@ -4,7 +4,7 @@ define( function( require ) {
   // modules
   var ShapeshiftScreen = require( 'SHAPESHIFT/ShapeshiftScreen' );
   var platform = require( 'PHET_CORE/platform' );
-  var BackgroundMusic = require( 'SHAPESHIFT/BackgroundMusic' );
+  // var BackgroundMusic = require( 'SHAPESHIFT/BackgroundMusic' );
   var App = require( 'SHAPESHIFT/App' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
   var titleString = require( 'string!SHAPESHIFT/shapeshift.title' );
@@ -34,7 +34,7 @@ define( function( require ) {
     app.start();
 
     if ( !platform.ie ) {
-      BackgroundMusic.start();
+      // BackgroundMusic.start();
     }
 
     // <audio autoplay="autoplay" preload="preload" loop="loop">
