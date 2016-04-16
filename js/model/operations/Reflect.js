@@ -25,9 +25,12 @@ define( function( require ) {
     },
 
     apply: function( body ) {
+      var t = this.transform.bind( this );
       return [
-        new Body( body.boundaryCurve.map( this.transform.bind( this ) ),
-                  body.holeCurves.map( function( curve ) { return curve.map( this.transform.bind( this ) ); } ) )
+        new Body(
+          body.boundaryCurve.map( t ),
+          body.holeCurves.map( function( curve ) { return curve.map( t ); } )
+        )
       ];
     }
   } );
