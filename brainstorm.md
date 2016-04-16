@@ -8,6 +8,13 @@ Arbitrary starting shape - complex polygons like an eagle or someone's face.
 General implementation from source to target shapes.
 
 
+animate the eyes, scare the character.  Look around, etc. => emotion + drama
+
+Color changes, texture + pattern, etc.
+
+potentially animate motion / shifting of poses
+
+
 Operations:
 
   adds a vertex in the middle of each edge, and moves it in our out
@@ -50,10 +57,6 @@ Operations:
   swap edges and vertices --- polygon duals
 
   "3d effect" "union" so it looks like a 3D extrusion
-
-  animate the eyes, scare the character.  Look around, etc. => emotion + drama
-
-  Color changes, texture + pattern, etc.
 
   CAG http://polyk.ivank.net/?p=demos&d=closestedge
     Intersect your shape with another shape.
