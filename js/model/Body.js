@@ -122,7 +122,7 @@ define( function( require ) {
         var accumulatedDistance = 0;
         for ( var i = 1; i < curve.length; i++ ) {
           var sectionDistance = curve[ i - 1 ].distance( curve[ i ] );
-          if ( distance < accumulatedDistance + sectionDistance ) {
+          if ( distance <= accumulatedDistance + sectionDistance ) {
             var ratio = ( distance - accumulatedDistance ) / sectionDistance;
             return curve[ i - 1 ].blend( curve[ i ], ratio );
           }

@@ -21,6 +21,7 @@ define( function( require ) {
   var SelfFractal = require( 'SHAPESHIFT/model/operations/SelfFractal' );
   var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
+  var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
   var Plane = require( 'SCENERY/nodes/Plane' );
@@ -68,6 +69,7 @@ define( function( require ) {
     // this.addOperation( new DeleteVertices( 2 ) );
     this.addOperation( new DeleteVertices( 3 ) );
     this.addOperation( new SelfFractal() );
+    this.addOperation( new Subdivide() );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
