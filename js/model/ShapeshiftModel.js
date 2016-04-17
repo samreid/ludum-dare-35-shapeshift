@@ -82,7 +82,13 @@ define( function( require ) {
 
     checkSuccess: function() {
       var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
-      console.log( isCorrect );
+      if ( isCorrect ) {
+        var levelIndex = levels.indexOf( this.currentLevel ) + 1;
+        if ( levelIndex >= levels.length ) {
+          levelIndex = 0;
+        }
+        this.startLevel( levels[ levelIndex ] );
+      }
     },
 
     applyOperation: function( operation ) {

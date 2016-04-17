@@ -92,14 +92,29 @@ define( function( require ) {
       }
     } );
 
-    var titledPanel = new TitledPanel( new Text( 'Goal', {
-      fill: 'white',
-      fontSize: 18
-    } ), new Node( {
+    var updateTitledPanelLocation = function( visibleBounds ) {
+      titledPanel.top = visibleBounds.top + 10;
+      titledPanel.right = visibleBounds.right - 10;
+    };
+
+    var goalNode = new Node( {
       children: model.goalBodies.map( function( b ) {
         return new BodyNode( b ).mutate( { scale: 0.5 } );
       } ).getArray()
-    } ), {
+    } );
+    var update = function() {
+      goalNode.children = model.goalBodies.map( function( b ) {
+        return new BodyNode( b ).mutate( { scale: 0.5 } );
+      } ).getArray();
+      updateTitledPanelLocation( visibleBoundsProperty.value );
+    };
+    this.model.goalBodies.addItemAddedListener( update );
+    this.model.goalBodies.addItemRemovedListener( update );
+
+    var titledPanel = new TitledPanel( new Text( 'Goal', {
+      fill: 'white',
+      fontSize: 18
+    } ), goalNode, {
       fill: 'black',
       stroke: 'white',
       xMargin: 10,
@@ -108,10 +123,7 @@ define( function( require ) {
     } );
     this.addChild( titledPanel );
 
-    visibleBoundsProperty.link( function( visibleBounds ) {
-      titledPanel.top = visibleBounds.top + 10;
-      titledPanel.right = visibleBounds.right - 10;
-    } );
+    visibleBoundsProperty.link( updateTitledPanelLocation );
 
     var resetAllButton = new ResetAllButton();
     resetAllButton.addListener( function() {
