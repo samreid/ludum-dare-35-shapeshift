@@ -33,7 +33,11 @@ define( function( require ) {
     this.targetBodies = new ObservableArray(); // latest target
     this.goalBodies = new ObservableArray();
 
-    this.startLevel( levels[ 0 ] );
+    var level = phet.chipper.getQueryParameter( 'level' );
+    if ( typeof level === 'string' ) {
+      level = parseInt( level, 10 );
+    }
+    this.startLevel( levels[ level ] );
   }
 
   return inherit( PropertySet, ShapeshiftModel, {
