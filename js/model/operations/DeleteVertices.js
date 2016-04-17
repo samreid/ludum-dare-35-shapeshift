@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function DeleteVertices( n ) {
-    Operation.call( this, 'remap', '#aa0' );
+    Operation.call( this, 'remap', '#aa0', '' + n );
 
     this.n = n; // delete every nth vertex
   }

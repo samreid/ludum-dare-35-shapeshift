@@ -15,7 +15,7 @@ define( function( require ) {
   var ConvexHull2 = require( 'DOT/ConvexHull2' );
 
   function ConvexHull() {
-    Operation.call( this, 'remap', '#00c' );
+    Operation.call( this, 'remap', '#00c', '' );
   }
 
   shapeshift.register( 'ConvexHull', ConvexHull );

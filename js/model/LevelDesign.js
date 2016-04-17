@@ -24,6 +24,13 @@ define( function( require ) {
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
 
   function LevelDesign() {
+    var createTriangle = function() {
+      var length = 150;
+      var dx = 50;
+      var dy = 40;
+      var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( -length + dx, length + dy ) ];
+      return new Body( array, [] );
+    };
     var createStar = function() {
       var array = [];
 
@@ -38,6 +45,13 @@ define( function( require ) {
 
     this.getLevels = function() {
       return [
+        new Level( [ createTriangle() ], [
+          new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
         new Level( [ createStar() ], [
           new DeleteVertices( 3 ),
           new Snowflake()

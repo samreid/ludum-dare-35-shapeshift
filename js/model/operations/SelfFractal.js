@@ -15,7 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   function SelfFractal() {
-    Operation.call( this, 'remap' );
+    Operation.call( this, 'remap', '' );
   }
 
   shapeshift.register( 'SelfFractal', SelfFractal );

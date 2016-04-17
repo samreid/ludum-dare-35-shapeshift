@@ -15,7 +15,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   function RadialDoubling() {
-    Operation.call( this, 'remap', '#c00' );
+    Operation.call( this, 'remap', '#c00', '' );
   }
 
   shapeshift.register( 'RadialDoubling', RadialDoubling );

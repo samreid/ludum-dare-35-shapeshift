@@ -21,6 +21,9 @@ define( function( require ) {
   var MAX_WIDTH = 80;
   var MAX_HEIGHT = 80;
 
+  // For creating levels
+  var allOps = [];
+
   function OperationButton( model, operation, options ) {
     var self = this;
 
@@ -40,10 +43,14 @@ define( function( require ) {
     model.targetBodies.addItemAddedListener( dirtyListener );
     model.targetBodies.addItemRemovedListener( dirtyListener );
 
+    // For level design
     var buttonOptions = _.extend( {
       content: this.content,
       listener: function() {
         model.applyOperation( self.operation );
+        allOps.push( self.operation.toString() );
+
+        console.log( allOps.join( ', ' ) );
       },
       xMargin: 13,
       yMargin: 10,

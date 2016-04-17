@@ -23,21 +23,6 @@ define( function( require ) {
 
   function ShapeshiftModel() {
     var levels = new LevelDesign().getLevels();
-    var numPoints = Math.floor( Math.random() * 10 ) + 5;
-
-    // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( 100, 100 ), new Vector2( -100, 100 ) ];
-    // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ];
-    // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( 100, 100 ), new Vector2() ];
-    var array = [];
-
-    numPoints = 7;
-    for ( var i = 0; i < numPoints; i++ ) {
-      array.push( Vector2.createPolar( 90, i * ( Math.PI * 2 ) / numPoints ) );
-      array.push( Vector2.createPolar( 180, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
-      // var x = Math.random() * 200 - 100;
-      // var y = Math.random() * 200 - 100;
-      // array.push( new Vector2( x, y ) );
-    }
 
     PropertySet.call( this, {} );
     window.model = this;

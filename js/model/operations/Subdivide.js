@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Subdivide() {
-    Operation.call( this, 'remap', '#0aa' );
+    Operation.call( this, 'remap', '#0aa', '' );
   }
 
   shapeshift.register( 'Subdivide', Subdivide );
@@ -28,6 +28,7 @@ define( function( require ) {
         function prev( n ) {
           return n === 0 ? ( points.length - 1 ) : n - 1;
         }
+
         for ( var i = 0; i < points.length; i++ ) {
           var firstPoint = points[ prev( prev( i ) ) ];
           var secondPoint = points[ prev( i ) ];

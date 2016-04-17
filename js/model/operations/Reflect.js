@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Reflect() {
-    Operation.call( this, 'remap' );
+    Operation.call( this, 'remap', '' );
   }
 
   shapeshift.register( 'Reflect', Reflect );
