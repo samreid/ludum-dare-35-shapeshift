@@ -33,7 +33,9 @@ define( function( require ) {
           var equilateralPointMultiplier = ( 1 / 3 ) * ( 1 / 2 ) * Math.sqrt( 3 );
           result.push( firstPoint.plus( delta.timesScalar( 1 / 2 ) ).plus( delta.perpendicular().timesScalar( equilateralPointMultiplier ) ) );
           result.push( firstPoint.plus( delta.timesScalar( 2 / 3 ) ) );
-          result.push( secondPoint.copy() );
+          var endpoint = secondPoint.copy();
+          endpoint.old = secondPoint;
+          result.push( endpoint );
         }
         return result;
       };
