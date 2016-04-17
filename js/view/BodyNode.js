@@ -17,6 +17,10 @@ define( function( require ) {
   function BodyNode( body ) {
     Node.call( this );
 
+    if ( !body ) {
+      throw new Error( 'no assertions enablable!' );
+    }
+
     this.body = body;
 
     this.addChild( new Path( this.createShape(), {

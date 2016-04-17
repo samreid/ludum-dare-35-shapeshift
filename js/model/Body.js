@@ -14,8 +14,9 @@ define( function( require ) {
 
   var globalId = 1;
 
+  // TODO: ignore
   function log( msg ) {
-    console.log( msg );
+    // console.log( msg );
   }
 
   function Body( boundaryCurve, holeCurves ) {
@@ -28,7 +29,31 @@ define( function( require ) {
   shapeshift.register( 'Body', Body );
 
   return inherit( Object, Body, {
+    transformed: function( vectorMap ) {
+      var boundaryCurve = this.boundaryCurve.map( vectorMap );
+      var holeCurves = this.holeCurves.map( function( curve ) {
+        return curve.map( vectorMap );
+      } );
+      return new Body( boundaryCurve, holeCurves );
+    },
 
+    transformedWithOld: function( vectorMap ) {
+      return this.transformed( function( vector ) {
+        var result = vectorMap( vector );
+        result.old = vector;
+        return result;
+      } );
+    },
+
+    getBoundaryCentroid: function() {
+      var centroid = new Vector2( 0, 0 );
+      for ( var i = 0; i < this.boundaryCurve.length; i++ ) {
+        var p = this.boundaryCurve[ i ];
+        centroid.x += p.x / this.boundaryCurve.length;
+        centroid.y += p.y / this.boundaryCurve.length;
+      }
+      return centroid;
+    }
   }, {
     remapAugmented: function( beforeBody, afterBody ) {
       assert && assert( beforeBody.boundaryCurve === afterBody.boundaryCurve.old );

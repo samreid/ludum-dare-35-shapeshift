@@ -20,10 +20,10 @@ define( function( require ) {
   var MAX_WIDTH = 80;
   var MAX_HEIGHT = 80;
 
-  function OperationButton( bodies, operation, options ) {
+  function OperationButton( model, operation, options ) {
     var self = this;
 
-    this.bodies = bodies;
+    this.model = model;
     this.operation = operation;
 
     this.dirty = true;
@@ -36,15 +36,13 @@ define( function( require ) {
 
     // If bodies change, mark as dirty (so we don't update on EVERY change)
     var dirtyListener = this.markDirty.bind( this );
-    bodies.addItemAddedListener( dirtyListener );
-    bodies.addItemRemovedListener( dirtyListener );
+    model.targetBodies.addItemAddedListener( dirtyListener );
+    model.targetBodies.addItemRemovedListener( dirtyListener );
 
     var buttonOptions = _.extend( {
       content: this.content,
       listener: function() {
-        var newBodies = self.getAppliedBodies();
-        bodies.clear();
-        bodies.addAll( newBodies );
+        model.applyOperation( self.operation );
       },
       xMargin: 13,
       yMargin: 10
@@ -57,11 +55,11 @@ define( function( require ) {
   shapeshift.register( 'OperationButton', OperationButton );
 
   return inherit( RectangularPushButton, OperationButton, {
-    getAppliedBodies: function() {
+    getAppliedBodies: function( bodies ) {
       var self = this;
 
       var result = [];
-      this.bodies.forEach( function( body ) {
+      bodies.forEach( function( body ) {
         result = result.concat( self.operation.apply( body ) );
       } );
       return result;
@@ -78,7 +76,7 @@ define( function( require ) {
         var container = new Node( {
           maxWidth: MAX_WIDTH,
           maxHeight: MAX_HEIGHT,
-          children: this.getAppliedBodies().map( function( body ) {
+          children: this.getAppliedBodies( this.model.targetBodies ).map( function( body ) {
             return new BodyNode( body );
           } ),
           center: this.contentBounds.center

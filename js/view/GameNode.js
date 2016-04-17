@@ -60,14 +60,14 @@ define( function( require ) {
     // add
     this.model.bodies.forEach( this.addBody.bind( this ) );
 
-    this.addOperation( new Reflect() );
+    // this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
-    this.addOperation( new DeleteVertices( 2 ) );
+    // this.addOperation( new DeleteVertices( 2 ) );
     this.addOperation( new DeleteVertices( 3 ) );
-    this.addOperation( new SelfFractal( 3 ) );
+    this.addOperation( new SelfFractal() );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
@@ -126,7 +126,7 @@ define( function( require ) {
 
   return inherit( Node, GameNode, {
     addOperation: function( operation ) {
-      var operationButton = new OperationButton( this.model.bodies, operation );
+      var operationButton = new OperationButton( this.model, operation );
       this.buttonLayer.addChild( operationButton );
       this.operationButtons.push( operationButton );
 

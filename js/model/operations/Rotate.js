@@ -29,21 +29,7 @@ define( function( require ) {
     },
 
     apply: function( body ) {
-      var t = this.transform.bind( this );
-
-      var boundary = body.boundaryCurve.map( t );
-      boundary.old = body.boundaryCurve;
-
-      return [
-        new Body(
-          boundary,
-          body.holeCurves.map( function( curve ) {
-            var newCurve = curve.map( t );
-            newCurve.old = curve;
-            return newCurve.map( t );
-          } )
-        )
-      ];
+      return [ body.transformedWithOld( this.transform.bind( this ) ) ];
     }
   } );
 
