@@ -19,12 +19,14 @@ define( function( require ) {
   var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
   var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
+  var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
   var Plane = require( 'SCENERY/nodes/Plane' );
   var TitledPanel = require( 'SHAPESHIFT/view/TitledPanel' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -67,6 +69,9 @@ define( function( require ) {
     leftEye.centerX = this.layoutBounds.centerX - leftEye.width;
     this.addChild( leftEye.mutate( { y: 300 } ) );
     this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
+
+    this.addChild( new Eyebrow().mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
+    this.addChild( new Eyebrow().mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
 
     this.addInputListener( {
       move: function( event ) {
