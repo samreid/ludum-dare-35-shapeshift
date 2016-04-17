@@ -60,8 +60,9 @@ define( function( require ) {
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
-    this.addChild( leftEye.mutate( { x: 100, y: 100 } ) );
-    this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: 100 } ) );
+    leftEye.centerX = this.layoutBounds.centerX - leftEye.width;
+    this.addChild( leftEye.mutate( { y: 300 } ) );
+    this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
 
     this.addInputListener( {
       move: function( event ) {
