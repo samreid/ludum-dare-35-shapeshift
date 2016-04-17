@@ -32,6 +32,7 @@ define( function( require ) {
   var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
+  var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -73,6 +74,7 @@ define( function( require ) {
     this.addOperation( new DeleteVertices( 3 ) );
     // this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
     this.addOperation( new Subdivide() );
+    this.addOperation( new Shear() );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();

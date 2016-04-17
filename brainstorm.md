@@ -30,6 +30,12 @@ Operations:
       'duplicate'
   }
 
+  To add:
+    Shear
+    "Spikify"
+    Asymmetric scale
+
+
   adds a vertex in the middle of each edge, and moves it in our out <-- remap between "mapped" vertices
 
   catmull rom subdivision <--- remap between "mapped" vertices
