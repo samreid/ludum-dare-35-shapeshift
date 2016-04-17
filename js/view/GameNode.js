@@ -18,6 +18,7 @@ define( function( require ) {
   var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
   var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
   var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
+  var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
@@ -63,6 +64,8 @@ define( function( require ) {
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
+    this.addOperation( new DeleteVertices( 2 ) );
+    this.addOperation( new DeleteVertices( 3 ) );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
