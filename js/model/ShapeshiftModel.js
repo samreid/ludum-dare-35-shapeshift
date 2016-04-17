@@ -42,6 +42,8 @@ define( function( require ) {
 
   return inherit( PropertySet, ShapeshiftModel, {
     startLevel: function( level ) {
+      this.currentLevel = level;
+
       this.bodies.clear();
       this.bodies.addAll( level.startBodies );
 
@@ -104,11 +106,7 @@ define( function( require ) {
     },
 
     reset: function() {
-      console.log( 'reset' );
-      this.bodies.clear();
-      this.bodies.add( this.initialBody );
-      this.targetBodies.clear();
-      this.targetBodies.add( this.initialBody );
+      this.startLevel( this.currentLevel );
       this.animationQueue = [];
     }
   } );
