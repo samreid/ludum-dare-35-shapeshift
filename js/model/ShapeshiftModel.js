@@ -17,11 +17,19 @@ define( function( require ) {
   var numberOfReplaysProperty = new Property( 0 );
 
   function ShapeshiftModel() {
-    var initialBody = new Body( [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ],
-                                [] )
+    var numPoints = Math.floor( Math.random() * 10 ) + 5;
 
-    PropertySet.call( this, {
-    } );
+    // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ];
+    var array = [];
+    for ( var i = 0; i < numPoints; i++ ) {
+      var x = Math.random() * 200 - 100;
+      var y = Math.random() * 200 - 100;
+      array.push( new Vector2( x, y ) );
+    }
+
+    var initialBody = new Body( array, [] );
+
+    PropertySet.call( this, {} );
     window.model = this;
 
     this.bodies = new ObservableArray( [ initialBody ] );

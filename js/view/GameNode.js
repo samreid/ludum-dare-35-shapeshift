@@ -16,6 +16,7 @@ define( function( require ) {
   var OperationButton = require( 'SHAPESHIFT/view/OperationButton' );
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
   var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
+  var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
 
   function GameNode( model, layoutBounds ) {
     Node.call( this );
@@ -46,6 +47,7 @@ define( function( require ) {
 
     this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
+    this.addOperation( new ConvexHull() );
   }
 
   shapeshift.register( 'GameNode', GameNode );
