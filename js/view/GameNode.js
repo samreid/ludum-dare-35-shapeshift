@@ -19,9 +19,14 @@ define( function( require ) {
   var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
   var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
+  var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
+  var Plane = require( 'SCENERY/nodes/Plane' );
 
   function GameNode( model, layoutBounds ) {
     Node.call( this );
+
+    // So the eyes can watch the mouse wherever it goes
+    this.addChild( new Plane() );
 
     this.model = model;
     this.layoutBounds = layoutBounds;
@@ -52,6 +57,18 @@ define( function( require ) {
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
+
+    var leftEye = new Eyeball();
+    var rightEye = new Eyeball();
+    this.addChild( leftEye.mutate( { x: 100, y: 100 } ) );
+    this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: 100 } ) );
+
+    this.addInputListener( {
+      move: function( event ) {
+        leftEye.lookAt( event.pointer.point );
+        rightEye.lookAt( event.pointer.point );
+      }
+    } );
   }
 
   shapeshift.register( 'GameNode', GameNode );
