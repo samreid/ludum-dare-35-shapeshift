@@ -32,6 +32,11 @@ define( function( require ) {
     }
 
     this.goalBodies = bodies;
+
+    this.isAnswerCorrect = function( bodyArray ) {
+      console.log( 'checking correct' );
+      return false;
+    };
   }
 
   return inherit( Object, Level, {} );

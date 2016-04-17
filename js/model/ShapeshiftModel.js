@@ -21,8 +21,9 @@ define( function( require ) {
 
   var LevelDesign = require( 'SHAPESHIFT/model/LevelDesign' );
 
+  var levels = new LevelDesign().getLevels();
+
   function ShapeshiftModel() {
-    var levels = new LevelDesign().getLevels();
 
     PropertySet.call( this, {} );
     window.model = this;
@@ -72,7 +73,16 @@ define( function( require ) {
       else if ( hadAnimation ) {
         this.bodies.clear();
         this.bodies.addAll( this.targetBodies.getArray() );
+
+        // All queued actions completed
+        // check for success
+        this.checkSuccess();
       }
+    },
+
+    checkSuccess: function() {
+      var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
+      console.log( isCorrect );
     },
 
     applyOperation: function( operation ) {
