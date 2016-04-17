@@ -16,7 +16,8 @@
   "phet": {
     "requirejsNamespace": "SHAPESHIFT",
     "preload": [
-      "../sherpa/lib/Tween-r12.js"
+      "../sherpa/lib/Tween-r12.js",
+      "../ludum-dare-35-shapeshift/lib/imagediff.js"
     ]
   }
 }

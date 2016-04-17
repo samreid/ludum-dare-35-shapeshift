@@ -9,6 +9,8 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
 
   function Level( startBodies, operations, availableOperations ) {
     this.startBodies = startBodies;
@@ -33,9 +35,23 @@ define( function( require ) {
 
     this.goalBodies = bodies;
 
+    var toCanvas = function( bodyArray ) {
+      var node = new Node( {
+        children: bodyArray.map( function( b ) {return new BodyNode( b );} )
+      } );
+      var image = node.toCanvasNodeSynchronous().children[ 0 ].image;
+      return image;
+    };
+
+    var self = this;
+
     this.isAnswerCorrect = function( bodyArray ) {
-      console.log( 'checking correct' );
-      return false;
+      var goalCanvas = toCanvas( self.goalBodies );
+      var proposedAnswer = toCanvas( bodyArray );
+
+      // TODO: precision is in pixels.  What should we do here?
+      var equal = imagediff.equal( proposedAnswer, goalCanvas, 25 );
+      return equal;
     };
   }
 
