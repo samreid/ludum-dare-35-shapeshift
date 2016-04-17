@@ -24,6 +24,7 @@ define( function( require ) {
   var TitledPanel = require( 'SHAPESHIFT/view/TitledPanel' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -94,6 +95,16 @@ define( function( require ) {
       titledPanel.top = visibleBounds.top + 10;
       titledPanel.right = visibleBounds.right - 10;
     } );
+
+    var resetAllButton = new ResetAllButton();
+    resetAllButton.mutate( {
+      scale: this.buttonLayer.height / resetAllButton.height * 0.75,
+      bottom: this.buttonLayer.bottom
+    } );
+    visibleBoundsProperty.link( function( visibleBounds ) {
+      resetAllButton.right = visibleBounds.right - 10;
+    } );
+    this.addChild( resetAllButton );
   }
 
   shapeshift.register( 'GameNode', GameNode );
