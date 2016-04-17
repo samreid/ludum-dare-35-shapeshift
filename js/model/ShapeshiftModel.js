@@ -19,7 +19,10 @@ define( function( require ) {
   var lastPlaySound = Date.now();
   var numberOfReplaysProperty = new Property( 0 );
 
+  var LevelDesign = require( 'SHAPESHIFT/model/LevelDesign' );
+
   function ShapeshiftModel() {
+    var levels = new LevelDesign().getLevels();
     var numPoints = Math.floor( Math.random() * 10 ) + 5;
 
     // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( 100, 100 ), new Vector2( -100, 100 ) ];
@@ -36,18 +39,29 @@ define( function( require ) {
       // array.push( new Vector2( x, y ) );
     }
 
-    var initialBody = new Body( array, [] );
-
     PropertySet.call( this, {} );
     window.model = this;
 
-    this.bodies = new ObservableArray( [ initialBody ] ); // current display
-    this.targetBodies = new ObservableArray( [ initialBody ] ); // latest target
-    this.initialBody = initialBody;
     this.animationQueue = [];
+
+    this.bodies = new ObservableArray(); // current display
+    this.targetBodies = new ObservableArray(); // latest target
+    this.goalBodies = new ObservableArray();
+
+    this.startLevel( levels[ 0 ] );
   }
 
   return inherit( PropertySet, ShapeshiftModel, {
+    startLevel: function( level ) {
+      this.bodies.clear();
+      this.bodies.addAll( level.startBodies );
+
+      this.targetBodies.clear();
+      this.targetBodies.addAll( level.startBodies.concat( [] ) );
+
+      this.goalBodies.clear();
+      this.goalBodies.addAll( level.goalBodies );
+    },
     step: function( dt ) {
       var hadAnimation = this.animationQueue.length;
 
@@ -101,6 +115,7 @@ define( function( require ) {
     },
 
     reset: function() {
+      console.log( 'reset' );
       this.bodies.clear();
       this.bodies.add( this.initialBody );
       this.targetBodies.clear();

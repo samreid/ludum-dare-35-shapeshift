@@ -14,14 +14,6 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
   var OperationButton = require( 'SHAPESHIFT/view/OperationButton' );
-  var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
-  var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
-  var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
-  var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
-  var SelfFractal = require( 'SHAPESHIFT/model/operations/SelfFractal' );
-  var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
-  var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
-  var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
   var Plane = require( 'SCENERY/nodes/Plane' );
@@ -30,6 +22,16 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Vector2 = require( 'DOT/Vector2' );
+
+  // operations
+  var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
+  var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
+  var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
+  var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
+  var SelfFractal = require( 'SHAPESHIFT/model/operations/SelfFractal' );
+  var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
+  var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
+  var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -94,8 +96,8 @@ define( function( require ) {
       fill: 'white',
       fontSize: 18
     } ), new Node( {
-      children: model.bodies.map( function( b ) {
-        return new BodyNode( b );
+      children: model.goalBodies.map( function( b ) {
+        return new BodyNode( b ).mutate( { scale: 0.5 } );
       } ).getArray()
     } ), {
       fill: 'black',
