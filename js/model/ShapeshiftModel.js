@@ -29,8 +29,8 @@ define( function( require ) {
 
     numPoints = 7;
     for ( var i = 0; i < numPoints; i++ ) {
-      array.push( Vector2.createPolar( 50, i * ( Math.PI * 2 ) / numPoints ) );
-      array.push( Vector2.createPolar( 100, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+      array.push( Vector2.createPolar( 90, i * ( Math.PI * 2 ) / numPoints ) );
+      array.push( Vector2.createPolar( 180, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
       // var x = Math.random() * 200 - 100;
       // var y = Math.random() * 200 - 100;
       // array.push( new Vector2( x, y ) );
