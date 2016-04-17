@@ -25,7 +25,7 @@ define( function( require ) {
     var bounds = new Bounds2( 0, 0, 1024, 618 );
     ScreenView.call( this, { layoutBounds: bounds } );
 
-    this.gameNode = new GameNode( model, this.layoutBounds );
+    this.gameNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
 

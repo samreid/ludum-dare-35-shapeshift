@@ -21,8 +21,11 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
   var Plane = require( 'SCENERY/nodes/Plane' );
+  var TitledPanel = require( 'SHAPESHIFT/view/TitledPanel' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
-  function GameNode( model, layoutBounds ) {
+  function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
 
     // So the eyes can watch the mouse wherever it goes
@@ -69,6 +72,27 @@ define( function( require ) {
         leftEye.lookAt( event.pointer.point );
         rightEye.lookAt( event.pointer.point );
       }
+    } );
+
+    var titledPanel = new TitledPanel( new Text( 'Goal', {
+      fill: 'white',
+      fontSize: 18
+    } ), new Node( {
+      children: model.bodies.map( function( b ) {
+        return new BodyNode( b );
+      } ).getArray()
+    } ), {
+      fill: 'black',
+      stroke: 'white',
+      xMargin: 10,
+      yMargin: 10,
+      centerX: this.layoutBounds.centerX
+    } );
+    this.addChild( titledPanel );
+
+    visibleBoundsProperty.link( function( visibleBounds ) {
+      titledPanel.top = visibleBounds.top + 10;
+      titledPanel.right = visibleBounds.right - 10;
     } );
   }
 
