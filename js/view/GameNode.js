@@ -33,6 +33,7 @@ define( function( require ) {
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
+    this.visibleBoundsProperty = visibleBoundsProperty;
 
     // So the eyes can watch the mouse wherever it goes
     this.addChild( new Plane() );
@@ -116,12 +117,17 @@ define( function( require ) {
     } );
     resetAllButton.mutate( {
       scale: this.buttonLayer.height / resetAllButton.height * 0.75,
-      bottom: this.buttonLayer.bottom
     } );
     visibleBoundsProperty.link( function( visibleBounds ) {
       resetAllButton.right = visibleBounds.right - 10;
     } );
     this.addChild( resetAllButton );
+
+    var self = this;
+    visibleBoundsProperty.link( function( visibleBounds ) {
+      self.buttonLayer.bottom = visibleBounds.bottom - 20;
+      resetAllButton.bottom = self.buttonLayer.bottom;
+    } );
   }
 
   shapeshift.register( 'GameNode', GameNode );
@@ -137,7 +143,6 @@ define( function( require ) {
 
     layoutOperationButtons: function() {
       this.buttonLayer.centerX = this.layoutBounds.centerX;
-      this.buttonLayer.bottom = this.layoutBounds.bottom + 10;
     },
 
     addBody: function( body ) {
