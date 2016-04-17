@@ -31,6 +31,13 @@ define( function( require ) {
       var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( -length + dx, length + dy ) ];
       return new Body( array, [] );
     };
+    var createRectangle = function() {
+      var length = 150;
+      var dx = 0;
+      var dy = 20;
+      var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( length + dx, length + dy ), new Vector2( -length + dx, length + dy ) ];
+      return new Body( array, [] );
+    };
     var createStar = function() {
       var array = [];
 
@@ -45,8 +52,8 @@ define( function( require ) {
 
     this.getLevels = function() {
       return [
-        new Level( [ createTriangle() ], [
-          new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
+        new Level( [ createRectangle() ], [
+          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
@@ -58,6 +65,13 @@ define( function( require ) {
         ], [
           new DeleteVertices( 3 ),
           new Snowflake()
+        ] ),
+        new Level( [ createTriangle() ], [
+          new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
         ] )
       ];
     };
