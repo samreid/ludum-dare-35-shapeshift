@@ -43,7 +43,7 @@ define( function( require ) {
 
           // add points
           result.push( oneTwo ); // mid-point
-          result.push( twoThree ); // sub-div
+          result.push( newSecondPoint ); // sub-div
         }
         return result;
       };
