@@ -17,8 +17,8 @@ define( function( require ) {
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
   var Shape = require( 'KITE/Shape' );
 
-  var MAX_WIDTH = 50;
-  var MAX_HEIGHT = 50;
+  var MAX_WIDTH = 80;
+  var MAX_HEIGHT = 80;
 
   function OperationButton( bodies, operation, options ) {
     var self = this;
@@ -45,7 +45,9 @@ define( function( require ) {
         var newBodies = self.getAppliedBodies();
         bodies.clear();
         bodies.addAll( newBodies );
-      }
+      },
+      xMargin: 13,
+      yMargin: 10
       // baseColor:
     }, options );
 

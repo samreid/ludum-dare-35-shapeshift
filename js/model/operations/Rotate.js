@@ -30,10 +30,18 @@ define( function( require ) {
 
     apply: function( body ) {
       var t = this.transform.bind( this );
+
+      var boundary = body.boundaryCurve.map( t );
+      boundary.old = body.boundaryCurve;
+
       return [
         new Body(
-          body.boundaryCurve.map( t ),
-          body.holeCurves.map( function( curve ) { return curve.map( t ); } )
+          boundary,
+          body.holeCurves.map( function( curve ) {
+            var newCurve = curve.map( t );
+            newCurve.old = curve;
+            return newCurve.map( t );
+          } )
         )
       ];
     }

@@ -23,6 +23,8 @@ define( function( require ) {
     // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( -100, 100 ) ];
     // var array = [ new Vector2( -100, -100 ), new Vector2( 100, -100 ), new Vector2( 100, 100 ), new Vector2() ];
     var array = [];
+
+    numPoints = 7;
     for ( var i = 0; i < numPoints; i++ ) {
       array.push( Vector2.createPolar( 50, i * ( Math.PI * 2 ) / numPoints ) );
       array.push( Vector2.createPolar( 100, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
