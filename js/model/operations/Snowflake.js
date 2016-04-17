@@ -37,6 +37,7 @@ define( function( require ) {
           endpoint.old = secondPoint;
           result.push( endpoint );
         }
+        result.old = points;
         return result;
       };
 

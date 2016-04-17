@@ -67,6 +67,8 @@ define( function( require ) {
           result.push( newPoint2 );
         }
 
+        result.old = points;
+
         return result;
       };
 

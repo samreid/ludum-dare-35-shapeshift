@@ -27,11 +27,15 @@ define( function( require ) {
       var pointsToHull = function( points ) {
         var boundaryHull = ConvexHull2.grahamScan( points, false );
 
-        return boundaryHull.map( function( v ) {
+        var result = boundaryHull.map( function( v ) {
           var x = v.copy();
           x.old = v;
           return x;
         } );
+
+        result.old = points;
+
+        return result;
       };
 
       return [
