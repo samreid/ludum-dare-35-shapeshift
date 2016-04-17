@@ -45,7 +45,7 @@ define( function( require ) {
         var mappedTheta = initialTheta;
 
         var firstPoint = points[ 0 ].copy();
-        firstPoint.old = points[ 0 ];
+        // firstPoint.old = points[ 0 ];
         result.push( firstPoint );
         for ( i = 1; i < points.length; i++ ) {
           var p1Angle = points[ i ].angle();
@@ -53,7 +53,7 @@ define( function( require ) {
           mappedTheta += thetaDelta1 / 2;
           theta = p1Angle;
           var newPoint1 = Vector2.createPolar( points[ i ].magnitude(), mappedTheta );
-          newPoint1.old = points[ i ];
+          // newPoint1.old = points[ i ];
           result.push( newPoint1 );
         }
 
@@ -67,7 +67,7 @@ define( function( require ) {
           result.push( newPoint2 );
         }
 
-        result.old = points;
+        // result.old = points;
 
         return result;
       };
