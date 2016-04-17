@@ -28,8 +28,9 @@ define( function( require ) {
       var n = this.n;
       var mapCurve = function( points ) {
         var result = [];
+        var okToDelete = points.length >= 6;
         for ( var i = 0; i < points.length; i++ ) {
-          if ( i % n === 0 ) {
+          if ( i % n === 0 && okToDelete ) {
             //delete
           }
           else {
