@@ -73,7 +73,9 @@ define( function( require ) {
     }
 
     var triangleFan = new Node( {
-      children: children
+      children: children,
+      x: 200,
+      y: 200
     } );
     this.triangleFan = triangleFan;
     Node.call( this, {
@@ -81,7 +83,7 @@ define( function( require ) {
         circle,
         triangleFan,
         startGameButton,
-        instructions,
+        // instructions,
         titleText,
         subtitle
       ]

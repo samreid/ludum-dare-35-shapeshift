@@ -52,6 +52,9 @@ define( function( require ) {
       if ( this.gameNode.hasParent() ) {
         this.gameNode.step( dt );
       }
+      if ( this.homeScreen.hasParent() ) {
+        this.homeScreen.step( dt );
+      }
     },
     startLevel: function( levelIndex ) {
       this.addChild( this.gameNode );
