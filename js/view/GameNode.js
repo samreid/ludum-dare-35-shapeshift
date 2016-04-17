@@ -70,8 +70,10 @@ define( function( require ) {
     this.addChild( leftEye.mutate( { y: 300 } ) );
     this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
 
-    this.addChild( new Eyebrow().mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
-    this.addChild( new Eyebrow().mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
+    this.leftEyebrow = new Eyebrow();
+    this.rightEyebrow = new Eyebrow();
+    this.addChild( this.leftEyebrow.mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
+    this.addChild( this.rightEyebrow.mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
 
     this.addInputListener( {
       move: function( event ) {
@@ -146,6 +148,8 @@ define( function( require ) {
       this.operationButtons.forEach( function( operationButton ) {
         operationButton.update();
       } );
+      this.leftEyebrow.step( dt );
+      this.rightEyebrow.step( dt );
     }
   } );
 } );
