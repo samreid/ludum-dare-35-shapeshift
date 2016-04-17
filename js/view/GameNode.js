@@ -18,6 +18,7 @@ define( function( require ) {
   var Rotate = require( 'SHAPESHIFT/model/operations/Rotate' );
   var ConvexHull = require( 'SHAPESHIFT/model/operations/ConvexHull' );
   var RadialDoubling = require( 'SHAPESHIFT/model/operations/RadialDoubling' );
+  var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
 
   function GameNode( model, layoutBounds ) {
     Node.call( this );
@@ -50,6 +51,7 @@ define( function( require ) {
     this.addOperation( new Rotate( Math.PI / 2 ) );
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
+    this.addOperation( new Snowflake() );
   }
 
   shapeshift.register( 'GameNode', GameNode );
