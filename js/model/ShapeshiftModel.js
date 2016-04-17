@@ -39,11 +39,16 @@ define( function( require ) {
     window.model = this;
 
     this.bodies = new ObservableArray( [ initialBody ] );
+    this.initialBody = initialBody;
   }
 
   return inherit( PropertySet, ShapeshiftModel, {
     step: function( dt ) {
 
+    },
+    reset: function() {
+      this.bodies.clear();
+      this.bodies.add( this.initialBody );
     }
   } );
 } );

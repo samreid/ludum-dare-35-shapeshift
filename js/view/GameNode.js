@@ -97,6 +97,9 @@ define( function( require ) {
     } );
 
     var resetAllButton = new ResetAllButton();
+    resetAllButton.addListener( function() {
+      model.reset();
+    } );
     resetAllButton.mutate( {
       scale: this.buttonLayer.height / resetAllButton.height * 0.75,
       bottom: this.buttonLayer.bottom
