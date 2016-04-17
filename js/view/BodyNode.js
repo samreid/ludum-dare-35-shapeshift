@@ -14,7 +14,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
 
-  function BodyNode( body ) {
+  function BodyNode( body, colorOverride ) {
     Node.call( this );
 
     if ( !body ) {
@@ -24,7 +24,7 @@ define( function( require ) {
     this.body = body;
 
     this.addChild( new Path( this.createShape(), {
-      fill: '#f00'
+      fill: colorOverride || '#da0'
     } ) );
   }
 

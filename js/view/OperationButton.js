@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
   var Bounds2 = require( 'DOT/Bounds2' );
+  var Color = require( 'SCENERY/util/Color' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
@@ -45,8 +46,8 @@ define( function( require ) {
         model.applyOperation( self.operation );
       },
       xMargin: 13,
-      yMargin: 10
-      // baseColor:
+      yMargin: 10,
+      baseColor: operation.color || new Color( 153, 206, 255 )
     }, options );
 
     RectangularPushButton.call( this, buttonOptions );
@@ -77,7 +78,7 @@ define( function( require ) {
           maxWidth: MAX_WIDTH,
           maxHeight: MAX_HEIGHT,
           children: this.getAppliedBodies( this.model.targetBodies ).map( function( body ) {
-            return new BodyNode( body );
+            return new BodyNode( body, '#eee' );
           } ),
           center: this.contentBounds.center
         } );

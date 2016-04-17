@@ -15,13 +15,12 @@ define( function( require ) {
   var ConvexHull2 = require( 'DOT/ConvexHull2' );
 
   function ConvexHull() {
-    Operation.call( this, 'remap' );
+    Operation.call( this, 'remap', '#00c' );
   }
 
   shapeshift.register( 'ConvexHull', ConvexHull );
 
   return inherit( Operation, ConvexHull, {
-
     apply: function( body ) {
 
       var pointsToHull = function( points ) {

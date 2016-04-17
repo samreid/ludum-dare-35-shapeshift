@@ -11,8 +11,9 @@ define( function( require ) {
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function Operation( animationType ) {
+  function Operation( animationType, color ) {
     this.animationType = animationType; // 'remap', 'rotate', 'duplicate'
+    this.color = color;
   }
 
   shapeshift.register( 'Operation', Operation );

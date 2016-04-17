@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Subdivide() {
-    Operation.call( this, 'remap' );
+    Operation.call( this, 'remap', '#0aa' );
   }
 
   shapeshift.register( 'Subdivide', Subdivide );
