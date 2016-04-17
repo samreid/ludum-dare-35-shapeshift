@@ -68,7 +68,7 @@ define( function( require ) {
     this.addOperation( new Snowflake() );
     // this.addOperation( new DeleteVertices( 2 ) );
     this.addOperation( new DeleteVertices( 3 ) );
-    this.addOperation( new SelfFractal() );
+    // this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
     this.addOperation( new Subdivide() );
 
     var leftEye = new Eyeball();
