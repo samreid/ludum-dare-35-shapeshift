@@ -31,8 +31,19 @@ define( function( require ) {
             var r = v.magnitude();
             var theta = v.angle();
 
-            var thetaNew = (theta - initialTheta) / 2 + angle + initialTheta;
-            return Vector2.createPolar( r, thetaNew );
+            var deltaTheta = theta - initialTheta;
+
+            // while ( deltaTheta > Math.PI ) {
+            //   deltaTheta = deltaTheta - Math.PI * 2;
+            // }
+            // while ( deltaTheta < -Math.PI ) {
+            //   deltaTheta = deltaTheta + Math.PI * 2;
+            // }
+
+            var thetaNew = (deltaTheta) / 2 + angle + initialTheta;
+            var newPoint = Vector2.createPolar( r, thetaNew );
+
+            return newPoint;
           };
         };
         return points.map( mapFunction( 0 ) ).concat( points.map( mapFunction( Math.PI ) ) );
