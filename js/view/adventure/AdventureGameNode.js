@@ -158,19 +158,27 @@ define( function( require ) {
       resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
-    var quote = new Panel( new MultiLineText( 'Quest for the Crystal Fractal\n\n' +
-                                              'Day 1:\n' +
-                                              'On the road to the airport\n' +
-                                              'I had to replace a flat tire.', {
+    var levelDescriptionNode = new MultiLineText( 'Quest for the Crystal Fractal\n\n' +
+                                                  'Day 1:\n' +
+                                                  'On the road to the airport\n' +
+                                                  'I had to replace a flat tire.', {
       align: 'left',
       font: new PhetFont( { size: 23 } )
-    } ) );
-    visibleBoundsProperty.link( function( visibleBounds ) {
+    } );
+    var quote = new Panel( levelDescriptionNode );
+    var updateTextLocation = function() {
+      var visibleBounds = self.visibleBoundsProperty.value;
       quote.top = visibleBounds.top + 10;
       quote.centerX = visibleBounds.centerX;
-    } );
+    };
+    visibleBoundsProperty.link( updateTextLocation );
 
     this.addChild( quote );
+
+    model.levelProperty.link( function( level ) {
+      levelDescriptionNode.setText( level.text );
+      updateTextLocation();
+    } );
   }
 
   shapeshift.register( 'AdventureGameNode', AdventureGameNode );
