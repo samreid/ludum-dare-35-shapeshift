@@ -17,7 +17,7 @@ define( function( require ) {
   function Static( curve ) {
     this.curve = curve;
 
-    Operation.call( this, 'remap', '#888', '[' + curve.join( ',' ) + ']' );
+    Operation.call( this, 'remap', '#888', '[' + curve.map( function( v ) { return 'new Vector2( ' + v.x + ', ' + v.y + ')'; } ).join( ',' ) + ']' );
   }
 
   shapeshift.register( 'Static', Static );
