@@ -25,7 +25,7 @@ define( function( require ) {
 
   return inherit( Operation, Static, {
     apply: function( body ) {
-      return new Body( this.curve.slice(), [] );
+      return [ new Body( this.curve.slice(), [] ) ];
     }
   } );
 
