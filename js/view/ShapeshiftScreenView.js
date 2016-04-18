@@ -10,6 +10,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HomeScreen = require( 'SHAPESHIFT/HomeScreen' );
   var GameNode = require( 'SHAPESHIFT/view/GameNode' );
+  var AdventureGameNode = require( 'SHAPESHIFT/view/AdventureGameNode' );
   var Sound = require( 'VIBE/Sound' );
 
   function ShapeshiftScreenView( model ) {
@@ -26,7 +27,7 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: bounds } );
 
     this.arcadeNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
-    this.adventureNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
+    this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty );
     this.freePlayNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
