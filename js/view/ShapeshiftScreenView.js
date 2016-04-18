@@ -25,16 +25,18 @@ define( function( require ) {
     var bounds = new Bounds2( 0, 0, 1024, 618 );
     ScreenView.call( this, { layoutBounds: bounds } );
 
+    this.arcadeNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
     this.adventureNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
+    this.freePlayNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
 
     this.homeScreen = new HomeScreen( bounds, function() {
-      self.showNode( self.adventureNode );
+      self.showNode( self.arcadeNode );
     }, function() {
       self.showNode( self.adventureNode );
     }, function() {
-      self.showNode( self.adventureNode );
+      self.showNode( self.freePlayNode );
     } );
     this.addChild( this.homeScreen );
 

@@ -23,6 +23,8 @@ define( function( require ) {
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
   var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
+  var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
 
   var played = false;
 
@@ -107,15 +109,37 @@ define( function( require ) {
     var startBody = ShapeshiftModel.levels[ 1 ].startBodies[ 0 ];
     var op1 = ShapeshiftModel.levels[ 1 ].operations[ 0 ];
     var op2 = ShapeshiftModel.levels[ 1 ].operations[ 1 ];
-    var scaleOptions = { scale: 0.75 };
+    var scaleOptions = { scale: 0.8 };
+
+    var createFace = function() {
+      var leftEye = new Eyeball();
+      var rightEye = new Eyeball();
+      var face = new Node();
+      face.addChild( leftEye.mutate( { y: 300 } ) );
+      face.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
+
+      var leftEyebrow = new Eyebrow();
+      var rightEyebrow = new Eyebrow();
+      // face.addChild( leftEyebrow.mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
+      // face.addChild( rightEyebrow.mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
+      return face;
+    };
     var exampleNode = new HBox( {
       spacing: 10,
       children: [
-        new BodyNode( startBody, 'black' ).mutate( scaleOptions ),
+        new Node( {
+          children: [
+            new BodyNode( startBody, 'black' ).mutate( scaleOptions ),
+            createFace().mutate( { centerX: -10, centerY: 0, scale: scaleOptions.scale } )
+          ]
+        } ),
         new ArrowNode( 0, 0, 30, 0, { scale: 2 } ),
-        new BodyNode( op1.apply( startBody )[ 0 ], 'black' ).mutate( scaleOptions ),
-        new ArrowNode( 0, 0, 30, 0, { scale: 2 } ),
-        new BodyNode( op2.apply( op1.apply( startBody )[ 0 ] )[ 0 ], 'black' ).mutate( scaleOptions )
+        new Node( {
+          children: [
+            new BodyNode( op2.apply( op1.apply( startBody )[ 0 ] )[ 0 ], 'black' ).mutate( scaleOptions ),
+            createFace().mutate( { centerX: 30, centerY: -20, scale: scaleOptions.scale } )
+          ]
+        } )
       ],
       centerX: bounds.centerX,
       top: titleText.bottom + 10
