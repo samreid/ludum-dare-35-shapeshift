@@ -29,7 +29,7 @@ define( function( require ) {
   var jewelCrusher = require( 'audio!SHAPESHIFT/jewel-crusher' );
   var jewelCrusherSound = new Sound( jewelCrusher );
 
-  function HomeScreen( bounds, startButtonPressed ) {
+  function HomeScreen( bounds, startArcadeMode, startAdventureMode, startExploreMode ) {
     var buttonFont = { size: 35, weight: 'bold' };
 
     var minButtonWidth = 300;
@@ -39,7 +39,7 @@ define( function( require ) {
         font: new PhetFont( buttonFont )
       } ),
       baseColor: '#55ff55',
-      listener: startButtonPressed
+      listener: startArcadeMode
     } );
 
     var adventureModeButton = new RectangularPushButton( {
@@ -48,7 +48,7 @@ define( function( require ) {
         font: new PhetFont( buttonFont )
       } ),
       baseColor: '#ff5555',
-      listener: startButtonPressed
+      listener: startAdventureMode
     } );
 
     var freePlayModeButton = new RectangularPushButton( {
@@ -57,7 +57,7 @@ define( function( require ) {
         font: new PhetFont( buttonFont )
       } ),
       baseColor: '#5555ff',
-      listener: startButtonPressed
+      listener: startExploreMode
     } );
 
     var quote = new MultiLineText( 'To improve is to change;\nto be perfect is to change often.\n - Winston Churchill', {

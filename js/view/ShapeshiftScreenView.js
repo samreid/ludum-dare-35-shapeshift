@@ -25,22 +25,22 @@ define( function( require ) {
     var bounds = new Bounds2( 0, 0, 1024, 618 );
     ScreenView.call( this, { layoutBounds: bounds } );
 
-    this.gameNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
+    this.adventureNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
 
     this.homeScreen = new HomeScreen( bounds, function() {
-      self.hideHomeScreen();
-      self.startLevel( 0 );
-      // TODO
+      self.showNode( self.adventureNode );
+    }, function() {
+      self.showNode( self.adventureNode );
+    }, function() {
+      self.showNode( self.adventureNode );
     } );
     this.addChild( this.homeScreen );
 
     var level = phet.chipper.getQueryParameter( 'level' );
     if ( level ) {
-      this.hideHomeScreen();
-
-      this.startLevel( 0 );
+      this.showNode( this.adventureNode );
     }
   }
 
@@ -49,15 +49,15 @@ define( function( require ) {
       this.removeChild( this.homeScreen );
     },
     step: function( dt ) {
-      if ( this.gameNode.hasParent() ) {
-        this.gameNode.step( dt );
+      if ( this.adventureNode.hasParent() ) {
+        this.adventureNode.step( dt );
       }
       if ( this.homeScreen.hasParent() ) {
         this.homeScreen.step( dt );
       }
     },
-    startLevel: function( levelIndex ) {
-      this.addChild( this.gameNode );
-    }
+    showNode: function( node ) {
+      this.children = [ node ];
+    },
   } );
 } );
