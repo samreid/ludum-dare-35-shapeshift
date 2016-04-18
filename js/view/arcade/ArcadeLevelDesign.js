@@ -57,98 +57,11 @@ define( function( require ) {
 
     this.getLevels = function() {
       return [
-        new ArcadeLevel( 'Quest for the Crystal Fractal\n\n' +
-                         'Day 1:\n' +
-                         'On the road to the airport\n' +
-                         'I had to replace a flat tire.', [ createRectangle() ], [
-          new RadialDoubling()
-        ], [
+        new ArcadeLevel( [ createRectangle() ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
           new RadialDoubling()
-        ] ),
-        new ArcadeLevel( 'Our plane lost a wing\n' +
-                         'but I got it covered.', [ createStar() ], [
-          new RadialDoubling()
-        ], [
-          new RadialDoubling(),
-          new DeleteVertices( 3 ),
-          new Snowflake()
-        ] ),
-        new ArcadeLevel( 'In Cairo, my companion lost her passport\nbut I filled in.', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new Snowflake(),
-          new DeleteVertices( 3 ),
-          new RadialDoubling()
-        ] ),
-        new ArcadeLevel( 'Chased by nazi werewolves,\n' +
-                         'I am the silver bullet.', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-        , new ArcadeLevel( 'The tomb was cursed--\n' +
-                           'but you can\'t curse a spider.', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-        , new ArcadeLevel( 'If I walk amongst the mummies,\n' +
-                           'they will never find me..', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-
-        , new ArcadeLevel( 'At last, the locked chamber.\n' +
-                           'I am the key..', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-        , new ArcadeLevel( 'It was a trap,\nthere is only one way out...', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-        , new ArcadeLevel( 'A flame will burn\nthrough the last barrier..', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
-        new ArcadeLevel( 'Finally! The crystal fractal is mine--\n' +
-                         'or now I belong to it.\n' +
-                         '\nThe End', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
-        new ArcadeLevel( 'Years later,\n' +
-                         'Murphy McMorph retired and started a rock band.',
-          [ createTriangle() ], [
-            new RadialDoubling()
-          ], [
-            new DeleteVertices( 3 ),
-            new Snowflake(),
-            new RadialDoubling()
-          ] )
-
-
+        ], 3 )
       ];
     };
   }

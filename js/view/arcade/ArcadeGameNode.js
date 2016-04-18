@@ -112,24 +112,16 @@ define( function( require ) {
       }
     } );
 
-    var updateTitledPanelLocation = function( visibleBounds ) {
-      titledPanel.top = visibleBounds.top + 10;
-      titledPanel.right = visibleBounds.right - 10;
-    };
-
     var goalNode = new Node( {
-      children: model.goalBodies.map( function( b ) {
-        return new BodyNode( b ).mutate( { scale: 0.5 } );
-      } ).getArray()
     } );
     var update = function() {
       goalNode.children = model.goalBodies.map( function( b ) {
         return new BodyNode( b ).mutate( { scale: 0.5 } );
       } ).getArray();
-      updateTitledPanelLocation( visibleBoundsProperty.value );
     };
     this.model.goalBodies.addItemAddedListener( update );
     this.model.goalBodies.addItemRemovedListener( update );
+    update();
 
     var titledPanel = new TitledPanel( new Text( 'Goal', {
       fill: 'white',
@@ -142,8 +134,6 @@ define( function( require ) {
       centerX: this.layoutBounds.centerX
     } );
     this.addChild( titledPanel );
-
-    visibleBoundsProperty.link( updateTitledPanelLocation );
 
     var resetAllButton = new ResetAllButton();
     resetAllButton.addListener( function() {

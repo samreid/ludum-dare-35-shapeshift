@@ -59,7 +59,7 @@ define( function( require ) {
       this.targetBodies.addAll( level.startBodies.concat( [] ) );
 
       this.goalBodies.clear();
-      this.goalBodies.addAll( level.goalBodies );
+      this.goalBodies.addAll( level.getGoalBodies() );
 
       this.level = level;
     },
@@ -90,17 +90,17 @@ define( function( require ) {
     },
 
     checkSuccess: function() {
-      var self = this;
-      var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
-      if ( isCorrect ) {
-        var levelIndex = this.levels.indexOf( this.currentLevel ) + 1;
-        if ( levelIndex >= this.levels.length ) {
-          levelIndex = 0;
-        }
-        this.successEmitter.emit1( function() {
-          self.startLevel( self.levels[ levelIndex ] );
-        } );
-      }
+      // var self = this;
+      // var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
+      // if ( isCorrect ) {
+      //   var levelIndex = this.levels.indexOf( this.currentLevel ) + 1;
+      //   if ( levelIndex >= this.levels.length ) {
+      //     levelIndex = 0;
+      //   }
+      //   this.successEmitter.emit1( function() {
+      //     self.startLevel( self.levels[ levelIndex ] );
+      //   } );
+      // }
     },
 
     applyOperation: function( operation ) {

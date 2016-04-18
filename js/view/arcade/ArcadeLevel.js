@@ -11,11 +11,12 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
+  var Random = require( 'DOT/Random' );
 
-  function Level( text, startBodies, operations, availableOperations ) {
-    this.text = text;
+  var random = new Random();
+
+  function ArcadeLevel( startBodies, availableOperations, numTargets ) {
     this.startBodies = startBodies;
-    this.operations = operations;
     this.availableOperations = availableOperations;
 
     var mapBodies = function( bodies, op ) {
@@ -26,15 +27,27 @@ define( function( require ) {
       return result;
     };
 
-    var bodies = startBodies;
+    var getRandomSequence = function( numberSteps ) {
+      var out = [];
+      for ( var i = 0; i < numberSteps; i++ ) {
+        out.push( availableOperations[ random.nextInt( availableOperations.length ) ] );
+      }
+      return out;
+    };
+    this.listOfGoalBodyGroups = [];
+    for ( var i = 0; i < numTargets; i++ ) {
+      var numberSteps = random.nextInt( 2 ) + 1;
+      var randomSequence = getRandomSequence( numberSteps );
 
-    for ( var i = 0; i < this.operations.length; i++ ) {
-      var op = this.operations[ i ];
+      var bodies = startBodies;
+      for ( var k = 0; k < randomSequence.length; k++ ) {
+        var op = randomSequence[ k ];
+        bodies = mapBodies( bodies, op );
+      }
 
-      bodies = mapBodies( bodies, op );
+      this.listOfGoalBodyGroups.push( bodies );
+      debugger;
     }
-
-    this.goalBodies = bodies;
 
     var toCanvas = function( bodyArray ) {
       var node = new Node( {
@@ -56,5 +69,14 @@ define( function( require ) {
     };
   }
 
-  return inherit( Object, Level, {} );
+  return inherit( Object, ArcadeLevel, {
+    getGoalBodies: function() {
+      var children = [];
+      for ( var i = 0; i < this.listOfGoalBodyGroups.length; i++ ) {
+        var group = this.listOfGoalBodyGroups[ i ];
+        children = children.concat( group );
+      }
+      return children;
+    }
+  } );
 } );
