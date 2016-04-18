@@ -2,30 +2,6 @@
 
 /**
  *
- Murphy McMorph
- in
- Quest for the Crystal Fractal
-
- Day 1:
- On the road to the airport, I had to replace a flat tire.
-
- Our plane lost a wing, but I got it covered.
-
- In Cairo, my companion lost her passport, but I filled in.
-
- Chased by nazi werewolves, I am the silver bullet.
-
- The tomb was cursed--but you can't curse a spider.
-
- If I walk amongst the mummies, they will never find me.
-
- At last, the locked chamber.  I am the key.
-
- It was a trap, there is only one way out. (ladder)
-
- A flame will burn through the last barrier.
-
- The crystal fractal is mine and I belong to it.
 
  Credits and follow-up:
  6 years later, Murphy became a street performer.
@@ -98,13 +74,79 @@ define( function( require ) {
           new DeleteVertices( 3 ),
           new Snowflake()
         ] ),
-        new AdventureLevel( '', [ createTriangle() ], [
+        new AdventureLevel( 'In Cairo, my companion lost her passport\nbut I filled in.', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
+        new AdventureLevel( 'Chased by nazi werewolves,\n' +
+                            'I am the silver bullet.', [ createTriangle() ], [
           new RadialDoubling()
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
           new RadialDoubling()
         ] )
+        , new AdventureLevel( 'The tomb was cursed--\n' +
+                              'but you can\'t curse a spider.', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] )
+        , new AdventureLevel( 'If I walk amongst the mummies,\n' +
+                              'they will never find me..', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] )
+
+        , new AdventureLevel( 'At last, the locked chamber.\n' +
+                              'I am the key..', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] )
+        , new AdventureLevel( 'It was a trap,\nthere is only one way out...', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] )
+        , new AdventureLevel( 'A flame will burn\nthrough the last barrier..', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
+        new AdventureLevel( 'The crystal fractal is mine\nand now I belong to it.\n' +
+                            '\nThe End', [ createTriangle() ], [
+          new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
+        new AdventureLevel( 'Years later,\n' +
+                            'Murphy McMorph became a street performer.',
+          [ createTriangle() ], [
+            new RadialDoubling()
+          ], [
+            new DeleteVertices( 3 ),
+            new Snowflake(),
+            new RadialDoubling()
+          ] )
+
+
       ];
     };
   }

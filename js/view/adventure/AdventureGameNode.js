@@ -158,10 +158,7 @@ define( function( require ) {
       resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
-    var levelDescriptionNode = new MultiLineText( 'Quest for the Crystal Fractal\n\n' +
-                                                  'Day 1:\n' +
-                                                  'On the road to the airport\n' +
-                                                  'I had to replace a flat tire.', {
+    var levelDescriptionNode = new MultiLineText( 'test', {
       align: 'left',
       font: new PhetFont( { size: 23 } )
     } );
