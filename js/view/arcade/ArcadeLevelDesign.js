@@ -32,6 +32,7 @@ define( function( require ) {
   var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
   var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
   var Static = require( 'SHAPESHIFT/model/operations/Static' );
+
   function LevelDesign() {
     var createTriangle = function() {
       var length = 150;
@@ -74,7 +75,7 @@ define( function( require ) {
     this.getLevels = function() {
       var rectangle = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
       return [
-        new ArcadeLevel( [ new Body( rectangle.slice(), [] ) ], [
+        new ArcadeLevel( [
           new Static( rectangle ),
           new Static( createRegular( 3 ), 'Triangle' ),
           new Snowflake( 1 ),

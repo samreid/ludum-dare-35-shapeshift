@@ -14,6 +14,7 @@ define( function( require ) {
   var RotationAnimation = require( 'SHAPESHIFT/model/RotationAnimation' );
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Emitter = require( 'AXON/Emitter' );
+  var Random = require( 'DOT/Random' );
 
   var Sound = require( 'VIBE/Sound' );
 
@@ -48,15 +49,18 @@ define( function( require ) {
     this.successEmitter = new Emitter();
   }
 
+  var random = new Random();
   return inherit( PropertySet, ShapeshiftModel, {
     startLevel: function( level ) {
       this.currentLevel = level;
 
       this.bodies.clear();
-      this.bodies.addAll( level.startBodies );
+
+      var startBodies = level.staticOps[ random.nextInt( level.staticOps.length ) ].apply( null );
+      this.bodies.addAll( startBodies );
 
       this.targetBodies.clear();
-      this.targetBodies.addAll( level.startBodies.concat( [] ) );
+      this.targetBodies.addAll( startBodies.concat( [] ) );
 
       this.goalBodies.clear();
       this.goalBodies.addAll( level.getGoalBodies() );

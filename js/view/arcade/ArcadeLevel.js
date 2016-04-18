@@ -15,9 +15,18 @@ define( function( require ) {
 
   var random = new Random();
 
-  function ArcadeLevel( startBodies, availableOperations, numTargets ) {
-    this.startBodies = startBodies;
+  function ArcadeLevel( availableOperations, numTargets ) {
     this.availableOperations = availableOperations;
+
+    var nonStaticOps = availableOperations.filter( function( op ) {
+      return !op.isStatic;
+    } );
+
+    var staticOps = availableOperations.filter( function( op ) {
+      return op.isStatic;
+    } );
+
+    this.staticOps = staticOps;
 
     var mapBodies = function( bodies, op ) {
       var result = [];
@@ -30,7 +39,7 @@ define( function( require ) {
     var getRandomSequence = function( numberSteps ) {
       var out = [];
       for ( var i = 0; i < numberSteps; i++ ) {
-        out.push( availableOperations[ random.nextInt( availableOperations.length ) ] );
+        out.push( nonStaticOps[ random.nextInt( nonStaticOps.length ) ] );
       }
       return out;
     };
@@ -39,7 +48,8 @@ define( function( require ) {
       var numberSteps = random.nextInt( 2 ) + 1;
       var randomSequence = getRandomSequence( numberSteps );
 
-      var bodies = startBodies;
+      var selectedStaticOp = staticOps[ random.nextInt( staticOps.length ) ];
+      var bodies = selectedStaticOp.apply( null );
       for ( var k = 0; k < randomSequence.length; k++ ) {
         var op = randomSequence[ k ];
         bodies = mapBodies( bodies, op );

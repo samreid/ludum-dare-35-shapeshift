@@ -17,6 +17,7 @@ define( function( require ) {
   function Static( curve, name ) {
     this.curve = curve;
     this.name = name;
+    this.isStatic = true;
 
     Operation.call( this, 'remap', '#888', '[' + curve.map( function( v ) { return 'new Vector2( ' + v.x + ', ' + v.y + ')'; } ).join( ',' ) + ']', name );
   }
