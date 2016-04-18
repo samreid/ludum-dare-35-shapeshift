@@ -52,12 +52,15 @@ define( function( require ) {
   function ArcadeGameNode( blah, layoutBounds, visibleBoundsProperty, showHomeScreen ) {
     Node.call( this );
 
+    var ground = new Rectangle( -1000, 480, 3000, 1000, { fill: 'green' } );
+
     var levels = new ArcadeLevelDesign().getLevels();
     var model = new ArcadeGameModel( levels );
     this.visibleBoundsProperty = visibleBoundsProperty;
 
     // So the eyes can watch the mouse wherever it goes
-    this.addChild( new Plane() );
+    this.addChild( new Plane( { fill: '#5555ff' } ) );
+    this.addChild( ground );
 
     this.model = model;
     this.layoutBounds = layoutBounds;
@@ -112,11 +115,14 @@ define( function( require ) {
       }
     } );
 
-    var goalNode = new HBox( {} );
+    var goalNode = new VBox( {} );
     var update = function() {
       goalNode.children = model.goalBodies.map( function( b ) {
         return new BodyNode( b ).mutate( { scale: 0.5 } );
       } ).getArray();
+      if ( goalNode.children.length > 0 ) {
+        goalNode.right = visibleBoundsProperty.value.right - 10;
+      }
     };
     this.model.goalBodies.addItemAddedListener( update );
     this.model.goalBodies.addItemRemovedListener( update );
