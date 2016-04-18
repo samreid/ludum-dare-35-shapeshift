@@ -475,20 +475,6 @@ define( function( require ) {
 
     this.getLevels = function() {
       return [
-        new Level( [ createMap() ], [
-          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
-        new Level( [ createBird() ], [
-          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
         new Level( [ createRectangle() ], [
           new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
         ], [
@@ -505,6 +491,20 @@ define( function( require ) {
         ] ),
         new Level( [ createTriangle() ], [
           new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
+        new Level( [ createMap() ], [
+          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
+        ], [
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling()
+        ] ),
+        new Level( [ createBird() ], [
+          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
