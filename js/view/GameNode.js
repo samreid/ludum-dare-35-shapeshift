@@ -33,6 +33,8 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+  var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
+  var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -67,14 +69,16 @@ define( function( require ) {
 
     // this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
-    this.addOperation( new ConvexHull() );
+    // this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
     // this.addOperation( new DeleteVertices( 2 ) );
-    this.addOperation( new DeleteVertices( 3 ) );
+    // this.addOperation( new DeleteVertices( 3 ) );
     // this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
-    this.addOperation( new Subdivide() );
+    // this.addOperation( new Subdivide() );
     this.addOperation( new Shear() );
+    this.addOperation( new Swirl() );
+    this.addOperation( new Invert( 150 ) );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
