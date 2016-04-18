@@ -221,11 +221,23 @@ define( function( require ) {
       } );
       self.addChild( panel );
     } );
+
+    model.levelProperty.link( function( level ) {
+      self.clearOperations();
+      for ( var i = 0; i < level.availableOperations.length; i++ ) {
+        var obj = level.availableOperations[ i ];
+        self.addOperation( obj );
+      }
+    } );
   }
 
   shapeshift.register( 'AdventureGameNode', AdventureGameNode );
 
   return inherit( Node, AdventureGameNode, {
+    clearOperations: function() {
+      this.buttonLayer.children = [];
+      this.operationButtons.length = 0;
+    },
     addOperation: function( operation ) {
       var operationButton = new OperationButton( this.model, operation );
       this.buttonLayer.addChild( operationButton );

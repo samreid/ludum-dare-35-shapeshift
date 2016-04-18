@@ -71,14 +71,15 @@ define( function( require ) {
                             'but I got it covered.', [ createStar() ], [
           new RadialDoubling()
         ], [
+          new RadialDoubling(),
           new DeleteVertices( 3 ),
           new Snowflake()
         ] ),
         new AdventureLevel( 'In Cairo, my companion lost her passport\nbut I filled in.', [ createTriangle() ], [
           new RadialDoubling()
         ], [
-          new DeleteVertices( 3 ),
           new Snowflake(),
+          new DeleteVertices( 3 ),
           new RadialDoubling()
         ] ),
         new AdventureLevel( 'Chased by nazi werewolves,\n' +
