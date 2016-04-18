@@ -38,12 +38,22 @@ define( function( require ) {
       return new Body( boundaryCurve, holeCurves );
     },
 
+    curveMapped: function( curveMap ) {
+      var boundaryCurve = curveMap( this.boundaryCurve );
+      var holeCurves = this.holeCurves.map( curveMap );
+      return new Body( boundaryCurve, holeCurves );
+    },
+
     transformedWithOld: function( vectorMap ) {
       return this.transformed( function( vector ) {
         var result = vectorMap( vector );
         result.old = vector;
         return result;
       } );
+    },
+
+    discreteTransformedCurve: function( vectorMap ) {
+      return this.curveMapped( Body.curveMappingWithTransform( vectorMap ) );
     },
 
     getBoundaryCentroid: function() {
@@ -56,6 +66,18 @@ define( function( require ) {
       return centroid;
     }
   }, {
+    curveMappingWithTransform: function( vectorMap ) {
+      return function( curve ) {
+        return Body.removeCollinear( Body.discretizeCurve( curve, 5 ).map( function( vector ) {
+          var result = vectorMap( vector );
+          if ( _.contains( curve, vector ) ) {
+            result.old = vector;
+          }
+          return result;
+        } ) );
+      };
+    },
+
     discretizeCurve: function( curve, maxDistance ) {
       var result = [];
 
@@ -85,8 +107,19 @@ define( function( require ) {
       function next( n ) {
         return ( n === curve.length - 1 ) ? 0 : ( n + 1 );
       }
+      function previous( n ) {
+        return ( n === 0 ) ? ( curve.length - 1 ) : ( n - 1 );
+      }
 
-      Util.arePointsCollinear( a, b, c, epsilon );
+      var result = [];
+
+      for ( var i = 0; i < curve.length; i++ ) {
+        if ( !Util.arePointsCollinear( curve[ i ], curve[ next( i ) ], curve[ next( next( i ) ) ], 0.00001 ) ) {
+          result.push( curve[ next( i ) ] );
+        }
+      }
+
+      return result;
     },
 
     remapAugmented: function( beforeBody, afterBody ) {
