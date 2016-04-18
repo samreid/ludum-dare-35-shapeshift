@@ -47,6 +47,7 @@ define( function( require ) {
   var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
   var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
   var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
+  var Static = require( 'SHAPESHIFT/model/operations/Static' );
 
   var FreeplayGameModel = require( 'SHAPESHIFT/view/freeplay/FreeplayGameModel' );
   var FreeplayLevel = require( 'SHAPESHIFT/view/freeplay/FreeplayLevel' );
@@ -54,22 +55,32 @@ define( function( require ) {
   function FreeplayGameNode( blah, layoutBounds, visibleBoundsProperty, showHomeScreen ) {
     Node.call( this );
 
-    var createStar = function() {
+    var createStar = function( numPoints ) {
       var array = [];
 
-      var numPoints = 7;
       for ( var i = 0; i < numPoints; i++ ) {
-        array.push( Vector2.createPolar( 90, i * ( Math.PI * 2 ) / numPoints ) );
-        array.push( Vector2.createPolar( 180, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+        array.push( Vector2.createPolar( 100, i * ( Math.PI * 2 ) / numPoints ) );
+        array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
       }
 
-      return new Body( array, [] );
+      return array;
+    };
+
+    var createRegular = function( numPoints ) {
+      var array = [];
+
+      for ( var i = 0; i < numPoints; i++ ) {
+        array.push( Vector2.createPolar( 200, i * ( Math.PI * 2 ) / numPoints ) );
+        // array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+      }
+
+      return array;
     };
 
 
     var model = new FreeplayGameModel( [
       new FreeplayLevel( 'Our plane lost a wing\n' +
-                         'but I got it covered.', [ createStar() ], [
+                         'but I got it covered.', [ new Body( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], [] ) ], [
         new RadialDoubling()
       ], [
         new RadialDoubling(),
@@ -86,12 +97,15 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
 
     this.shapeLayer = new Node( {
-      translation: layoutBounds.center
+      x: layoutBounds.centerX,
+      y: layoutBounds.centerY * 2 / 3,
+      scale: 0.5
     } );
     this.addChild( this.shapeLayer );
 
     this.buttonLayer = new VBox( {
-      spacing: 25
+      spacing: 25,
+      scale: 0.5
     } );
     this.addChild( this.buttonLayer );
 
@@ -119,17 +133,23 @@ define( function( require ) {
     this.addOperation( new Swirl() );
     this.addOperation( new Invert( 150 ) );
     this.addOperation( new Scale( 1.5, 1/1.5 ) );
+    this.addOperation( new Static( createRegular( 3 ), 'Triangle' ) );
+    this.addOperation( new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ) );
+    this.addOperation( new Static( createRegular( 5 ), 'Pentagon' ) );
+    this.addOperation( new Static( createStar( 7 ), 'Star' ) );
 
+    this.eyeLayer = new Node( { scale: 0.7 } );
+    this.addChild( this.eyeLayer );
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
-    leftEye.centerX = this.layoutBounds.centerX - leftEye.width;
-    this.addChild( leftEye.mutate( { y: 300 } ) );
-    this.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
+    leftEye.centerX = this.layoutBounds.centerX / 0.7 - leftEye.width;
+    this.eyeLayer.addChild( leftEye.mutate( { y: 200 / 0.7 } ) );
+    this.eyeLayer.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
 
     this.leftEyebrow = new Eyebrow();
     this.rightEyebrow = new Eyebrow();
-    this.addChild( this.leftEyebrow.mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
-    this.addChild( this.rightEyebrow.mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
+    this.eyeLayer.addChild( this.leftEyebrow.mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
+    this.eyeLayer.addChild( this.rightEyebrow.mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
 
     this.addInputListener( {
       move: function( event ) {
