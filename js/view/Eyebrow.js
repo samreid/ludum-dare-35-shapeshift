@@ -18,7 +18,7 @@ define( function( require ) {
 
   function Eyebrow() {
     this.time = 0;
-    this.path = new Path( this.getShape( 0.5 ), { fill: 'gray' } );
+    this.path = new Path( this.getShape( 0.5, 0.5 ), { fill: 'gray' } );
     Node.call( this, {
       children: [
         this.path
@@ -31,8 +31,8 @@ define( function( require ) {
     getShape: function( leftPointY, centerPointY ) {
       var outerRadius = 30;
       var left = new Vector2( -outerRadius, -leftPointY * 20 );
-      var c1 = new Vector2( -30, -10 );
-      var c2 = new Vector2( -15, -10 );
+      var c1 = new Vector2( -30, -10 + 2 );
+      var c2 = new Vector2( -15, -10 + 2 );
 
       var h = centerPointY * 30;
       var center = new Vector2( 0, -h );
