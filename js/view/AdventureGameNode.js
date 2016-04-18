@@ -25,6 +25,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
+  var Image = require( 'SCENERY/nodes/Image' );
 
   // operations
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
@@ -36,6 +37,9 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+
+  // images
+  var bannerImage = require( 'image!SHAPESHIFT/banner.png' );
 
   function AdventureGameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -148,14 +152,18 @@ define( function( require ) {
       resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
-    var quote = new Panel( new MultiLineText( 'On the road to the airport\nI had to replace a flat tire.', {
+    var quote = new Panel( new MultiLineText( 'Quest for the Crystal Fractal\n\n' +
+                                              'Day 1:\n' +
+                                              'On the road to the airport\n' +
+                                              'I had to replace a flat tire.', {
       align: 'left',
       font: new PhetFont( { size: 23 } )
     } ) );
     visibleBoundsProperty.link( function( visibleBounds ) {
       quote.top = visibleBounds.top + 10;
-      quote.left = visibleBounds.left + 10;
+      quote.centerX = visibleBounds.centerX;
     } );
+
     this.addChild( quote );
   }
 
