@@ -11,6 +11,7 @@ define( function( require ) {
   var HomeScreen = require( 'SHAPESHIFT/HomeScreen' );
   var GameNode = require( 'SHAPESHIFT/view/GameNode' );
   var AdventureGameNode = require( 'SHAPESHIFT/view/adventure/AdventureGameNode' );
+  var FreeplayGameNode = require( 'SHAPESHIFT/view/freeplay/FreeplayGameNode' );
   var ArcadeGameNode = require( 'SHAPESHIFT/view/arcade/ArcadeGameNode' );
   var Sound = require( 'VIBE/Sound' );
 
@@ -33,7 +34,7 @@ define( function( require ) {
 
     this.arcadeNode = new ArcadeGameNode( model, this.layoutBounds, this.visibleBoundsProperty, showHomeScreen );
     this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty, showHomeScreen );
-    this.freePlayNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
+    this.freePlayNode = new FreeplayGameNode( model, this.layoutBounds, this.visibleBoundsProperty, showHomeScreen );
 
     this.preventFit = true;
 
