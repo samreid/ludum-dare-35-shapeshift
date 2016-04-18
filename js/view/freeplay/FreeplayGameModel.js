@@ -20,11 +20,10 @@ define( function( require ) {
   var lastPlaySound = Date.now();
   var numberOfReplaysProperty = new Property( 0 );
 
-  var LevelDesign = require( 'SHAPESHIFT/model/LevelDesign' );
   var Property = require( 'AXON/Property' );
 
-  function ShapeshiftModel( levels ) {
-    this.levels = levels
+  function FreeplayGameModel( levels ) {
+    this.levels = levels;
     PropertySet.call( this, {
       level: levels[ 0 ]
     } );
@@ -48,7 +47,7 @@ define( function( require ) {
     this.successEmitter = new Emitter();
   }
 
-  return inherit( PropertySet, ShapeshiftModel, {
+  return inherit( PropertySet, FreeplayGameModel, {
     startLevel: function( level ) {
       this.currentLevel = level;
 

@@ -29,6 +29,7 @@ define( function( require ) {
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
+  var Body = require( 'SHAPESHIFT/model/Body' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
@@ -43,17 +44,35 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
-  var FreeplayLevelDesign = require( 'SHAPESHIFT/view/freeplay/FreeplayLevelDesign' );
   var FreeplayGameModel = require( 'SHAPESHIFT/view/freeplay/FreeplayGameModel' );
-
-  // images
-  var bannerImage = require( 'image!SHAPESHIFT/banner.png' );
+  var FreeplayLevel = require( 'SHAPESHIFT/view/freeplay/FreeplayLevel' );
 
   function FreeplayGameNode( blah, layoutBounds, visibleBoundsProperty, showHomeScreen ) {
     Node.call( this );
 
-    var levels = new FreeplayLevelDesign().getLevels();
-    var model = new FreeplayGameModel( levels );
+    var createStar = function() {
+      var array = [];
+
+      var numPoints = 7;
+      for ( var i = 0; i < numPoints; i++ ) {
+        array.push( Vector2.createPolar( 90, i * ( Math.PI * 2 ) / numPoints ) );
+        array.push( Vector2.createPolar( 180, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+      }
+
+      return new Body( array, [] );
+    };
+
+
+    var model = new FreeplayGameModel( [
+      new FreeplayLevel( 'Our plane lost a wing\n' +
+                         'but I got it covered.', [ createStar() ], [
+        new RadialDoubling()
+      ], [
+        new RadialDoubling(),
+        new DeleteVertices( 3 ),
+        new Snowflake()
+      ] )
+    ] );
     this.visibleBoundsProperty = visibleBoundsProperty;
 
     // So the eyes can watch the mouse wherever it goes
@@ -131,20 +150,6 @@ define( function( require ) {
     this.model.goalBodies.addItemAddedListener( update );
     this.model.goalBodies.addItemRemovedListener( update );
 
-    var titledPanel = new TitledPanel( new Text( 'Goal', {
-      fill: 'white',
-      fontSize: 18
-    } ), goalNode, {
-      fill: 'black',
-      stroke: 'white',
-      xMargin: 10,
-      yMargin: 10,
-      centerX: this.layoutBounds.centerX
-    } );
-    this.addChild( titledPanel );
-
-    visibleBoundsProperty.link( updateTitledPanelLocation );
-
     var resetAllButton = new ResetAllButton();
     resetAllButton.addListener( function() {
       model.reset();
@@ -165,70 +170,12 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-
     var self = this;
     visibleBoundsProperty.link( function( visibleBounds ) {
       self.buttonLayer.bottom = visibleBounds.bottom - 20;
       resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
-    var levelDescriptionNode = new MultiLineText( 'test', {
-      align: 'left',
-      font: new PhetFont( { size: 23 } )
-    } );
-    var quote = new Panel( levelDescriptionNode );
-    var updateTextLocation = function() {
-      var visibleBounds = self.visibleBoundsProperty.value;
-      quote.top = visibleBounds.top + 10;
-      quote.centerX = visibleBounds.centerX;
-    };
-    visibleBoundsProperty.link( updateTextLocation );
-
-    this.addChild( quote );
-
-    model.levelProperty.link( function( level ) {
-      levelDescriptionNode.setText( level.text );
-      updateTextLocation();
-    } );
-
-    model.successEmitter.addListener( function( callback ) {
-      var textPushButton = new TextPushButton( 'Continue', { scale: 4 } );
-      var createSuccessPanelChildren = [
-        new Text( 'With the tire replaced', { fontSize: 48 } ),
-        new Text( 'the traveler set out toward his goal', { fontSize: 48 } ),
-        new Text( 'Thus began', { fontSize: 48 } ),
-        new VStrut( 50 ),
-        new Text( 'Murphy McMorph', { fontSize: 36 } ),
-        new Text( 'starring in', { fontSize: 24 } ),
-        new Image( bannerImage, { scale: 1.5 } ),
-        textPushButton
-      ];
-      if ( model.level !== model.levels[ 0 ] ) {
-        createSuccessPanelChildren = [
-          new Text( 'Success!', { fontSize: 48 } ),
-          textPushButton
-        ];
-      }
-      var panel = new Panel( new VBox( {
-        children: createSuccessPanelChildren
-      } ), {
-        centerX: layoutBounds.centerX,
-        bottom: layoutBounds.bottom - 10
-      } );
-      textPushButton.addListener( function() {
-        self.removeChild( panel );
-        callback();
-      } );
-      self.addChild( panel );
-    } );
-
-    model.levelProperty.link( function( level ) {
-      self.clearOperations();
-      for ( var i = 0; i < level.availableOperations.length; i++ ) {
-        var obj = level.availableOperations[ i ];
-        self.addOperation( obj );
-      }
-    } );
   }
 
   shapeshift.register( 'FreeplayGameNode', FreeplayGameNode );
