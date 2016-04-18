@@ -112,8 +112,7 @@ define( function( require ) {
       }
     } );
 
-    var goalNode = new Node( {
-    } );
+    var goalNode = new HBox( {} );
     var update = function() {
       goalNode.children = model.goalBodies.map( function( b ) {
         return new BodyNode( b ).mutate( { scale: 0.5 } );
@@ -123,17 +122,7 @@ define( function( require ) {
     this.model.goalBodies.addItemRemovedListener( update );
     update();
 
-    var titledPanel = new TitledPanel( new Text( 'Goal', {
-      fill: 'white',
-      fontSize: 18
-    } ), goalNode, {
-      fill: 'black',
-      stroke: 'white',
-      xMargin: 10,
-      yMargin: 10,
-      centerX: this.layoutBounds.centerX
-    } );
-    this.addChild( titledPanel );
+    this.addChild( goalNode );
 
     var resetAllButton = new ResetAllButton();
     resetAllButton.addListener( function() {

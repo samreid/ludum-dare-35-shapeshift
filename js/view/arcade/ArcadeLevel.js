@@ -46,7 +46,6 @@ define( function( require ) {
       }
 
       this.listOfGoalBodyGroups.push( bodies );
-      debugger;
     }
 
     var toCanvas = function( bodyArray ) {

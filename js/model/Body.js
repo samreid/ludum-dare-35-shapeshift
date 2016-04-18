@@ -341,8 +341,6 @@ define( function( require ) {
       // after3.old = before3;
 
       var remap = Body.remapCurve( [ before1, before2, before3 ], [ after1, after2, after3 ] );
-      debugger;
-
 
     }
   } );
