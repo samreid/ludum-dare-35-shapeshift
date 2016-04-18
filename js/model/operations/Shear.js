@@ -15,7 +15,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Shear() {
-    Operation.call( this, 'remap', '#888' );
+    Operation.call( this, 'remap', '#888', '', 'Shear' );
   }
 
   shapeshift.register( 'Shear', Shear );

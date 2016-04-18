@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Snowflake() {
-    Operation.call( this, 'remap', '#a0a', '' );
+    Operation.call( this, 'remap', '#a0a', '', 'Snowflake' );
   }
 
   shapeshift.register( 'Snowflake', Snowflake );

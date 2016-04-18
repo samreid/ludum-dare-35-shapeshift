@@ -44,6 +44,10 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+  var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
+  var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
+  var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
+
   var FreeplayGameModel = require( 'SHAPESHIFT/view/freeplay/FreeplayGameModel' );
   var FreeplayLevel = require( 'SHAPESHIFT/view/freeplay/FreeplayLevel' );
 
@@ -86,7 +90,7 @@ define( function( require ) {
     } );
     this.addChild( this.shapeLayer );
 
-    this.buttonLayer = new HBox( {
+    this.buttonLayer = new VBox( {
       spacing: 25
     } );
     this.addChild( this.buttonLayer );
@@ -102,16 +106,19 @@ define( function( require ) {
     // add
     this.model.bodies.forEach( this.addBody.bind( this ) );
 
-    // this.addOperation( new Reflect() );
+    this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
-    // this.addOperation( new DeleteVertices( 2 ) );
+    this.addOperation( new DeleteVertices( 2 ) );
     this.addOperation( new DeleteVertices( 3 ) );
-    // this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
+    this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
     this.addOperation( new Subdivide() );
     this.addOperation( new Shear() );
+    this.addOperation( new Swirl() );
+    this.addOperation( new Invert( 150 ) );
+    this.addOperation( new Scale( 1.5, 1/1.5 ) );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();
@@ -150,30 +157,18 @@ define( function( require ) {
     this.model.goalBodies.addItemAddedListener( update );
     this.model.goalBodies.addItemRemovedListener( update );
 
-    var resetAllButton = new ResetAllButton();
-    resetAllButton.addListener( function() {
-      model.reset();
-    } );
-    resetAllButton.mutate( {
-      scale: this.buttonLayer.height / resetAllButton.height * 0.75,
-    } );
-
     var homeButton = new RoundPushButton( { scale: 1.5, content: new FontAwesomeNode( 'home', { fill: 'black' } ) } );
     homeButton.addListener( showHomeScreen );
     this.addChild( homeButton );
 
     visibleBoundsProperty.link( function( visibleBounds ) {
-      resetAllButton.right = visibleBounds.right - 10;
-
       homeButton.top = visibleBounds.top + 10;
       homeButton.left = visibleBounds.left + 10;
     } );
-    this.addChild( resetAllButton );
 
     var self = this;
     visibleBoundsProperty.link( function( visibleBounds ) {
       self.buttonLayer.bottom = visibleBounds.bottom - 20;
-      resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
   }
@@ -186,8 +181,21 @@ define( function( require ) {
       this.operationButtons.length = 0;
     },
     addOperation: function( operation ) {
-      var operationButton = new OperationButton( this.model, operation );
-      this.buttonLayer.addChild( operationButton );
+      var operationButton = new OperationButton( this.model, operation, {
+        useLabel: true
+      } );
+
+      if ( this.buttonLayer.children.length === 0 || this.buttonLayer.children[ this.buttonLayer.children.length - 1 ].children.length === 7 ) {
+        var hbox = new HBox( {
+          spacing: 25
+        } );
+        hbox.addChild( operationButton );
+        this.buttonLayer.addChild( hbox );
+      }
+      else {
+        this.buttonLayer.children[ this.buttonLayer.children.length - 1 ].addChild( operationButton );
+      }
+
       this.operationButtons.push( operationButton );
 
       this.layoutOperationButtons();

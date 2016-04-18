@@ -11,10 +11,11 @@ define( function( require ) {
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
   var inherit = require( 'PHET_CORE/inherit' );
 
-  function Operation( animationType, color, argsString ) {
+  function Operation( animationType, color, argsString, name ) {
     this.animationType = animationType; // 'remap', 'rotate', 'duplicate'
     this.color = color;
     this.argsString = argsString; // For creating levels
+    this.name = name;
   }
 
   shapeshift.register( 'Operation', Operation );

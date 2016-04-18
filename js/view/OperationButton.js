@@ -13,6 +13,7 @@ define( function( require ) {
   var Bounds2 = require( 'DOT/Bounds2' );
   var Color = require( 'SCENERY/util/Color' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var Text = require( 'SCENERY/nodes/Text' );
   var Node = require( 'SCENERY/nodes/Node' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
@@ -29,13 +30,22 @@ define( function( require ) {
 
     this.model = model;
     this.operation = operation;
+    this.useLabel = !!options && !!options.useLabel;
 
     this.dirty = true;
 
     this.contentBounds = new Bounds2( 0, 0, MAX_WIDTH, MAX_HEIGHT );
 
+    this.optionalLabel = new Text( operation.name, {
+      fill: '#eee',
+      maxWidth: MAX_WIDTH,
+      top: MAX_HEIGHT + 5,
+      centerX: MAX_WIDTH / 2,
+      fontSize: 16
+    } );
+
     this.content = new Node( {
-      localBounds: this.contentBounds
+      localBounds: this.useLabel ? ( this.contentBounds.union( this.optionalLabel.bounds ) ) : this.contentBounds
     } );
 
     // If bodies change, mark as dirty (so we don't update on EVERY change)
@@ -89,7 +99,7 @@ define( function( require ) {
           } ),
           center: this.contentBounds.center
         } );
-        this.content.children = [ container ];
+        this.content.children = this.useLabel ? [ container, this.optionalLabel ] : [ container ];
       }
     }
   } );

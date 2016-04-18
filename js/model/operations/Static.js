@@ -14,10 +14,11 @@ define( function( require ) {
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
-  function Static( curve ) {
+  function Static( curve, name ) {
     this.curve = curve;
+    this.name = name;
 
-    Operation.call( this, 'remap', '#888', '[' + curve.map( function( v ) { return 'new Vector2( ' + v.x + ', ' + v.y + ')'; } ).join( ',' ) + ']' );
+    Operation.call( this, 'remap', '#888', '[' + curve.map( function( v ) { return 'new Vector2( ' + v.x + ', ' + v.y + ')'; } ).join( ',' ) + ']', name );
   }
 
   shapeshift.register( 'Static', Static );
