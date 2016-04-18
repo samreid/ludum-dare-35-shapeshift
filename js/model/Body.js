@@ -74,7 +74,7 @@ define( function( require ) {
             result.old = vector;
           }
           return result;
-        } ) );
+        } ), 0.1 );
       };
     },
 
@@ -114,7 +114,7 @@ define( function( require ) {
       var result = [];
 
       for ( var i = 0; i < curve.length; i++ ) {
-        if ( !Util.arePointsCollinear( curve[ i ], curve[ next( i ) ], curve[ next( next( i ) ) ], 0.00001 ) ) {
+        if ( !Util.arePointsCollinear( curve[ i ], curve[ next( i ) ], curve[ next( next( i ) ) ], epsilon ) ) {
           result.push( curve[ next( i ) ] );
         }
       }

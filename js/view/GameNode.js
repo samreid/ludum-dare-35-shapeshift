@@ -35,6 +35,7 @@ define( function( require ) {
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
   var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
   var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
+  var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
 
   function GameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
@@ -79,6 +80,7 @@ define( function( require ) {
     this.addOperation( new Shear() );
     this.addOperation( new Swirl() );
     this.addOperation( new Invert( 150 ) );
+    this.addOperation( new Scale( 1.5, 1/1.5 ) );
 
     var leftEye = new Eyeball();
     var rightEye = new Eyeball();

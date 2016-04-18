@@ -14,23 +14,21 @@ define( function( require ) {
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
-  function Invert( circleSize ) {
-    this.circleSize = circleSize;
-
-    Operation.call( this, 'remap', '#888', '' + circleSize );
+  function Scale( x, y ) {
+    this.x = x;
+    this.y = y;
+    Operation.call( this, 'remap', '#888', '' + x + ',' + y );
   }
 
-  shapeshift.register( 'Invert', Invert );
+  shapeshift.register( 'Scale', Scale );
 
-  return inherit( Operation, Invert, {
+  return inherit( Operation, Scale, {
     transform: function( vector ) {
-      var angle = vector.angle();
-      var magnitude = vector.magnitude();
-      return Vector2.createPolar( this.circleSize / ( magnitude / this.circleSize ), angle );
+      return new Vector2( vector.x * this.x, vector.y * this.y );
     },
 
     apply: function( body ) {
-      return [ body.discreteTransformedCurve( this.transform.bind( this ) ) ];
+      return [ body.transformedWithOld( this.transform.bind( this ) ) ];
     }
   } );
 

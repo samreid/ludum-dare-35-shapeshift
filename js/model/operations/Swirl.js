@@ -15,7 +15,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Swirl() {
-    Operation.call( this, 'remap', '#888' );
+    Operation.call( this, 'remap', '#888', '' );
   }
 
   shapeshift.register( 'Swirl', Swirl );

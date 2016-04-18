@@ -24,7 +24,7 @@ define( function( require ) {
       throw new Error( 'implement subtype' );
     },
     toString: function() {
-      return 'new ' + this.constructor.name + '(' + this.argsString + ')'
+      return 'new ' + this.constructor.name + '(' + ( this.argsString ? this.argsString : '' ) + ')'
     }
   } );
 } );
