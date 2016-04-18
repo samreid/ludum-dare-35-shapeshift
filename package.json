@@ -17,7 +17,8 @@
     "requirejsNamespace": "SHAPESHIFT",
     "preload": [
       "../sherpa/lib/Tween-r12.js",
-      "../shapeshift/lib/imagediff.js"
+      "../shapeshift/lib/imagediff.js",
+      "../shapeshift/lib/clipper.js"
     ]
   }
 }
