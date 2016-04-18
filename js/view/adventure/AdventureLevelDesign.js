@@ -85,21 +85,21 @@ define( function( require ) {
                             'Day 1:\n' +
                             'On the road to the airport\n' +
                             'I had to replace a flat tire.', [ createRectangle() ], [
-          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
+          new RadialDoubling()
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
           new RadialDoubling()
         ] ),
-        new AdventureLevel( '', [ createStar() ], [
-          new DeleteVertices( 3 ),
-          new Snowflake()
+        new AdventureLevel( 'Our plane lost a wing\n' +
+                            'but I got it covered.', [ createStar() ], [
+          new RadialDoubling()
         ], [
           new DeleteVertices( 3 ),
           new Snowflake()
         ] ),
         new AdventureLevel( '', [ createTriangle() ], [
-          new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
+          new RadialDoubling()
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),

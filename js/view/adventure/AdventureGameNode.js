@@ -39,15 +39,16 @@ define( function( require ) {
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
   var AdventureLevelDesign = require( 'SHAPESHIFT/view/adventure/AdventureLevelDesign' );
+  var AdventureGameModel = require( 'SHAPESHIFT/view/adventure/AdventureGameModel' );
 
   // images
   var bannerImage = require( 'image!SHAPESHIFT/banner.png' );
 
-  function AdventureGameNode( model, layoutBounds, visibleBoundsProperty ) {
+  function AdventureGameNode( blah, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
 
     var levels = new AdventureLevelDesign().getLevels();
-    model = new ShapeshiftModel();
+    var model = new AdventureGameModel( levels );
     this.visibleBoundsProperty = visibleBoundsProperty;
 
     // So the eyes can watch the mouse wherever it goes

@@ -22,12 +22,11 @@ define( function( require ) {
   var LevelDesign = require( 'SHAPESHIFT/model/LevelDesign' );
   var Property = require( 'AXON/Property' );
 
-  var levels = new LevelDesign().getLevels();
-
-  function ShapeshiftModel() {
-
-    PropertySet.call( this, {} );
-    this.levelProperty = new Property( null );
+  function ShapeshiftModel( levels ) {
+    this.levels = levels
+    PropertySet.call( this, {
+      level: levels[ 0 ]
+    } );
     window.model = this;
 
     this.animationQueue = [];
@@ -59,7 +58,7 @@ define( function( require ) {
       this.goalBodies.clear();
       this.goalBodies.addAll( level.goalBodies );
 
-      this.levelProperty.set( level );
+      this.level = level;
     },
     step: function( dt ) {
       var hadAnimation = this.animationQueue.length;
@@ -90,11 +89,11 @@ define( function( require ) {
     checkSuccess: function() {
       var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
       if ( isCorrect ) {
-        var levelIndex = levels.indexOf( this.currentLevel ) + 1;
-        if ( levelIndex >= levels.length ) {
+        var levelIndex = this.levels.indexOf( this.currentLevel ) + 1;
+        if ( levelIndex >= this.levels.length ) {
           levelIndex = 0;
         }
-        this.startLevel( levels[ levelIndex ] );
+        this.startLevel( this.levels[ levelIndex ] );
       }
     },
 
@@ -132,7 +131,5 @@ define( function( require ) {
       this.startLevel( this.currentLevel );
       this.animationQueue = [];
     }
-  }, {
-    levels: levels
   } );
 } );
