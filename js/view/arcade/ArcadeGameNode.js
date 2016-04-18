@@ -165,7 +165,6 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
 
-
     var self = this;
     visibleBoundsProperty.link( function( visibleBounds ) {
       self.buttonLayer.bottom = visibleBounds.bottom - 20;
