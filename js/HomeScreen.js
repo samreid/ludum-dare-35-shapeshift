@@ -19,6 +19,10 @@ define( function( require ) {
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Sound = require( 'VIBE/Sound' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
+  var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   var played = false;
 
@@ -56,14 +60,14 @@ define( function( require ) {
       listener: startButtonPressed
     } );
 
-    var instructions = new MultiLineText( 'To improve is to change;\nto be perfect is to change often.\n - Winston Churchill', {
+    var quote = new MultiLineText( 'To improve is to change;\nto be perfect is to change often.\n - Winston Churchill', {
       align: 'left',
-      font: new PhetFont( { size: 20 } )
+      font: new PhetFont( { size: 23 } )
     } );
-    instructions.right = bounds.right - 10;
-    instructions.bottom = bounds.bottom - 10;
+    quote.right = bounds.right - 10;
+    quote.bottom = bounds.bottom - 10;
 
-    var subtitle = new Text( 'Ludum Dare 35', { font: new PhetFont( { size: 28 } ) } );
+    var subtitle = new Text( 'Ludum Dare 35', { font: new PhetFont( { size: 23 } ) } );
     subtitle.left = bounds.left + 10;
     subtitle.bottom = bounds.bottom - 10;
 
@@ -99,10 +103,29 @@ define( function( require ) {
       y: 200
     } );
     this.triangleFan = triangleFan;
+
+    var startBody = ShapeshiftModel.levels[ 1 ].startBodies[ 0 ];
+    var op1 = ShapeshiftModel.levels[ 1 ].operations[ 0 ];
+    var op2 = ShapeshiftModel.levels[ 1 ].operations[ 1 ];
+    var scaleOptions = { scale: 0.75 };
+    var exampleNode = new HBox( {
+      spacing: 10,
+      children: [
+        new BodyNode( startBody, 'black' ).mutate( scaleOptions ),
+        new ArrowNode( 0, 0, 30, 0, { scale: 2 } ),
+        new BodyNode( op1.apply( startBody )[ 0 ], 'black' ).mutate( scaleOptions ),
+        new ArrowNode( 0, 0, 30, 0, { scale: 2 } ),
+        new BodyNode( op2.apply( op1.apply( startBody )[ 0 ] )[ 0 ], 'black' ).mutate( scaleOptions )
+      ],
+      centerX: bounds.centerX,
+      top: titleText.bottom + 10
+    } );
+
     Node.call( this, {
       children: [
         circle,
         triangleFan,
+        exampleNode,
         new VBox( {
           spacing: 20,
           children: [
@@ -114,7 +137,7 @@ define( function( require ) {
           bottom: bounds.bottom - 10
         } ),
         titleText,
-        instructions,
+        quote,
         subtitle
       ]
     } );

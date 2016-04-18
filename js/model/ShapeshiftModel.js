@@ -128,5 +128,7 @@ define( function( require ) {
       this.startLevel( this.currentLevel );
       this.animationQueue = [];
     }
+  }, {
+    levels: levels
   } );
 } );
