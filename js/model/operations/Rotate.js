@@ -14,7 +14,7 @@ define( function( require ) {
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
   function Rotate( angle ) {
-    Operation.call( this, 'rotate', '#0a0', '' + angle, 'Rotate' );
+    Operation.call( this, 'rotate', Operation.SHIFT_COLOR, '' + angle, 'Rotate' );
 
     this.angle = angle;
   }

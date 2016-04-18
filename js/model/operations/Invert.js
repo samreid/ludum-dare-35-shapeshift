@@ -17,7 +17,7 @@ define( function( require ) {
   function Invert( circleSize ) {
     this.circleSize = circleSize;
 
-    Operation.call( this, 'remap', '#888', '' + circleSize, 'Invert' );
+    Operation.call( this, 'remap', Operation.SYMMETRIC_COLOR, '' + circleSize, 'Invert' );
   }
 
   shapeshift.register( 'Invert', Invert );

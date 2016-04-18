@@ -13,14 +13,21 @@ define( function( require ) {
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
-  function Snowflake() {
-    Operation.call( this, 'remap', '#a0a', '', 'Snowflake' );
+  function Snowflake( multiplier ) {
+    this.multiplier = multiplier || 1;
+    Operation.call( this, 'remap', '#a0a', '' + this.multiplier, 'Snowflake' );
   }
 
   shapeshift.register( 'Snowflake', Snowflake );
 
   return inherit( Operation, Snowflake, {
     apply: function( body ) {
+      var self = this;
+
+      if ( body.boundaryCurve.length > 1000 ) {
+        return [ new Body( [], [] ) ];
+        // return [ new Body( body.boundaryCurve.slice(), body.holeCurves.map( function( curve ) { return curve.slice(); } ) ) ];
+      }
 
       var mapCurve = function( points ) {
         var result = [];
@@ -30,7 +37,7 @@ define( function( require ) {
 
           var delta = secondPoint.minus( firstPoint );
           result.push( firstPoint.plus( delta.timesScalar( 1 / 3 ) ) );
-          var equilateralPointMultiplier = ( 1 / 3 ) * ( 1 / 2 ) * Math.sqrt( 3 );
+          var equilateralPointMultiplier = ( 1 / 3 ) * ( 1 / 2 ) * Math.sqrt( 3 ) * self.multiplier;
           result.push( firstPoint.plus( delta.timesScalar( 1 / 2 ) ).plus( delta.perpendicular().timesScalar( equilateralPointMultiplier ) ) );
           result.push( firstPoint.plus( delta.timesScalar( 2 / 3 ) ) );
           var endpoint = secondPoint.copy();

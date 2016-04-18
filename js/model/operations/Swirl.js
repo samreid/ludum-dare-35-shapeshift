@@ -14,8 +14,9 @@ define( function( require ) {
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
-  function Swirl() {
-    Operation.call( this, 'remap', '#888', '', 'Swirl' );
+  function Swirl( factor ) {
+    this.factor = factor || 1;
+    Operation.call( this, 'remap', '#c80', '' + factor, 'Swirl' );
   }
 
   shapeshift.register( 'Swirl', Swirl );
@@ -24,7 +25,7 @@ define( function( require ) {
     transform: function( vector ) {
       var angle = vector.angle();
       var magnitude = vector.magnitude();
-      return Vector2.createPolar( magnitude, angle + magnitude / 200 );
+      return Vector2.createPolar( magnitude, angle + this.factor * magnitude / 200 );
     },
 
     apply: function( body ) {

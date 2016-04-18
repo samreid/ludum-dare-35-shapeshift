@@ -77,6 +77,39 @@ define( function( require ) {
       return array;
     };
 
+    // var createHalfRegular = function( numPoints ) {
+    //   var array = [];
+
+    //   for ( var i = 0; i <= numPoints; i++ ) {
+    //     array.push( Vector2.createPolar( 200, -Math.PI / 2 + i / numPoints * ( Math.PI ) ) );
+    //     // array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+    //   }
+
+    //   return array;
+    // };
+
+    var createMoon = function() {
+      var result = [];
+      var res = 70;
+      var angle1 = -Math.PI / 2;
+      var angle2 = Math.PI * 3 / 4;
+      for ( var i = 0; i <= res; i++ ) {
+        var angle = angle1 + ( angle2 - angle1 ) * ( i / res );
+        result.push( Vector2.createPolar( 200, angle ) );
+      }
+      var p1 = Vector2.createPolar( 1, angle1 );
+      var p2 = Vector2.createPolar( 1, angle2 );
+      var mid = p1.average( p2 ).plus( p2.minus( p1 ).perpendicular().normalized().timesScalar( -0.2 ) );
+      var r = p1.distance( mid );
+      var rangle1 = p1.minus( mid ).angle();
+      var rangle2 = p2.minus( mid ).angle();
+      for ( var j = 1; j < res; j++ ) {
+        var rangle = rangle1 + ( rangle2 - rangle1 ) * ( 1 - j / res );
+        result.push( Vector2.createPolar( 1, rangle ).plus( mid ).timesScalar( 200 ) );
+      }
+      return result;
+    };
+
 
     var model = new FreeplayGameModel( [
       new FreeplayLevel( 'Our plane lost a wing\n' +
@@ -122,22 +155,32 @@ define( function( require ) {
 
     // this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
-    this.addOperation( new ConvexHull() );
-    this.addOperation( new RadialDoubling() );
-    this.addOperation( new Snowflake() );
-    this.addOperation( new DeleteVertices( 2 ) );
-    // this.addOperation( new DeleteVertices( 3 ) );
-    this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
-    this.addOperation( new Subdivide() );
-    this.addOperation( new Shear() );
-    this.addOperation( new Swirl() );
-    this.addOperation( new Invert( 150 ) );
     this.addOperation( new Scale( 1.5, 1/1.5 ) );
+    this.addOperation( new Shear( 1 ) );
+    this.addOperation( new Shear( -1 ) );
+    this.addOperation( new ConvexHull() );
+    this.addOperation( new Subdivide() );
+    this.addOperation( new Invert( 150 ) );
+    this.addOperation( new RadialDoubling() );
+    this.addOperation( new Snowflake( 1 ) );
+    this.addOperation( new Snowflake( -1 ) );
+    this.addOperation( new Swirl( 1 ) );
+    this.addOperation( new Swirl( -1 ) );
+    this.addOperation( new DeleteVertices( 2 ) );
+    this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
     this.addOperation( new Static( createRegular( 3 ), 'Triangle' ) );
     this.addOperation( new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ) );
     this.addOperation( new Static( createRegular( 5 ), 'Pentagon' ) );
     this.addOperation( new Static( createStar( 7 ), 'Star' ) );
     this.addOperation( new Static( createRegular( 80 ), 'Circle' ) );
+    // this.addOperation( new Static( createHalfRegular( 40 ), 'Semicircle' ) );
+    this.addOperation( new Static( [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ], 'Arrow' ) );
+    this.addOperation( new Static( [
+                                     new Vector2( 100, 200 ),
+                                     new Vector2( -100, 200 ),
+                                     new Vector2( -200, -200 ),
+                                     new Vector2( 200, -200 )
+                                     ], 'Cup' ) );
 
     this.eyeLayer = new Node( { scale: 0.7 } );
     this.addChild( this.eyeLayer );

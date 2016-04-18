@@ -15,13 +15,17 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   function SelfFractal() {
-    Operation.call( this, 'remap', '#00a', '', 'Fractal' );
+    Operation.call( this, 'remap', '#0c6', '', 'Fractal' );
   }
 
   shapeshift.register( 'SelfFractal', SelfFractal );
 
   return inherit( Operation, SelfFractal, {
     apply: function( body ) {
+      if ( body.boundaryCurve.length > 10 ) {
+        return [ new Body( [], [] ) ];
+        // return [ new Body( body.boundaryCurve.slice(), body.holeCurves.map( function( curve ) { return curve.slice(); } ) ) ];
+      }
       var centroid = body.getBoundaryCentroid();
 
       return body.boundaryCurve.map( function( curvePoint ) {

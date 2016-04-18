@@ -17,7 +17,7 @@ define( function( require ) {
   function Scale( x, y ) {
     this.x = x;
     this.y = y;
-    Operation.call( this, 'remap', '#888', '' + x + ',' + y, 'Scale' );
+    Operation.call( this, 'remap', Operation.SHIFT_COLOR, '' + x + ',' + y, 'Scale' );
   }
 
   shapeshift.register( 'Scale', Scale );

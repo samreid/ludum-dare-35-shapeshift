@@ -14,15 +14,16 @@ define( function( require ) {
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Operation = require( 'SHAPESHIFT/model/operations/Operation' );
 
-  function Shear() {
-    Operation.call( this, 'remap', '#888', '', 'Shear' );
+  function Shear( multiplier ) {
+    this.multiplier = multiplier || 1;
+    Operation.call( this, 'remap', Operation.SHIFT_COLOR, '' + this.multiplier, 'Shear' );
   }
 
   shapeshift.register( 'Shear', Shear );
 
   return inherit( Operation, Shear, {
     transform: function( vector ) {
-      return new Vector2( vector.x - vector.y, vector.y );
+      return new Vector2( vector.x - this.multiplier * vector.y, vector.y );
     },
 
     apply: function( body ) {

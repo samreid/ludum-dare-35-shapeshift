@@ -91,15 +91,19 @@ define( function( require ) {
       if ( this.dirty ) {
         this.dirty = false;
 
+        var bodies = this.getAppliedBodies( this.model.targetBodies );
+
         var container = new Node( {
           maxWidth: MAX_WIDTH,
           maxHeight: MAX_HEIGHT,
-          children: this.getAppliedBodies( this.model.targetBodies ).map( function( body ) {
+          children: bodies.map( function( body ) {
             return new BodyNode( body, '#eee' );
           } ),
           center: this.contentBounds.center
         } );
         this.content.children = this.useLabel ? [ container, this.optionalLabel ] : [ container ];
+
+        this.enabled = bodies.length > 0 && bodies[ 0 ].boundaryCurve.length > 0;
       }
     }
   } );

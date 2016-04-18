@@ -27,5 +27,8 @@ define( function( require ) {
     toString: function() {
       return 'new ' + this.constructor.name + '(' + ( this.argsString ? this.argsString : '' ) + ')'
     }
+  }, {
+    SHIFT_COLOR: '#0a0',
+    SYMMETRIC_COLOR: '#0aa'
   } );
 } );
