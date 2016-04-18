@@ -120,13 +120,13 @@ define( function( require ) {
     // add
     this.model.bodies.forEach( this.addBody.bind( this ) );
 
-    this.addOperation( new Reflect() );
+    // this.addOperation( new Reflect() );
     this.addOperation( new Rotate( Math.PI / 2 ) );
     this.addOperation( new ConvexHull() );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake() );
     this.addOperation( new DeleteVertices( 2 ) );
-    this.addOperation( new DeleteVertices( 3 ) );
+    // this.addOperation( new DeleteVertices( 3 ) );
     this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
     this.addOperation( new Subdivide() );
     this.addOperation( new Shear() );
@@ -137,6 +137,7 @@ define( function( require ) {
     this.addOperation( new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ) );
     this.addOperation( new Static( createRegular( 5 ), 'Pentagon' ) );
     this.addOperation( new Static( createStar( 7 ), 'Star' ) );
+    this.addOperation( new Static( createRegular( 80 ), 'Circle' ) );
 
     this.eyeLayer = new Node( { scale: 0.7 } );
     this.addChild( this.eyeLayer );
