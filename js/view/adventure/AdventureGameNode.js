@@ -29,6 +29,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // operations
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
@@ -184,8 +185,11 @@ define( function( require ) {
       var panel = new Panel( new VBox( {
         children: [
           new Text( 'With the tire replaced', { fontSize: 48 } ),
-          new Text( 'Murphy McMorph set out toward his goal', { fontSize: 48 } ),
+          new Text( 'the traveler set out toward his goal', { fontSize: 48 } ),
           new Text( 'Thus began', { fontSize: 48 } ),
+          new VStrut( 50 ),
+          new Text( 'Murphy McMorph', { fontSize: 36 } ),
+          new Text( 'starring in', { fontSize: 24 } ),
           new Image( bannerImage, { scale: 1.5 } ),
           textPushButton
         ]
