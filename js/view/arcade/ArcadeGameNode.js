@@ -51,8 +51,11 @@ define( function( require ) {
 
   function ArcadeGameNode( blah, layoutBounds, visibleBoundsProperty, showHomeScreen ) {
     Node.call( this );
+    this.layoutBounds = layoutBounds;
 
     var ground = new Rectangle( -1000, 480, 3000, 1000, { fill: 'green' } );
+    this.ground = ground;
+    this.time = 0;
 
     var levels = new ArcadeLevelDesign().getLevels();
     var model = new ArcadeGameModel( levels );
@@ -115,7 +118,8 @@ define( function( require ) {
       }
     } );
 
-    var goalNode = new VBox( {} );
+    var goalNode = new VBox( { spacing: 10 } );
+    this.goalNode = goalNode;
     var update = function() {
       goalNode.children = model.goalBodies.map( function( b ) {
         return new BodyNode( b ).mutate( { scale: 0.5 } );
@@ -201,7 +205,38 @@ define( function( require ) {
         var obj = level.availableOperations[ i ];
         self.addOperation( obj );
       }
+      self.goalNode.bottom = layoutBounds.top;
     } );
+    this.speed = 1;
+
+
+    var tryAgainButton = new TextPushButton( 'Try Again', {
+      scale: 3
+    } );
+    tryAgainButton.addListener( function() {
+
+      // blah
+      var currentIndex = self.model.levels.indexOf( self.model.level );
+      self.model.startLevel( self.model.levels[ currentIndex ] );
+
+      self.goalNode.bottom = layoutBounds.top;
+      self.gameOver = false;
+
+      self.gameOverPanel.visible = false;
+    } );
+    var gameOverPanel = new Panel( new VBox( {
+      spacing: 20,
+      children: [
+        new MultiLineText( 'Game Over', {
+          font: new PhetFont( 48 )
+        } ),
+        tryAgainButton
+      ],
+      center: this.layoutBounds.center
+    } ) );
+    this.addChild( gameOverPanel );
+    this.gameOverPanel = gameOverPanel;
+    gameOverPanel.visible = false;
   }
 
   shapeshift.register( 'ArcadeGameNode', ArcadeGameNode );
@@ -235,12 +270,21 @@ define( function( require ) {
     },
 
     step: function( dt ) {
-      this.model.step( dt );
-      this.operationButtons.forEach( function( operationButton ) {
-        operationButton.update();
-      } );
-      this.leftEyebrow.step( dt );
-      this.rightEyebrow.step( dt );
+      if ( !this.gameOver ) {
+        this.time += dt;
+        this.model.step( dt );
+        this.operationButtons.forEach( function( operationButton ) {
+          operationButton.update();
+        } );
+        this.leftEyebrow.step( dt );
+        this.rightEyebrow.step( dt );
+        this.goalNode.translate( 0, this.speed );
+        if ( this.goalNode.globalBounds.intersectsBounds( this.ground.globalBounds ) ) {
+          this.gameOver = true;
+          this.gameOverPanel.visible = true;
+          this.gameOverPanel.center = this.layoutBounds.center;
+        }
+      }
     }
   } );
 } );
