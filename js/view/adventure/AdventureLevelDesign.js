@@ -128,7 +128,8 @@ define( function( require ) {
           new Snowflake(),
           new RadialDoubling()
         ] ),
-        new AdventureLevel( 'The crystal fractal is mine\nand now I belong to it.\n' +
+        new AdventureLevel( 'Finally! The crystal fractal is mine--\n' +
+                            'or now I belong to it.\n' +
                             '\nThe End', [ createTriangle() ], [
           new RadialDoubling()
         ], [
