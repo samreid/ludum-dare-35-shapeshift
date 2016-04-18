@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   var globalId = 1;
 
@@ -55,6 +56,39 @@ define( function( require ) {
       return centroid;
     }
   }, {
+    discretizeCurve: function( curve, maxDistance ) {
+      var result = [];
+
+      function next( n ) {
+        return ( n === curve.length - 1 ) ? 0 : ( n + 1 );
+      }
+
+      for ( var i = 0; i < curve.length; i++ ) {
+        var firstPoint = curve[ i ];
+        var secondPoint = curve[ next( i ) ];
+
+        var delta = secondPoint.minus( firstPoint );
+        var magnitude = delta.magnitude();
+        var segments = 1;
+        while ( magnitude / segments > maxDistance ) {
+          segments++;
+        }
+        for ( var j = 1; j < segments; j++ ) {
+          result.push( firstPoint.blend( secondPoint, j / segments ) );
+        }
+        result.push( secondPoint );
+      }
+      return result;
+    },
+
+    removeCollinear: function( curve, epsilon ) {
+      function next( n ) {
+        return ( n === curve.length - 1 ) ? 0 : ( n + 1 );
+      }
+
+      Util.arePointsCollinear( a, b, c, epsilon );
+    },
+
     remapAugmented: function( beforeBody, afterBody ) {
       assert && assert( beforeBody.boundaryCurve === afterBody.boundaryCurve.old );
       assert && assert( beforeBody.holeCurves.length === afterBody.holeCurves.length );
