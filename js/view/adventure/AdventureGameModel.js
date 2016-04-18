@@ -13,6 +13,7 @@ define( function( require ) {
   var RemapAnimation = require( 'SHAPESHIFT/model/RemapAnimation' );
   var RotationAnimation = require( 'SHAPESHIFT/model/RotationAnimation' );
   var Body = require( 'SHAPESHIFT/model/Body' );
+  var Emitter = require( 'AXON/Emitter' );
 
   var Sound = require( 'VIBE/Sound' );
 
@@ -43,6 +44,8 @@ define( function( require ) {
       level = 0;
     }
     this.startLevel( levels[ level ] );
+
+    this.successEmitter = new Emitter();
   }
 
   return inherit( PropertySet, ShapeshiftModel, {
@@ -87,13 +90,16 @@ define( function( require ) {
     },
 
     checkSuccess: function() {
+      var self = this;
       var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
       if ( isCorrect ) {
         var levelIndex = this.levels.indexOf( this.currentLevel ) + 1;
         if ( levelIndex >= this.levels.length ) {
           levelIndex = 0;
         }
-        this.startLevel( this.levels[ levelIndex ] );
+        this.successEmitter.emit1( function() {
+          self.startLevel( self.levels[ levelIndex ] );
+        } );
       }
     },
 

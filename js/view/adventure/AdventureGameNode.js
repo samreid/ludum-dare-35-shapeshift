@@ -12,6 +12,7 @@ define( function( require ) {
   var shapeshift = require( 'SHAPESHIFT/shapeshift' );
   var Node = require( 'SCENERY/nodes/Node' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
   var OperationButton = require( 'SHAPESHIFT/view/OperationButton' );
   var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
@@ -27,6 +28,7 @@ define( function( require ) {
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Image = require( 'SCENERY/nodes/Image' );
   var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
 
   // operations
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
@@ -175,6 +177,27 @@ define( function( require ) {
     model.levelProperty.link( function( level ) {
       levelDescriptionNode.setText( level.text );
       updateTextLocation();
+    } );
+
+    model.successEmitter.addListener( function( callback ) {
+      var textPushButton = new TextPushButton( 'Continue', { scale: 4 } );
+      var panel = new Panel( new VBox( {
+        children: [
+          new Text( 'With the tire replaced', { fontSize: 48 } ),
+          new Text( 'Murphy McMorph set out toward his goal', { fontSize: 48 } ),
+          new Text( 'Thus began', { fontSize: 48 } ),
+          new Image( bannerImage, { scale: 1.5 } ),
+          textPushButton
+        ]
+      } ), {
+        centerX: layoutBounds.centerX,
+        bottom: layoutBounds.bottom - 10
+      } );
+      textPushButton.addListener( function() {
+        self.removeChild( panel );
+        callback();
+      } );
+      self.addChild( panel );
     } );
   }
 
