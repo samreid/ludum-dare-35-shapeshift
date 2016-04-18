@@ -118,8 +118,8 @@ define( function( require ) {
       face.addChild( leftEye.mutate( { y: 300 } ) );
       face.addChild( rightEye.mutate( { left: leftEye.right + leftEye.width, y: leftEye.y } ) );
 
-      var leftEyebrow = new Eyebrow();
-      var rightEyebrow = new Eyebrow();
+      // var leftEyebrow = new Eyebrow();
+      // var rightEyebrow = new Eyebrow();
       // face.addChild( leftEyebrow.mutate( { x: leftEye.x, y: leftEye.y - 30 } ) );
       // face.addChild( rightEyebrow.mutate( { x: rightEye.x, y: leftEye.y - 30, scale: new Vector2( -1, 1 ) } ) );
       return face;
