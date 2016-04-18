@@ -38,6 +38,9 @@ define( function( require ) {
     if ( typeof level === 'string' ) {
       level = parseInt( level, 10 );
     }
+    else {
+      level = 0;
+    }
     this.startLevel( levels[ level ] );
   }
 

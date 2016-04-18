@@ -18,6 +18,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Sound = require( 'VIBE/Sound' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   var played = false;
 
@@ -25,13 +26,27 @@ define( function( require ) {
   var jewelCrusherSound = new Sound( jewelCrusher );
 
   function HomeScreen( bounds, startButtonPressed ) {
-    var startGameButton = new RectangularPushButton( {
-      content: new Text( 'Start Game', {
+    var arcadeModeButton = new RectangularPushButton( {
+      content: new Text( 'Arcade Mode', {
         font: new PhetFont( { size: 40, weight: 'bold' } )
       } ),
-      baseColor: '#f8515d',
-      centerX: bounds.centerX,
-      bottom: bounds.maxY - 10,
+      baseColor: '#55ff55',
+      listener: startButtonPressed
+    } );
+
+    var adventureModeButton = new RectangularPushButton( {
+      content: new Text( 'Adventure Mode', {
+        font: new PhetFont( { size: 40, weight: 'bold' } )
+      } ),
+      baseColor: '#ff5555',
+      listener: startButtonPressed
+    } );
+
+    var freePlayModeButton = new RectangularPushButton( {
+      content: new Text( 'Free Play', {
+        font: new PhetFont( { size: 40, weight: 'bold' } )
+      } ),
+      baseColor: '#5555ff',
       listener: startButtonPressed
     } );
 
@@ -39,14 +54,14 @@ define( function( require ) {
       align: 'left',
       font: new PhetFont( { size: 28 } )
     } );
-    instructions.left = startGameButton.right + 80;
-    instructions.centerY = startGameButton.centerY;
+    instructions.left = arcadeModeButton.right + 80;
+    instructions.centerY = arcadeModeButton.centerY;
 
     var subtitle = new Text( 'Ludum Dare 35', { font: new PhetFont( { size: 28 } ) } );
-    subtitle.right = startGameButton.left - 80;
-    subtitle.centerY = startGameButton.centerY;
+    subtitle.right = arcadeModeButton.left - 80;
+    subtitle.centerY = arcadeModeButton.centerY;
 
-    var titleText = new Text( 'Pick a Title', {
+    var titleText = new Text( 'Dawn of Night', {
       font: new PhetFont( { size: 105 } ),
       centerX: bounds.centerX,
       top: 10
@@ -82,8 +97,16 @@ define( function( require ) {
       children: [
         circle,
         triangleFan,
-        startGameButton,
-        // instructions,
+        new VBox( {
+          spacing: 20,
+          children: [
+            arcadeModeButton,
+            adventureModeButton,
+            freePlayModeButton
+          ],
+          centerX: bounds.centerX,
+          bottom: bounds.bottom - 10
+        } ),
         titleText,
         subtitle
       ]
