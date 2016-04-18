@@ -17,6 +17,7 @@ define( function( require ) {
   var OperationButton = require( 'SHAPESHIFT/view/OperationButton' );
   var Eyebrow = require( 'SHAPESHIFT/view/Eyebrow' );
   var Eyeball = require( 'SHAPESHIFT/view/Eyeball' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var Plane = require( 'SCENERY/nodes/Plane' );
   var TitledPanel = require( 'SHAPESHIFT/view/TitledPanel' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -29,6 +30,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
   var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
+  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // operations
@@ -47,7 +49,7 @@ define( function( require ) {
   // images
   var bannerImage = require( 'image!SHAPESHIFT/banner.png' );
 
-  function AdventureGameNode( blah, layoutBounds, visibleBoundsProperty ) {
+  function AdventureGameNode( blah, layoutBounds, visibleBoundsProperty, showHomeScreen ) {
     Node.call( this );
 
     var levels = new AdventureLevelDesign().getLevels();
@@ -150,10 +152,19 @@ define( function( require ) {
     resetAllButton.mutate( {
       scale: this.buttonLayer.height / resetAllButton.height * 0.75,
     } );
+
+    var homeButton = new RoundPushButton( { scale: 1.5, content: new FontAwesomeNode( 'home', { fill: 'black' } ) } );
+    homeButton.addListener( showHomeScreen );
+    this.addChild( homeButton );
+
     visibleBoundsProperty.link( function( visibleBounds ) {
       resetAllButton.right = visibleBounds.right - 10;
+
+      homeButton.top = visibleBounds.top + 10;
+      homeButton.left = visibleBounds.left + 10;
     } );
     this.addChild( resetAllButton );
+
 
     var self = this;
     visibleBoundsProperty.link( function( visibleBounds ) {
@@ -182,17 +193,24 @@ define( function( require ) {
 
     model.successEmitter.addListener( function( callback ) {
       var textPushButton = new TextPushButton( 'Continue', { scale: 4 } );
-      var panel = new Panel( new VBox( {
-        children: [
-          new Text( 'With the tire replaced', { fontSize: 48 } ),
-          new Text( 'the traveler set out toward his goal', { fontSize: 48 } ),
-          new Text( 'Thus began', { fontSize: 48 } ),
-          new VStrut( 50 ),
-          new Text( 'Murphy McMorph', { fontSize: 36 } ),
-          new Text( 'starring in', { fontSize: 24 } ),
-          new Image( bannerImage, { scale: 1.5 } ),
+      var createSuccessPanelChildren = [
+        new Text( 'With the tire replaced', { fontSize: 48 } ),
+        new Text( 'the traveler set out toward his goal', { fontSize: 48 } ),
+        new Text( 'Thus began', { fontSize: 48 } ),
+        new VStrut( 50 ),
+        new Text( 'Murphy McMorph', { fontSize: 36 } ),
+        new Text( 'starring in', { fontSize: 24 } ),
+        new Image( bannerImage, { scale: 1.5 } ),
+        textPushButton
+      ];
+      if ( model.level !== model.levels[ 0 ] ) {
+        createSuccessPanelChildren = [
+          new Text( 'Success!', { fontSize: 48 } ),
           textPushButton
-        ]
+        ];
+      }
+      var panel = new Panel( new VBox( {
+        children: createSuccessPanelChildren
       } ), {
         centerX: layoutBounds.centerX,
         bottom: layoutBounds.bottom - 10

@@ -27,7 +27,9 @@ define( function( require ) {
     ScreenView.call( this, { layoutBounds: bounds } );
 
     this.arcadeNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
-    this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty );
+    this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty, function() {
+      self.showNode( self.homeScreen );
+    } );
     this.freePlayNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
