@@ -11,6 +11,7 @@ define( function( require ) {
   var HomeScreen = require( 'SHAPESHIFT/HomeScreen' );
   var GameNode = require( 'SHAPESHIFT/view/GameNode' );
   var AdventureGameNode = require( 'SHAPESHIFT/view/adventure/AdventureGameNode' );
+  var ArcadeGameNode = require( 'SHAPESHIFT/view/arcade/ArcadeGameNode' );
   var Sound = require( 'VIBE/Sound' );
 
   function ShapeshiftScreenView( model ) {
@@ -26,10 +27,12 @@ define( function( require ) {
     var bounds = new Bounds2( 0, 0, 1024, 618 );
     ScreenView.call( this, { layoutBounds: bounds } );
 
-    this.arcadeNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
-    this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty, function() {
+    var showHomeScreen = function() {
       self.showNode( self.homeScreen );
-    } );
+    };
+
+    this.arcadeNode = new ArcadeGameNode( model, this.layoutBounds, this.visibleBoundsProperty, showHomeScreen );
+    this.adventureNode = new AdventureGameNode( model, this.layoutBounds, this.visibleBoundsProperty, showHomeScreen );
     this.freePlayNode = new GameNode( model, this.layoutBounds, this.visibleBoundsProperty );
 
     this.preventFit = true;
