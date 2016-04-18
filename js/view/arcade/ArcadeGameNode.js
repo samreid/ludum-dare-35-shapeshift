@@ -172,7 +172,7 @@ define( function( require ) {
       resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
-    var levelDescriptionNode = new MultiLineText( 'test', {
+    var levelDescriptionNode = new MultiLineText( 'default text', {
       align: 'left',
       font: new PhetFont( { size: 23 } )
     } );
@@ -187,28 +187,17 @@ define( function( require ) {
     this.addChild( quote );
 
     model.levelProperty.link( function( level ) {
-      levelDescriptionNode.setText( level.text );
+      levelDescriptionNode.setText( 'Level: ' + (model.levels.indexOf( level ) + 1) );
       updateTextLocation();
     } );
 
     model.successEmitter.addListener( function( callback ) {
       var textPushButton = new TextPushButton( 'Continue', { scale: 4 } );
+      var levelText = (model.levels.indexOf( model.level ) + 1) + '';
       var createSuccessPanelChildren = [
-        new Text( 'With the tire replaced', { fontSize: 48 } ),
-        new Text( 'the traveler set out toward his goal', { fontSize: 48 } ),
-        new Text( 'Thus began', { fontSize: 48 } ),
-        new VStrut( 50 ),
-        new Text( 'Murphy McMorph', { fontSize: 36 } ),
-        new Text( 'starring in', { fontSize: 24 } ),
-        new Image( bannerImage, { scale: 1.5 } ),
+        new Text( 'Level ' + levelText + ' cleared!', { fontSize: 48 } ),
         textPushButton
       ];
-      if ( model.level !== model.levels[ 0 ] ) {
-        createSuccessPanelChildren = [
-          new Text( 'Success!', { fontSize: 48 } ),
-          textPushButton
-        ];
-      }
       var panel = new Panel( new VBox( {
         children: createSuccessPanelChildren
       } ), {
