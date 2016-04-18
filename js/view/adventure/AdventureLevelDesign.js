@@ -38,7 +38,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Level = require( 'SHAPESHIFT/model/Level' );
+  var AdventureLevel = require( 'SHAPESHIFT/view/adventure/AdventureLevel' );
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -81,36 +81,25 @@ define( function( require ) {
 
     this.getLevels = function() {
       return [
-        new Level( [ createRectangle() ], [
+        new AdventureLevel( 'Quest for the Crystal Fractal\n\n' +
+                            'Day 1:\n' +
+                            'On the road to the airport\n' +
+                            'I had to replace a flat tire.', [ createRectangle() ], [
           new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
           new RadialDoubling()
         ] ),
-        new Level( [ createStar() ], [
+        new AdventureLevel( '', [ createStar() ], [
           new DeleteVertices( 3 ),
           new Snowflake()
         ], [
           new DeleteVertices( 3 ),
           new Snowflake()
         ] ),
-        new Level( [ createTriangle() ], [
+        new AdventureLevel( '', [ createTriangle() ], [
           new Snowflake(), new DeleteVertices( 3 ), new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
-        new Level( [ createMap() ], [
-          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
-        new Level( [ createBird() ], [
-          new RadialDoubling(), new Snowflake(), new DeleteVertices( 3 )
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),

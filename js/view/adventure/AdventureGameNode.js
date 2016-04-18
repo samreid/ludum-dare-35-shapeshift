@@ -26,6 +26,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var MultiLineText = require( 'SCENERY_PHET/MultiLineText' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var ShapeshiftModel = require( 'SHAPESHIFT/model/ShapeshiftModel' );
 
   // operations
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
@@ -37,12 +38,16 @@ define( function( require ) {
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
   var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+  var AdventureLevelDesign = require( 'SHAPESHIFT/view/adventure/AdventureLevelDesign' );
 
   // images
   var bannerImage = require( 'image!SHAPESHIFT/banner.png' );
 
   function AdventureGameNode( model, layoutBounds, visibleBoundsProperty ) {
     Node.call( this );
+
+    var levels = new AdventureLevelDesign().getLevels();
+    model = new ShapeshiftModel();
     this.visibleBoundsProperty = visibleBoundsProperty;
 
     // So the eyes can watch the mouse wherever it goes
@@ -194,6 +199,7 @@ define( function( require ) {
     },
 
     step: function( dt ) {
+      this.model.step( dt );
       this.operationButtons.forEach( function( operationButton ) {
         operationButton.update();
       } );

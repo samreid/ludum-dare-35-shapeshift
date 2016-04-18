@@ -10,7 +10,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var HomeScreen = require( 'SHAPESHIFT/HomeScreen' );
   var GameNode = require( 'SHAPESHIFT/view/GameNode' );
-  var AdventureGameNode = require( 'SHAPESHIFT/view/AdventureGameNode' );
+  var AdventureGameNode = require( 'SHAPESHIFT/view/adventure/AdventureGameNode' );
   var Sound = require( 'VIBE/Sound' );
 
   function ShapeshiftScreenView( model ) {
