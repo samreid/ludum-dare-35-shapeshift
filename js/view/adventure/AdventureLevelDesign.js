@@ -27,6 +27,11 @@ define( function( require ) {
   var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
+  var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+  var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
+  var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
+  var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
+  var Static = require( 'SHAPESHIFT/model/operations/Static' );
 
   function LevelDesign() {
     var createTriangle = function() {
