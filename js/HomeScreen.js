@@ -26,42 +26,48 @@ define( function( require ) {
   var jewelCrusherSound = new Sound( jewelCrusher );
 
   function HomeScreen( bounds, startButtonPressed ) {
+    var buttonFont = { size: 35, weight: 'bold' };
+
+    var minButtonWidth = 300;
     var arcadeModeButton = new RectangularPushButton( {
+      minWidth: minButtonWidth,
       content: new Text( 'Arcade Mode', {
-        font: new PhetFont( { size: 40, weight: 'bold' } )
+        font: new PhetFont( buttonFont )
       } ),
       baseColor: '#55ff55',
       listener: startButtonPressed
     } );
 
     var adventureModeButton = new RectangularPushButton( {
+      minWidth: minButtonWidth,
       content: new Text( 'Adventure Mode', {
-        font: new PhetFont( { size: 40, weight: 'bold' } )
+        font: new PhetFont( buttonFont )
       } ),
       baseColor: '#ff5555',
       listener: startButtonPressed
     } );
 
     var freePlayModeButton = new RectangularPushButton( {
+      minWidth: minButtonWidth,
       content: new Text( 'Free Play', {
-        font: new PhetFont( { size: 40, weight: 'bold' } )
+        font: new PhetFont( buttonFont )
       } ),
       baseColor: '#5555ff',
       listener: startButtonPressed
     } );
 
-    var instructions = new MultiLineText( 'These are instructions', {
+    var instructions = new MultiLineText( 'To improve is to change;\nto be perfect is to change often.\n - Winston Churchill', {
       align: 'left',
-      font: new PhetFont( { size: 28 } )
+      font: new PhetFont( { size: 20 } )
     } );
-    instructions.left = arcadeModeButton.right + 80;
-    instructions.centerY = arcadeModeButton.centerY;
+    instructions.right = bounds.right - 10;
+    instructions.bottom = bounds.bottom - 10;
 
     var subtitle = new Text( 'Ludum Dare 35', { font: new PhetFont( { size: 28 } ) } );
-    subtitle.right = arcadeModeButton.left - 80;
-    subtitle.centerY = arcadeModeButton.centerY;
+    subtitle.left = bounds.left + 10;
+    subtitle.bottom = bounds.bottom - 10;
 
-    var titleText = new Text( 'Dawn of Night', {
+    var titleText = new Text( 'Perfect Form', {
       font: new PhetFont( { size: 105 } ),
       centerX: bounds.centerX,
       top: 10
@@ -108,6 +114,7 @@ define( function( require ) {
           bottom: bounds.bottom - 10
         } ),
         titleText,
+        instructions,
         subtitle
       ]
     } );
