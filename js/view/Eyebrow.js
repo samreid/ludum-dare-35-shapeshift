@@ -43,7 +43,7 @@ define( function( require ) {
 
       var center2 = new Vector2( 0, -h + 15 );
       return new Shape()
-        .moveToPoint( left )
+        .moveToPoint( left.plusXY( -2, 2 ) )
         .cubicCurveToPoint( c1, c2, center )
         .cubicCurveToPoint( r1, r2, right )
         .lineToPoint( right.plusXY( -5, 5 ) )

@@ -48,19 +48,12 @@ define( function( require ) {
   }
 
   return inherit( ScreenView, ShapeshiftScreenView, {
-    hideHomeScreen: function() {
-      this.removeChild( this.homeScreen );
-    },
     step: function( dt ) {
-      if ( this.adventureNode.hasParent() ) {
-        this.adventureNode.step( dt );
-      }
-      if ( this.homeScreen.hasParent() ) {
-        this.homeScreen.step( dt );
-      }
+      this.shownNode && this.shownNode.step && this.shownNode.step( dt );
     },
     showNode: function( node ) {
       this.children = [ node ];
-    },
+      this.shownNode = node;
+    }
   } );
 } );
