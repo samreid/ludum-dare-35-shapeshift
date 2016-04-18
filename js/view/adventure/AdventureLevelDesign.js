@@ -137,7 +137,7 @@ define( function( require ) {
           new RadialDoubling()
         ] ),
         new AdventureLevel( 'Years later,\n' +
-                            'Murphy McMorph became a street performer.',
+                            'Murphy McMorph retired and started a rock band.',
           [ createTriangle() ], [
             new RadialDoubling()
           ], [
