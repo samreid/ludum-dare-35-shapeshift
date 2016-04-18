@@ -27,7 +27,11 @@ define( function( require ) {
   var DeleteVertices = require( 'SHAPESHIFT/model/operations/DeleteVertices' );
   var Snowflake = require( 'SHAPESHIFT/model/operations/Snowflake' );
   var Subdivide = require( 'SHAPESHIFT/model/operations/Subdivide' );
-
+  var Shear = require( 'SHAPESHIFT/model/operations/Shear' );
+  var Swirl = require( 'SHAPESHIFT/model/operations/Swirl' );
+  var Invert = require( 'SHAPESHIFT/model/operations/Invert' );
+  var Scale = require( 'SHAPESHIFT/model/operations/Scale' );
+  var Static = require( 'SHAPESHIFT/model/operations/Static' );
   function LevelDesign() {
     var createTriangle = function() {
       var length = 150;
@@ -55,11 +59,26 @@ define( function( require ) {
       return new Body( array, [] );
     };
 
+
+    var createRegular = function( numPoints ) {
+      var array = [];
+
+      for ( var i = 0; i < numPoints; i++ ) {
+        array.push( Vector2.createPolar( 200, i * ( Math.PI * 2 ) / numPoints ) );
+        // array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+      }
+
+      return array;
+    };
+
     this.getLevels = function() {
+      var rectangle = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
       return [
-        new ArcadeLevel( [ createRectangle() ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
+        new ArcadeLevel( [ new Body( rectangle.slice(), [] ) ], [
+          new Static( rectangle ),
+          new Static( createRegular( 3 ), 'Triangle' ),
+          new Snowflake( 1 ),
+          new Snowflake( -1 ),
           new RadialDoubling()
         ], 3 )
       ];
