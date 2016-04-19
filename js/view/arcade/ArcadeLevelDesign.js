@@ -102,7 +102,6 @@ define( function( require ) {
         new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ),
         new Static( createRegular( 5 ), 'Pentagon' ),
         new Static( createStar( 7 ), 'Star' ),
-        new Static( createRegular( 80 ), 'Circle' ),
         new Static( [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ], 'Arrow' ),
         new Static( [
           new Vector2( 100, 200 ),

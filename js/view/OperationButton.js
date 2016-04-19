@@ -18,6 +18,10 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var BodyNode = require( 'SHAPESHIFT/view/BodyNode' );
   var Shape = require( 'KITE/Shape' );
+  var Sound = require( 'VIBE/Sound' );
+
+  var cut = require( 'audio!SHAPESHIFT/cut' );
+  var cutSound = new Sound( cut );
 
   var MAX_WIDTH = 80;
   var MAX_HEIGHT = 80;
@@ -61,6 +65,7 @@ define( function( require ) {
         allOps.push( self.operation.toString() );
 
         console.log( allOps.join( ', ' ) );
+        cutSound.play();
       },
       xMargin: 13,
       yMargin: 10,
