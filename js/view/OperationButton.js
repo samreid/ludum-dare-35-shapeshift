@@ -64,7 +64,6 @@ define( function( require ) {
         model.applyOperation( self.operation );
         allOps.push( self.operation.toString() );
 
-        console.log( allOps.join( ', ' ) );
         cutSound.play();
       },
       xMargin: 13,

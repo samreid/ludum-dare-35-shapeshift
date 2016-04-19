@@ -102,11 +102,9 @@ define( function( require ) {
       for ( var i = 0; i < this.level.listOfGoalBodyGroups.length; i++ ) {
         if ( !this.level.solved[ i ] && this.level.isAnswerCorrect( this.bodies.getArray(), this.level.listOfGoalBodyGroups[ i ] ) ) {
           this.goalBodies.removeAll( this.level.listOfGoalBodyGroups[ i ] );
-          console.log( 'removed, lengeth = ' + this.goalBodies.length );
 
           this.level.solved[ i ] = true;
           if ( this.goalBodies.length === 0 ) {
-            console.log( 'level complete' );
             var currentLevelIndex = this.levels.indexOf( this.level );
             var nextLevelIndex = currentLevelIndex + 1;
             if ( nextLevelIndex >= this.levels.length ) {
