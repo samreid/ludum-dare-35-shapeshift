@@ -158,7 +158,7 @@ define( function( require ) {
         ] ),
 
         // Medium
-        new AdventureLevel( '', [ new Body( starCurve, [] ) ], [
+        new AdventureLevel( 'Prophecies of the Sunflower\nproved greater than\nthe star', [ new Body( starCurve, [] ) ], [
           new Snowflake( 1 ), new DeleteVertices( 2 ), new RadialDoubling()
         ], [
           new Static( starCurve ),
@@ -166,7 +166,7 @@ define( function( require ) {
         ] ),
 
         // Hard
-        new AdventureLevel( '', [ new Body( squareCurve, [] ) ], [
+        new AdventureLevel( 'The elders balked,\nsaying it was impossible,\ngiven the options', [ new Body( squareCurve, [] ) ], [
           new Snowflake( -1 ), new Invert( 180 ), new Scale( 1.5, 0.6666666666666666 ), new Invert( 180 ), new RadialDoubling()
         ], [
           new Static( squareCurve ),
@@ -174,7 +174,7 @@ define( function( require ) {
         ] ),
 
         // Medium
-        new AdventureLevel( 'Text', [ new Body( pentagonCurve, [] ) ], [
+        new AdventureLevel( 'Find the one true\nleader, who looks a bit too\nmuch like Yoda', [ new Body( pentagonCurve, [] ) ], [
           new Scale(1.5,0.6666666666666666), new Snowflake(1), new Rotate(1.5707963267948966), new Scale(1.5,0.6666666666666666)
         ], [
           new Static( pentagonCurve ),
@@ -182,7 +182,7 @@ define( function( require ) {
         ] ),
 
         // Easy-Medium
-        new AdventureLevel( 'Text', [ new Body( cupCurve, [] ) ], [
+        new AdventureLevel( 'Paint stripes on your face\nthey said. It will be\ncamouflage, the said.', [ new Body( cupCurve, [] ) ], [
           new Shear(-1), new Snowflake(-1), new Shear(1)
         ], [
           new Static( cupCurve ),
@@ -190,7 +190,7 @@ define( function( require ) {
         ] ),
 
         // Medium-Hard
-        new AdventureLevel( 'Text', [ new Body( circleCurve, [] ) ], [
+        new AdventureLevel( 'Four leaf clovers?\nBogus', [ new Body( circleCurve, [] ) ], [
           new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Scale(1.5,0.6666666666666666), new Invert(180), new RadialDoubling()
         ], [
           new Static( circleCurve ),
@@ -198,7 +198,7 @@ define( function( require ) {
         ] ),
 
         // Medium
-        new AdventureLevel( 'Text', [ new Body( squareCurve, [] ) ], [
+        new AdventureLevel( 'Seems flat enough?', [ new Body( squareCurve, [] ) ], [
           new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966)
         ], [
           new Static( squareCurve ),
@@ -206,7 +206,7 @@ define( function( require ) {
         ] ),
 
         // Hard
-        new AdventureLevel( 'Text', [ new Body( triangleCurve, [] ) ], [
+        new AdventureLevel( 'There is no last level\nThey said', [ new Body( triangleCurve, [] ) ], [
           new RadialDoubling(), new SelfFractal(), new Snowflake(-1), new DeleteVertices(2), new Invert(180)
         ], [
           new Static( triangleCurve ),
