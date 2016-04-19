@@ -12,7 +12,7 @@ define( function( require ) {
    * @constructor
    */
   function ShapeshiftScreen() {
-    Screen.call( this, 'Pick a Title', new Text( 'hello' ),
+    Screen.call( this, 'Perfect Form', new Text( 'hello' ),
       function() { return new ShapeshiftModel(); },
       function( model ) {
         return new ShapeshiftScreenView( model );
