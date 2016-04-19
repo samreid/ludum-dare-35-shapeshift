@@ -107,14 +107,24 @@ define( function( require ) {
       var starCurve = createStar( 7 );
       var pentagonCurve = createRegular( 5 );
       var cupCurve = [
-                                     new Vector2( 100, 200 ),
-                                     new Vector2( -100, 200 ),
-                                     new Vector2( -200, -200 ),
-                                     new Vector2( 200, -200 )
-                                     ];
+        new Vector2( 100, 200 ),
+        new Vector2( -100, 200 ),
+        new Vector2( -200, -200 ),
+        new Vector2( 200, -200 )
+      ];
       var circleCurve = createRegular( 80 );
 
       return [
+
+        new AdventureLevel( 'Quest for the Crystal Fractal\n\n' +
+                            'Day 1:\n' +
+                            'On the road to the airport\n' +
+                            'I had to replace a flat tire.', [ new Body( squareCurve, [] ) ], [
+          new Snowflake( 1 ), new ConvexHull(),
+        ], [
+          new Static( squareCurve ), new ConvexHull(), new Snowflake( 1 )
+        ] ),
+
         // Easier
         new AdventureLevel( 'Surrounded by Nazi vampires\n' +
                             'I had to disguise myself as a starfish.', [ new Body( triangleCurve, [] ) ], [
@@ -127,7 +137,35 @@ define( function( require ) {
           new RadialDoubling()
         ] ),
 
+        // Medium
+        new AdventureLevel( 'Prophecies of the Sunflower\nproved greater than\nthe star', [ new Body( starCurve, [] ) ], [
+          new Snowflake( 1 ), new DeleteVertices( 2 ), new RadialDoubling()
+        ], [
+          new Static( starCurve ),
+          new Snowflake( 1 ), new Snowflake( -1 ), new RadialDoubling(), new DeleteVertices( 2 )
+        ] ),
+
+        // Easy-Medium
+        new AdventureLevel( 'Paint stripes on your face\nthey said. It will be\ncamouflage, they said.', [ new Body( cupCurve, [] ) ], [
+          new Shear( -1 ), new Snowflake( -1 ), new Shear( 1 )
+        ], [
+          new Static( cupCurve ),
+          new Shear( 1 ), new Shear( -1 ), new Snowflake( -1 )
+        ] ),
+
         // Medium-hard
+        new AdventureLevel( 'To retrieve the artifact of Kl\'aar\n' +
+                            'I would have to venture\n' +
+                            'into the depths of the ocean', [ new Body( arrowCurve, [] ) ], [
+          new Snowflake( 1 ), new Invert( 180 ), new Rotate( 1.5707963267948966 )
+        ], [
+          new Static( arrowCurve ),
+          new Rotate( Math.PI / 2 ),
+          new Snowflake( 1 ),
+          // new Snowflake( -1 ),
+          new Invert( 180 )
+        ] ),
+
         new AdventureLevel( 'Would the ancient tribe save me?\n' +
                             'Only if I made them think I was\n' +
                             'Hungry Hungry Hippos', [ new Body( triangleCurve, [] ) ], [
@@ -144,27 +182,6 @@ define( function( require ) {
           new RadialDoubling()
         ] ),
 
-        // Medium
-        new AdventureLevel( 'To retrive the artifact of Kl\'aar\n' +
-                            'I would have to venture\n' +
-                            'into the depths of the ocean', [ new Body( arrowCurve, [] ) ], [
-          new Snowflake( 1 ), new Invert( 180 ), new Rotate( 1.5707963267948966 )
-        ], [
-          new Static( arrowCurve ),
-          new Rotate( Math.PI / 2 ),
-          new Snowflake( 1 ),
-          // new Snowflake( -1 ),
-          new Invert( 180 )
-        ] ),
-
-        // Medium
-        new AdventureLevel( 'Prophecies of the Sunflower\nproved greater than\nthe star', [ new Body( starCurve, [] ) ], [
-          new Snowflake( 1 ), new DeleteVertices( 2 ), new RadialDoubling()
-        ], [
-          new Static( starCurve ),
-          new Snowflake( 1 ), new Snowflake( -1 ), new RadialDoubling(), new DeleteVertices( 2 )
-        ] ),
-
         // Hard
         new AdventureLevel( 'The elders balked,\nsaying it was impossible,\ngiven the options', [ new Body( squareCurve, [] ) ], [
           new Snowflake( -1 ), new Invert( 180 ), new Scale( 1.5, 0.6666666666666666 ), new Invert( 180 ), new RadialDoubling()
@@ -175,69 +192,52 @@ define( function( require ) {
 
         // Medium
         new AdventureLevel( 'Find the one true\nleader, who looks a bit too\nmuch like Yoda', [ new Body( pentagonCurve, [] ) ], [
-          new Scale(1.5,0.6666666666666666), new Snowflake(1), new Rotate(1.5707963267948966), new Scale(1.5,0.6666666666666666)
+          new Scale( 1.5, 0.6666666666666666 ), new Snowflake( 1 ), new Rotate( 1.5707963267948966 ), new Scale( 1.5, 0.6666666666666666 )
         ], [
           new Static( pentagonCurve ),
-          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Snowflake( 1 ),
-        ] ),
-
-        // Easy-Medium
-        new AdventureLevel( 'Paint stripes on your face\nthey said. It will be\ncamouflage, the said.', [ new Body( cupCurve, [] ) ], [
-          new Shear(-1), new Snowflake(-1), new Shear(1)
-        ], [
-          new Static( cupCurve ),
-          new Shear( 1 ), new Shear( -1 ), new Snowflake( -1 )
+          new Scale( 1.5, 0.6666666666666666 ), new Rotate( 1.5707963267948966 ), new Snowflake( 1 ),
         ] ),
 
         // Medium-Hard
         new AdventureLevel( 'Four leaf clovers?\nBogus', [ new Body( circleCurve, [] ) ], [
-          new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Scale(1.5,0.6666666666666666), new Invert(180), new RadialDoubling()
+          new Scale( 1.5, 0.6666666666666666 ), new RadialDoubling(), new Scale( 1.5, 0.6666666666666666 ), new Invert( 180 ), new RadialDoubling()
         ], [
           new Static( circleCurve ),
-          new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Invert(180)
+          new Scale( 1.5, 0.6666666666666666 ), new RadialDoubling(), new Invert( 180 )
         ] ),
 
         // Medium
         new AdventureLevel( 'Seems flat enough?', [ new Body( squareCurve, [] ) ], [
-          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966)
+          new Scale( 1.5, 0.6666666666666666 ), new Rotate( 1.5707963267948966 ), new Shear( 1 ), new Rotate( 1.5707963267948966 ), new Shear( 1 ), new Rotate( 1.5707963267948966 )
         ], [
           new Static( squareCurve ),
-          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Shear( -1 )
+          new Scale( 1.5, 0.6666666666666666 ), new Rotate( 1.5707963267948966 ), new Shear( 1 ), new Shear( -1 )
         ] ),
 
         // Hard
         new AdventureLevel( 'There is no last level\nThey said', [ new Body( triangleCurve, [] ) ], [
-          new RadialDoubling(), new SelfFractal(), new Snowflake(-1), new DeleteVertices(2), new Invert(180)
+          new RadialDoubling(), new SelfFractal(), new Snowflake( -1 ), new DeleteVertices( 2 ), new Invert( 180 )
         ], [
           new Static( triangleCurve ),
-          new RadialDoubling(), new Snowflake(-1),new Invert(180), new DeleteVertices(2),  new SelfFractal(),
+          new RadialDoubling(), new Snowflake( -1 ), new Invert( 180 ), new DeleteVertices( 2 ), new SelfFractal(),
         ] ),
-
-
 
 
 // square
 //new Snowflake(-1), new Invert(180), new Scale(1.5,0.6666666666666666), new Invert(180), new RadialDoubling()
 
-        new AdventureLevel( 'Quest for the Crystal Fractal\n\n' +
-                            'Day 1:\n' +
-                            'On the road to the airport\n' +
-                            'I had to replace a flat tire.', [ createRectangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] ),
         new AdventureLevel( 'Our plane lost a wing\n' +
                             'but I got it covered.', [ new Body( createStar( 7 ), [] ) ], [
-          new RadialDoubling()
+          new RadialDoubling(),
+          new DeleteVertices( 3 ),
         ], [
           new RadialDoubling(),
           new DeleteVertices( 3 ),
           new Snowflake()
         ] ),
         new AdventureLevel( 'In Cairo, my companion lost her passport\nbut I filled in.', [ createTriangle() ], [
+          new Snowflake(),
+          new DeleteVertices( 3 ),
           new RadialDoubling()
         ], [
           new Snowflake(),
@@ -246,7 +246,10 @@ define( function( require ) {
         ] ),
         new AdventureLevel( 'Chased by nazi werewolves,\n' +
                             'I am the silver bullet.', [ createTriangle() ], [
-          new RadialDoubling()
+          new DeleteVertices( 3 ),
+          new Snowflake(),
+          new RadialDoubling(),
+          new Snowflake(),
         ], [
           new DeleteVertices( 3 ),
           new Snowflake(),
@@ -254,23 +257,6 @@ define( function( require ) {
         ] )
         , new AdventureLevel( 'The tomb was cursed--\n' +
                               'but you can\'t curse a spider.', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-        , new AdventureLevel( 'If I walk amongst the mummies,\n' +
-                              'they will never find me..', [ createTriangle() ], [
-          new RadialDoubling()
-        ], [
-          new DeleteVertices( 3 ),
-          new Snowflake(),
-          new RadialDoubling()
-        ] )
-
-        , new AdventureLevel( 'At last, the locked chamber.\n' +
-                              'I am the key..', [ createTriangle() ], [
           new RadialDoubling()
         ], [
           new DeleteVertices( 3 ),
