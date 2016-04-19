@@ -160,7 +160,7 @@ define( function( require ) {
     this.addOperation( new Shear( -1 ) );
     this.addOperation( new ConvexHull() );
     this.addOperation( new Subdivide() );
-    this.addOperation( new Invert( 200 ) );
+    this.addOperation( new Invert( 180 ) );
     this.addOperation( new RadialDoubling() );
     this.addOperation( new Snowflake( 1 ) );
     this.addOperation( new Snowflake( -1 ) );
