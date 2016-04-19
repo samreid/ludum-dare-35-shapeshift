@@ -112,6 +112,7 @@ define( function( require ) {
                                      new Vector2( -200, -200 ),
                                      new Vector2( 200, -200 )
                                      ];
+      var circleCurve = createRegular( 80 );
 
       return [
         // Easier
@@ -186,6 +187,30 @@ define( function( require ) {
         ], [
           new Static( cupCurve ),
           new Shear( 1 ), new Shear( -1 ), new Snowflake( -1 )
+        ] ),
+
+        // Medium-Hard
+        new AdventureLevel( 'Text', [ new Body( circleCurve, [] ) ], [
+          new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Scale(1.5,0.6666666666666666), new Invert(180), new RadialDoubling()
+        ], [
+          new Static( circleCurve ),
+          new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Invert(180)
+        ] ),
+
+        // Medium
+        new AdventureLevel( 'Text', [ new Body( squareCurve, [] ) ], [
+          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966), new Shear(1), new Rotate(1.5707963267948966)
+        ], [
+          new Static( squareCurve ),
+          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Shear( -1 )
+        ] ),
+
+        // Hard
+        new AdventureLevel( 'Text', [ new Body( triangleCurve, [] ) ], [
+          new RadialDoubling(), new SelfFractal(), new Snowflake(-1), new DeleteVertices(2), new Invert(180)
+        ], [
+          new Static( triangleCurve ),
+          new RadialDoubling(), new Snowflake(-1),new Invert(180), new DeleteVertices(2),  new SelfFractal(),
         ] ),
 
 
