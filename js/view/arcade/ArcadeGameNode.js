@@ -22,7 +22,6 @@ define( function( require ) {
   var TitledPanel = require( 'SHAPESHIFT/view/TitledPanel' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var Vector2 = require( 'DOT/Vector2' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -138,30 +137,18 @@ define( function( require ) {
       self.goalNode.bottom = layoutBounds.top;
     } );
 
-    var resetAllButton = new ResetAllButton();
-    resetAllButton.addListener( function() {
-      model.reset();
-    } );
-    resetAllButton.mutate( {
-      scale: this.buttonLayer.height / resetAllButton.height * 0.75,
-    } );
-
     var homeButton = new RoundPushButton( { scale: 1.5, content: new FontAwesomeNode( 'home', { fill: 'black' } ) } );
     homeButton.addListener( showHomeScreen );
     this.addChild( homeButton );
 
     visibleBoundsProperty.link( function( visibleBounds ) {
-      resetAllButton.right = visibleBounds.right - 10;
-
       homeButton.top = visibleBounds.top + 10;
       homeButton.left = visibleBounds.left + 10;
     } );
-    this.addChild( resetAllButton );
 
     var self = this;
     visibleBoundsProperty.link( function( visibleBounds ) {
       self.buttonLayer.bottom = visibleBounds.bottom - 20;
-      resetAllButton.bottom = self.buttonLayer.bottom;
     } );
 
     var levelDescriptionNode = new MultiLineText( 'default text', {
