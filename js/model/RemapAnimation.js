@@ -18,8 +18,10 @@ define( function( require ) {
     this.afterBody = afterBody;
 
     var augmented = Body.remapAugmented( beforeBody, afterBody );
-    this.augmentedBeforeBody = augmented.before;
-    this.augmentedAfterBody = augmented.after;
+    if ( augmented ) {
+      this.augmentedBeforeBody = augmented.before;
+      this.augmentedAfterBody = augmented.after;
+    }
   }
 
   shapeshift.register( 'RemapAnimation', RemapAnimation );
@@ -34,14 +36,17 @@ define( function( require ) {
     },
 
     getCurrentBody: function( ratio ) {
+      if (this.augmentedBeforeBody===null){
+        return this.afterBody;
+      }
       var boundaryCurve = this.interpolateCurve( ratio,
-                                                 this.augmentedBeforeBody.boundaryCurve,
-                                                 this.augmentedAfterBody.boundaryCurve );
+        this.augmentedBeforeBody.boundaryCurve,
+        this.augmentedAfterBody.boundaryCurve );
       var holeCurves = [];
       for ( var i = 0; i < this.augmentedBeforeBody.holeCurves.length; i++ ) {
         holeCurves.push( this.interpolateCurve( ratio,
-                                                this.augmentedBeforeBody.holeCurves[ i ],
-                                                this.augmentedAfterBody.holeCurves[ i ] ) );
+          this.augmentedBeforeBody.holeCurves[ i ],
+          this.augmentedAfterBody.holeCurves[ i ] ) );
       }
       return new Body( boundaryCurve, holeCurves );
     }

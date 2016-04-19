@@ -127,10 +127,19 @@ define( function( require ) {
       assert && assert( beforeBody.holeCurves.length === afterBody.holeCurves.length );
       assert && assert( _.every( afterBody.holeCurves, function( curve ) { return !!curve.old; } ) );
 
+      var failed = false;
       var boundaryMap = Body.remapCurve( beforeBody.boundaryCurve, afterBody.boundaryCurve );
       var holeCurveMaps = afterBody.holeCurves.map( function( curve ) {
-        return Body.remapCurve( curve.old, curve );
+        var remapCurve = Body.remapCurve( curve.old, curve );
+        if (remapCurve===null){
+          failed = true;
+        }
+        return remapCurve;
       } );
+      
+      if (boundaryMap===null || failed){
+        return null;
+      }
 
       return {
         before: new Body( boundaryMap.before, holeCurveMaps.map( function( map ) { return map.before; } ) ),
@@ -145,12 +154,13 @@ define( function( require ) {
       for ( var m = 0; m < beforeCurve.length; m++ ) {
         beforeCurve[ m ].beforeIndex = m;
       }
+      console.log('a');
 
-      log( 'remapping curve ' + beforeCurve.map( function( v ) {
-        return '(' + v.x + ',' + v.y + ')';
-      } ).join( ',' ) + ' => ' + afterCurve.map( function( v ) {
-        return '(' + v.x + ',' + v.y + ( v.old ? ( '|' + v.old.beforeIndex ) : '' ) + ')';
-      } ).join( ',' ) );
+      // log( 'remapping curve ' + beforeCurve.map( function( v ) {
+      //   return '(' + v.x + ',' + v.y + ')';
+      // } ).join( ',' ) + ' => ' + afterCurve.map( function( v ) {
+      //   return '(' + v.x + ',' + v.y + ( v.old ? ( '|' + v.old.beforeIndex ) : '' ) + ')';
+      // } ).join( ',' ) );
 
       var beforeResult = [];
       var afterResult = [];
@@ -198,6 +208,7 @@ define( function( require ) {
           }
         }
       }
+      console.log('b');
 
       // Find the first index in the afterCurve that maps to an old before vector
       var firstIndex;
@@ -206,6 +217,8 @@ define( function( require ) {
           break;
         }
       }
+
+      console.log('c');
 
       log( 'firstIndex: ' + firstIndex );
 
@@ -219,6 +232,7 @@ define( function( require ) {
         var closestIndex = 0;
         var closestDistance = Number.POSITIVE_INFINITY;
 
+        console.log('d');
         for ( var k = 0; k < beforeCurve.length; k++ ) {
           var dist = beforeCurve[ k ].distance( afterCurve[ 0 ] );
           if ( dist < closestDistance ) {
@@ -226,6 +240,7 @@ define( function( require ) {
             closestIndex = k;
           }
         }
+        console.log('e');
 
         log( 'Closest before index ' + closestIndex );
 
@@ -237,7 +252,9 @@ define( function( require ) {
       var startAfterIndex = firstIndex;
       var currentAfterIndex = null;
       var lastAfterEndIndex = null;
+      console.log('f');
       while ( lastAfterEndIndex !== firstIndex ) {
+        console.log('g');
         currentAfterIndex = startAfterIndex;
 
         // before-after pair before our interval
@@ -251,13 +268,23 @@ define( function( require ) {
               currentAfterIndex = afterNext( currentAfterIndex ) ) {
           afterPoints.push( afterCurve[ currentAfterIndex ] );
         }
+
+        console.log('g1');
         var beforeStart = beforeNext( afterCurve[ startAfterIndex ].old.beforeIndex );
         var beforeEnd = afterCurve[ currentAfterIndex ].old.beforeIndex;
+        var count =0;
         for ( var currentBeforeIndex = beforeStart;
               currentBeforeIndex !== beforeEnd;
               currentBeforeIndex = beforeNext( currentBeforeIndex ) ) {
+          console.log('GGGa ');
           beforePoints.push( beforeCurve[ currentBeforeIndex ] );
+          count++;
+          if (count>5000){
+            return null;
+          }
         }
+
+        console.log('g2');
 
         // before-after pair after our interval
         var lastAfterPoint = afterCurve[ currentAfterIndex ];
@@ -272,9 +299,11 @@ define( function( require ) {
         var afterSubcurve = [ firstAfterPoint ].concat( afterPoints ).concat( [ lastAfterPoint ] );
         var beforeTotalDistance = distanceAlongCurve( beforeSubcurve );
         var afterTotalDistance = distanceAlongCurve( afterSubcurve );
+        console.log('g3');
         if ( beforePoints.length ) {
           var bfdist = 0;
           for ( var bfi = 0; bfi < beforePoints.length; bfi++ ) {
+            console.log('g4');
             bfdist += beforePoints[ bfi ].distance( bfi === 0 ? firstBeforePoint : beforePoints[ bfi - 1 ] );
             var ratio = bfdist / beforeTotalDistance;
             insertions.push( {
@@ -288,6 +317,7 @@ define( function( require ) {
         if ( afterPoints.length ) {
           var afdist = 0;
           for ( var afi = 0; afi < afterPoints.length; afi++ ) {
+            console.log('g5');
             afdist += afterPoints[ afi ].distance( afi === 0 ? firstAfterPoint : afterPoints[ afi - 1 ] );
             var ratio = afdist / afterTotalDistance;
             insertions.push( {
@@ -300,6 +330,7 @@ define( function( require ) {
         }
 
         insertions = _.sortBy( insertions, 'ratio' );
+        console.log('h');
 
         // Push results of this interval (including insertions and start point) into our results
         log( '  start point: ' + firstBeforePoint.x + ',' + firstBeforePoint.y + ' => ' +
@@ -315,6 +346,7 @@ define( function( require ) {
 
         // Set things up for the next look
         startAfterIndex = lastAfterEndIndex = currentAfterIndex;
+        console.log('i');
       }
 
       return {
@@ -340,7 +372,7 @@ define( function( require ) {
       // after1.old = before1;
       // after3.old = before3;
 
-      var remap = Body.remapCurve( [ before1, before2, before3 ], [ after1, after2, after3 ] );
+      // var remap = Body.remapCurve( [ before1, before2, before3 ], [ after1, after2, after3 ] );
 
     }
   } );
