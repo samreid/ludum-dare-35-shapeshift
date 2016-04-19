@@ -61,44 +61,45 @@ define( function( require ) {
 
     this.getLevels = function() {
 
-/*
-    this.addOperation( new Rotate( Math.PI / 2 ) );
-    this.addOperation( new Scale( 1.5, 1/1.5 ) );
-    this.addOperation( new Shear( 1 ) );
-    this.addOperation( new Shear( -1 ) );
-    this.addOperation( new ConvexHull() );
-    this.addOperation( new Subdivide() );
-    this.addOperation( new Invert( 180 ) );
-    this.addOperation( new RadialDoubling() );
-    this.addOperation( new Snowflake( 1 ) );
-    this.addOperation( new Snowflake( -1 ) );
-    this.addOperation( new Swirl( 1 ) );
-    this.addOperation( new Swirl( -1 ) );
-    this.addOperation( new DeleteVertices( 2 ) );
-    this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
-    this.addOperation( new Static( createRegular( 3 ), 'Triangle' ) );
-    this.addOperation( new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ) );
-    this.addOperation( new Static( createRegular( 5 ), 'Pentagon' ) );
-    this.addOperation( new Static( createStar( 7 ), 'Star' ) );
-    this.addOperation( new Static( createRegular( 80 ), 'Circle' ) );
-    // this.addOperation( new Static( createHalfRegular( 40 ), 'Semicircle' ) );
-    this.addOperation( new Static( [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ], 'Arrow' ) );
-    this.addOperation( new Static( [
-                                     new Vector2( 100, 200 ),
-                                     new Vector2( -100, 200 ),
-                                     new Vector2( -200, -200 ),
-                                     new Vector2( 200, -200 )
-                                     ], 'Cup' ) );
-                                     */
+      /*
+       this.addOperation( new Rotate( Math.PI / 2 ) );
+       this.addOperation( new Scale( 1.5, 1/1.5 ) );
+       this.addOperation( new Shear( 1 ) );
+       this.addOperation( new Shear( -1 ) );
+       this.addOperation( new ConvexHull() );
+       this.addOperation( new Subdivide() );
+       this.addOperation( new Invert( 180 ) );
+       this.addOperation( new RadialDoubling() );
+       this.addOperation( new Snowflake( 1 ) );
+       this.addOperation( new Snowflake( -1 ) );
+       this.addOperation( new Swirl( 1 ) );
+       this.addOperation( new Swirl( -1 ) );
+       this.addOperation( new DeleteVertices( 2 ) );
+       this.addOperation( new SelfFractal() ); // makes things slow in preview for many others
+       this.addOperation( new Static( createRegular( 3 ), 'Triangle' ) );
+       this.addOperation( new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ) );
+       this.addOperation( new Static( createRegular( 5 ), 'Pentagon' ) );
+       this.addOperation( new Static( createStar( 7 ), 'Star' ) );
+       this.addOperation( new Static( createRegular( 80 ), 'Circle' ) );
+       // this.addOperation( new Static( createHalfRegular( 40 ), 'Semicircle' ) );
+       this.addOperation( new Static( [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ], 'Arrow' ) );
+       this.addOperation( new Static( [
+       new Vector2( 100, 200 ),
+       new Vector2( -100, 200 ),
+       new Vector2( -200, -200 ),
+       new Vector2( 200, -200 )
+       ], 'Cup' ) );
+       */
 
-      var triangleCurve = [ new Vector2( 200, 0),new Vector2( -99.99999999999996, 173.20508075688775),new Vector2( -100.00000000000009, -173.20508075688767)];
+      var triangleCurve = [ new Vector2( 200, 0 ), new Vector2( -99.99999999999996, 173.20508075688775 ), new Vector2( -100.00000000000009, -173.20508075688767 ) ];
       var squareCurve = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
       var arrowCurve = [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ];
       var starCurve = createStar( 7 );
 
       return [
         // Easier
-        new AdventureLevel( 'Text', [ new Body( triangleCurve, [] ) ], [
+        new AdventureLevel( 'Surrounded by Nazi vampires\n' +
+                            'I had to disguise myself as a starfish.', [ new Body( triangleCurve, [] ) ], [
           new Invert( 180 ),
           new RadialDoubling(),
           new Invert( 180 )
@@ -109,14 +110,16 @@ define( function( require ) {
         ] ),
 
         // Medium-hard
-        new AdventureLevel( 'Text', [ new Body( triangleCurve, [] ) ], [
+        new AdventureLevel( 'Would the ancient tribe save me?\n' +
+                            'Only if I made them think I was\n' +
+                            'Hungry Hungry Hippos', [ new Body( triangleCurve, [] ) ], [
           new Snowflake( 1 ),
           new Rotate( Math.PI / 2 ),
-          new Scale( 1.5, 1/1.5 ),
+          new Scale( 1.5, 1 / 1.5 ),
           new RadialDoubling()
         ], [
           new Static( triangleCurve ),
-          new Scale( 1.5, 1/1.5 ),
+          new Scale( 1.5, 1 / 1.5 ),
           new Rotate( Math.PI / 2 ),
           new Snowflake( 1 ),
           // new Snowflake( -1 ),
@@ -124,8 +127,10 @@ define( function( require ) {
         ] ),
 
         // Medium
-        new AdventureLevel( 'Text', [ new Body( arrowCurve, [] ) ], [
-          new Snowflake(1), new Invert(180), new Rotate(1.5707963267948966)
+        new AdventureLevel( 'To retrive the artifact of Kl\'aar\n' +
+                            'I would have to venture\n' +
+                            'into the depths of the ocean', [ new Body( arrowCurve, [] ) ], [
+          new Snowflake( 1 ), new Invert( 180 ), new Rotate( 1.5707963267948966 )
         ], [
           new Static( arrowCurve ),
           new Rotate( Math.PI / 2 ),
@@ -135,19 +140,19 @@ define( function( require ) {
         ] ),
 
         // Medium
-        new AdventureLevel( 'Text', [ new Body( starCurve, [] ) ], [
-          new Snowflake(1), new DeleteVertices(2), new RadialDoubling()
+        new AdventureLevel( '', [ new Body( starCurve, [] ) ], [
+          new Snowflake( 1 ), new DeleteVertices( 2 ), new RadialDoubling()
         ], [
           new Static( starCurve ),
-          new Snowflake(1), new Snowflake( -1 ), new RadialDoubling(), new DeleteVertices(2)
+          new Snowflake( 1 ), new Snowflake( -1 ), new RadialDoubling(), new DeleteVertices( 2 )
         ] ),
 
         // Hard
-        new AdventureLevel( 'Text', [ new Body( squareCurve, [] ) ], [
-          new Snowflake(-1), new Invert(180), new Scale(1.5,0.6666666666666666), new Invert(180), new RadialDoubling()
+        new AdventureLevel( '', [ new Body( squareCurve, [] ) ], [
+          new Snowflake( -1 ), new Invert( 180 ), new Scale( 1.5, 0.6666666666666666 ), new Invert( 180 ), new RadialDoubling()
         ], [
           new Static( squareCurve ),
-          new Scale(1.5,0.6666666666666666), new RadialDoubling(), new Snowflake( 1 ),new Snowflake(-1), new Invert(180),
+          new Scale( 1.5, 0.6666666666666666 ), new RadialDoubling(), new Snowflake( 1 ), new Snowflake( -1 ), new Invert( 180 ),
         ] ),
 
 
