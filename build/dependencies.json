@@ -1,5 +1,5 @@
 {
-  "comment": "# shapeshift 1.0.0 Mon Apr 18 2016 21:37:49 GMT-0600 (MDT)",
+  "comment": "# shapeshift 1.0.0 Tue Apr 19 2016 09:52:11 GMT-0600 (MDT)",
   "assert": {
     "sha": "7d27130a4d27da15aa7f8a21bbfb9245288c1b44",
     "branch": "master"
@@ -45,7 +45,7 @@
     "branch": "master"
   },
   "shapeshift": {
-    "sha": "74714c0008b06db300fb32b54a853541f90df903",
+    "sha": "9be841cbbcbbfddd3178910818abfdbb8ec422d4",
     "branch": "gh-pages"
   },
   "sherpa": {
