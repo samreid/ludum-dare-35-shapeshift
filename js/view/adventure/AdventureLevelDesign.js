@@ -103,7 +103,7 @@ define( function( require ) {
 
       var triangleCurve = [ new Vector2( 200, 0 ), new Vector2( -99.99999999999996, 173.20508075688775 ), new Vector2( -100.00000000000009, -173.20508075688767 ) ];
       var squareCurve = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
-      var arrowCurve = [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ];
+      var arrowCurve = [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ].map( function( v ) { return v.timesScalar( 1.5 ); } );
       var starCurve = createStar( 7 );
       var pentagonCurve = createRegular( 5 );
       var cupCurve = [

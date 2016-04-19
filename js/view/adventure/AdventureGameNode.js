@@ -62,7 +62,8 @@ define( function( require ) {
     this.layoutBounds = layoutBounds;
 
     this.shapeLayer = new Node( {
-      translation: layoutBounds.center
+      translation: layoutBounds.center,
+      scale: 0.7
     } );
     this.addChild( this.shapeLayer );
 
@@ -118,12 +119,12 @@ define( function( require ) {
 
     var goalNode = new Node( {
       children: model.goalBodies.map( function( b ) {
-        return new BodyNode( b ).mutate( { scale: 0.5 } );
+        return new BodyNode( b ).mutate( { scale: 0.4 } );
       } ).getArray()
     } );
     var update = function() {
       goalNode.children = model.goalBodies.map( function( b ) {
-        return new BodyNode( b ).mutate( { scale: 0.5 } );
+        return new BodyNode( b ).mutate( { scale: 0.4 } );
       } ).getArray();
       updateTitledPanelLocation( visibleBoundsProperty.value );
     };
