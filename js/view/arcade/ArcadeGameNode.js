@@ -134,6 +134,10 @@ define( function( require ) {
 
     this.addChild( goalNode );
 
+    model.levelStartedEmitter.addListener( function() {
+      self.goalNode.bottom = layoutBounds.top;
+    } );
+
     var resetAllButton = new ResetAllButton();
     resetAllButton.addListener( function() {
       model.reset();

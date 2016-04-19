@@ -44,9 +44,11 @@ define( function( require ) {
     else {
       level = 0;
     }
+    this.levelStartedEmitter = new Emitter();
     this.startLevel( levels[ level ] );
 
     this.successEmitter = new Emitter();
+
   }
 
   var random = new Random();
@@ -66,6 +68,7 @@ define( function( require ) {
       this.goalBodies.addAll( level.getGoalBodies() );
 
       this.level = level;
+      this.levelStartedEmitter.emit();
     },
     step: function( dt ) {
       var hadAnimation = this.animationQueue.length;
@@ -94,6 +97,29 @@ define( function( require ) {
     },
 
     checkSuccess: function() {
+      var self = this;
+      for ( var i = 0; i < this.level.listOfGoalBodyGroups.length; i++ ) {
+        if ( !this.level.solved[ i ] && this.level.isAnswerCorrect( this.bodies.getArray(), this.level.listOfGoalBodyGroups[ i ] ) ) {
+          this.goalBodies.removeAll( this.level.listOfGoalBodyGroups[ i ] );
+          console.log( 'removed, lengeth = ' + this.goalBodies.length );
+
+          this.level.solved[ i ] = true;
+          if ( this.goalBodies.length === 0 ) {
+            console.log( 'level complete' );
+            var currentLevelIndex = this.levels.indexOf( this.level );
+            var nextLevelIndex = currentLevelIndex + 1;
+            if ( nextLevelIndex >= this.levels.length ) {
+              nextLevelIndex = 0;
+            }
+            this.successEmitter.emit1( function() {
+              self.startLevel( self.levels[ nextLevelIndex ] );
+
+            } );
+            break;
+          }
+          break;
+        }
+      }
       // var self = this;
       // var isCorrect = this.currentLevel.isAnswerCorrect( this.bodies.getArray() );
       // if ( isCorrect ) {

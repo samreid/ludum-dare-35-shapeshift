@@ -16,6 +16,7 @@ define( function( require ) {
   var random = new Random();
 
   function ArcadeLevel( availableOperations, numTargets ) {
+    this.solved = {};
     this.availableOperations = availableOperations;
 
     var nonStaticOps = availableOperations.filter( function( op ) {
@@ -68,8 +69,8 @@ define( function( require ) {
 
     var self = this;
 
-    this.isAnswerCorrect = function( bodyArray ) {
-      var goalCanvas = toCanvas( self.goalBodies );
+    this.isAnswerCorrect = function( bodyArray, goalBodies ) {
+      var goalCanvas = toCanvas( goalBodies );
       var proposedAnswer = toCanvas( bodyArray );
 
       // TODO: precision is in pixels.  What should we do here?
