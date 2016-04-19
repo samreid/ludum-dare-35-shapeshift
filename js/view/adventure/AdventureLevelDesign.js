@@ -48,6 +48,16 @@ define( function( require ) {
       var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( length + dx, length + dy ), new Vector2( -length + dx, length + dy ) ];
       return new Body( array, [] );
     };
+    var createRegular = function( numPoints ) {
+      var array = [];
+
+      for ( var i = 0; i < numPoints; i++ ) {
+        array.push( Vector2.createPolar( 200, i * ( Math.PI * 2 ) / numPoints ) );
+        // array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+      }
+
+      return array;
+    };
     var createStar = function( numPoints ) {
       var array = [];
 
@@ -95,6 +105,13 @@ define( function( require ) {
       var squareCurve = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
       var arrowCurve = [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ];
       var starCurve = createStar( 7 );
+      var pentagonCurve = createRegular( 5 );
+      var cupCurve = [
+                                     new Vector2( 100, 200 ),
+                                     new Vector2( -100, 200 ),
+                                     new Vector2( -200, -200 ),
+                                     new Vector2( 200, -200 )
+                                     ];
 
       return [
         // Easier
@@ -154,6 +171,24 @@ define( function( require ) {
           new Static( squareCurve ),
           new Scale( 1.5, 0.6666666666666666 ), new RadialDoubling(), new Snowflake( 1 ), new Snowflake( -1 ), new Invert( 180 ),
         ] ),
+
+        // Medium
+        new AdventureLevel( 'Text', [ new Body( pentagonCurve, [] ) ], [
+          new Scale(1.5,0.6666666666666666), new Snowflake(1), new Rotate(1.5707963267948966), new Scale(1.5,0.6666666666666666)
+        ], [
+          new Static( pentagonCurve ),
+          new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Snowflake( 1 ),
+        ] ),
+
+        // Easy-Medium
+        new AdventureLevel( 'Text', [ new Body( cupCurve, [] ) ], [
+          new Shear(-1), new Snowflake(-1), new Shear(1)
+        ], [
+          new Static( cupCurve ),
+          new Shear( 1 ), new Shear( -1 ), new Snowflake( -1 )
+        ] ),
+
+
 
 
 // square
