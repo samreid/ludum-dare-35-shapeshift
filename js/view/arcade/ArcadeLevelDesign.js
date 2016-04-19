@@ -139,8 +139,17 @@ define( function( require ) {
         }
 
         var numDynamic = index <= 2 ? 3 : index <= 5 ? 4 : index <= 8 ? 5 : 6;
+        var usedSnowflakeOrSwirl = false;
         for ( var i = 0; i < numDynamic; i++ ) {
-          ops.push( dynamics[ random.nextInt( dynamics.length ) ] );
+          var nextDynamic = dynamics[ random.nextInt( dynamics.length ) ];
+
+          while ( usedSnowflakeOrSwirl && (nextDynamic.name === 'Swirl' || nextDynamic.name === 'Snowflake') ) {
+            nextDynamic = dynamics[ random.nextInt( dynamics.length ) ];
+          }
+          ops.push( nextDynamic );
+          if ( nextDynamic.name === 'Swirl' || nextDynamic.name === 'Snowflake' ) {
+            usedSnowflakeOrSwirl = true;
+          }
         }
         var numberSteps = Math.floor( index / 2 ) + 2;
         return new ArcadeLevel( ops, index + 3, numberSteps );
