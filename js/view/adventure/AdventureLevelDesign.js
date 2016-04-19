@@ -205,6 +205,14 @@ define( function( require ) {
           new Scale(1.5,0.6666666666666666), new Rotate(1.5707963267948966), new Shear(1), new Shear( -1 )
         ] ),
 
+        // Hard
+        new AdventureLevel( 'Text', [ new Body( triangleCurve, [] ) ], [
+          new RadialDoubling(), new SelfFractal(), new Snowflake(-1), new DeleteVertices(2), new Invert(180)
+        ], [
+          new Static( triangleCurve ),
+          new RadialDoubling(), new Snowflake(-1),new Invert(180), new DeleteVertices(2),  new SelfFractal(),
+        ] ),
+
 
 
 
