@@ -45,7 +45,7 @@ define( function( require ) {
     }, function() {
       self.showNode( self.freePlayNode );
     } );
-    this.addChild( this.homeScreen );
+    self.showNode( self.homeScreen );
 
     var level = phet.chipper.getQueryParameter( 'level' );
     if ( level ) {
