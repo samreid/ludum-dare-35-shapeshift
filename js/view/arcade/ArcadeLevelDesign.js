@@ -110,7 +110,8 @@ define( function( require ) {
           new Vector2( 200, -200 )
         ], 'Cup' )
       ];
-      var dynamics = [ new Rotate( Math.PI / 2 ),
+      var dynamics = [
+        new Rotate( Math.PI / 2 ),
         new Scale( 1.5, 1 / 1.5 ),
         new Shear( 1 ),
         new Shear( -1 ),
@@ -122,19 +123,26 @@ define( function( require ) {
         new Snowflake( -1 ),
         new Swirl( 1 ),
         new Swirl( -1 ),
-        new DeleteVertices( 2 ) ];
+        new DeleteVertices( 2 )
+      ];
 
       var createLevel = function( index ) {
+
+        var remainingStatics = [].concat( statics );
+
         var numberStatics = index <= 3 ? 1 : index <= 6 ? 2 : 3;
         var ops = [];
         for ( var i = 0; i < numberStatics; i++ ) {
-          ops.push( statics[ random.nextInt( statics.length ) ] );
+          var selectedStaticIndex = random.nextInt( remainingStatics.length );
+          ops.push( remainingStatics[ selectedStaticIndex ] );
+          remainingStatics.splice( selectedStaticIndex, 1 ); // remove so it can only be selected once
         }
+
         var numDynamic = index <= 2 ? 3 : index <= 5 ? 4 : index <= 8 ? 5 : 6;
         for ( var i = 0; i < numDynamic; i++ ) {
           ops.push( dynamics[ random.nextInt( dynamics.length ) ] );
         }
-        var numberSteps = Math.floor( index / 2 ) + 3;
+        var numberSteps = Math.floor( index / 2 ) + 2;
         return new ArcadeLevel( ops, index + 3, numberSteps );
       };
 

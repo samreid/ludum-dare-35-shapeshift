@@ -46,7 +46,6 @@ define( function( require ) {
     };
     this.listOfGoalBodyGroups = [];
     for ( var i = 0; i < numTargets; i++ ) {
-      var numberSteps = random.nextInt( 2 ) + 1;
       var randomSequence = getRandomSequence( numberSteps );
 
       var selectedStaticOp = staticOps[ random.nextInt( staticOps.length ) ];
