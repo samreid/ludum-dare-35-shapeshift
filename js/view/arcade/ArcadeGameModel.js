@@ -67,6 +67,7 @@ define( function( require ) {
       this.goalBodies.clear();
       this.goalBodies.addAll( level.getGoalBodies() );
 
+      this.level.reset();
       this.level = level;
       this.levelStartedEmitter.emit();
     },

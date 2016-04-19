@@ -80,6 +80,9 @@ define( function( require ) {
   }
 
   return inherit( Object, ArcadeLevel, {
+    reset: function() {
+      this.solved = {};
+    },
     getGoalBodies: function() {
       var children = [];
       for ( var i = 0; i < this.listOfGoalBodyGroups.length; i++ ) {
