@@ -15,7 +15,7 @@ define( function( require ) {
 
   var random = new Random();
 
-  function ArcadeLevel( availableOperations, numTargets ) {
+  function ArcadeLevel( availableOperations, numTargets, numberSteps ) {
     this.solved = {};
     this.availableOperations = availableOperations;
 

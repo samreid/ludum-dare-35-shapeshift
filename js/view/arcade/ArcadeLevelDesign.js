@@ -17,6 +17,9 @@ define( function( require ) {
   var ArcadeLevel = require( 'SHAPESHIFT/view/arcade/ArcadeLevel' );
   var Body = require( 'SHAPESHIFT/model/Body' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Random = require( 'DOT/Random' );
+
+  var random = new Random();
 
   // operations
   var Reflect = require( 'SHAPESHIFT/model/operations/Reflect' );
@@ -34,32 +37,16 @@ define( function( require ) {
   var Static = require( 'SHAPESHIFT/model/operations/Static' );
 
   function LevelDesign() {
-    var createTriangle = function() {
-      var length = 150;
-      var dx = 50;
-      var dy = 40;
-      var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( -length + dx, length + dy ) ];
-      return new Body( array, [] );
-    };
-    var createRectangle = function() {
-      var length = 150;
-      var dx = 0;
-      var dy = 20;
-      var array = [ new Vector2( -length + dx, -length + dy ), new Vector2( length + dx, -length + dy ), new Vector2( length + dx, length + dy ), new Vector2( -length + dx, length + dy ) ];
-      return new Body( array, [] );
-    };
-    var createStar = function() {
+    var createStar = function( numPoints ) {
       var array = [];
 
-      var numPoints = 7;
       for ( var i = 0; i < numPoints; i++ ) {
-        array.push( Vector2.createPolar( 90, i * ( Math.PI * 2 ) / numPoints ) );
-        array.push( Vector2.createPolar( 180, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+        array.push( Vector2.createPolar( 100, i * ( Math.PI * 2 ) / numPoints ) );
+        array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
       }
 
-      return new Body( array, [] );
+      return array;
     };
-
 
     var createRegular = function( numPoints ) {
       var array = [];
@@ -72,17 +59,91 @@ define( function( require ) {
       return array;
     };
 
+    // var createHalfRegular = function( numPoints ) {
+    //   var array = [];
+
+    //   for ( var i = 0; i <= numPoints; i++ ) {
+    //     array.push( Vector2.createPolar( 200, -Math.PI / 2 + i / numPoints * ( Math.PI ) ) );
+    //     // array.push( Vector2.createPolar( 200, ( i + 0.5 ) * ( Math.PI * 2 ) / numPoints ) );
+    //   }
+
+    //   return array;
+    // };
+
+    var createMoon = function() {
+      var result = [];
+      var res = 70;
+      var angle1 = -Math.PI / 2;
+      var angle2 = Math.PI * 3 / 4;
+      for ( var i = 0; i <= res; i++ ) {
+        var angle = angle1 + ( angle2 - angle1 ) * ( i / res );
+        result.push( Vector2.createPolar( 200, angle ) );
+      }
+      var p1 = Vector2.createPolar( 1, angle1 );
+      var p2 = Vector2.createPolar( 1, angle2 );
+      var mid = p1.average( p2 ).plus( p2.minus( p1 ).perpendicular().normalized().timesScalar( -0.2 ) );
+      var r = p1.distance( mid );
+      var rangle1 = p1.minus( mid ).angle();
+      var rangle2 = p2.minus( mid ).angle();
+      for ( var j = 1; j < res; j++ ) {
+        var rangle = rangle1 + ( rangle2 - rangle1 ) * ( 1 - j / res );
+        result.push( Vector2.createPolar( 1, rangle ).plus( mid ).timesScalar( 200 ) );
+      }
+      return result;
+    };
+
     this.getLevels = function() {
       var rectangle = [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ];
-      return [
-        new ArcadeLevel( [
-          new Static( rectangle ),
-          new Static( createRegular( 3 ), 'Triangle' ),
-          new Snowflake( 1 ),
-          new Snowflake( -1 ),
-          new RadialDoubling()
-        ], 3 )
+
+      var statics = [
+        new Static( rectangle ),
+        new Static( createRegular( 3 ), 'Triangle' ),
+        new Static( createRegular( 3 ), 'Triangle' ),
+        new Static( [ new Vector2( 200, 200 ), new Vector2( -200, 200 ), new Vector2( -200, -200 ), new Vector2( 200, -200 ) ], 'Square' ),
+        new Static( createRegular( 5 ), 'Pentagon' ),
+        new Static( createStar( 7 ), 'Star' ),
+        new Static( createRegular( 80 ), 'Circle' ),
+        new Static( [ new Vector2( 230, 0 ), new Vector2( 100, 130 ), new Vector2( 100, 60 ), new Vector2( -200, 60 ), new Vector2( -200, -60 ), new Vector2( 100, -60 ), new Vector2( 100, -130 ) ], 'Arrow' ),
+        new Static( [
+          new Vector2( 100, 200 ),
+          new Vector2( -100, 200 ),
+          new Vector2( -200, -200 ),
+          new Vector2( 200, -200 )
+        ], 'Cup' )
       ];
+      var dynamics = [ new Rotate( Math.PI / 2 ),
+        new Scale( 1.5, 1 / 1.5 ),
+        new Shear( 1 ),
+        new Shear( -1 ),
+        new ConvexHull(),
+        new Subdivide(),
+        new Invert( 180 ),
+        new RadialDoubling(),
+        new Snowflake( 1 ),
+        new Snowflake( -1 ),
+        new Swirl( 1 ),
+        new Swirl( -1 ),
+        new DeleteVertices( 2 ) ];
+
+      var createLevel = function( index ) {
+        var numberStatics = index <= 3 ? 1 : index <= 6 ? 2 : 3;
+        var ops = [];
+        for ( var i = 0; i < numberStatics; i++ ) {
+          ops.push( statics[ random.nextInt( statics.length ) ] );
+        }
+        var numDynamic = index <= 2 ? 3 : index <= 5 ? 4 : index <= 8 ? 5 : 6;
+        for ( var i = 0; i < numDynamic; i++ ) {
+          ops.push( dynamics[ random.nextInt( dynamics.length ) ] );
+        }
+        var numberSteps = Math.floor( index / 2 ) + 3;
+        return new ArcadeLevel( ops, index + 3, numberSteps );
+      };
+
+      var levels = [];
+      for ( var i = 0; i < 10; i++ ) {
+        levels.push( createLevel( i ) );
+      }
+      return levels;
     };
   }
 
