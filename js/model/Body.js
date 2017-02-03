@@ -70,7 +70,7 @@ define( function( require ) {
       return function( curve ) {
         return Body.removeCollinear( Body.discretizeCurve( curve, 5 ).map( function( vector ) {
           var result = vectorMap( vector );
-          if ( _.contains( curve, vector ) ) {
+          if ( _.includes( curve, vector ) ) {
             result.old = vector;
           }
           return result;
